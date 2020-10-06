@@ -1,0 +1,88 @@
+/*	
+--------------------------------------------------
+Breadcrumb navigation
+-------------------------------------------------- 
+*/
+
+.breadcrumb-trail {
+    overflow: hidden;
+    height: auto;
+    color: @footer-text;
+    background-color: @footer-bg;
+}
+
+.breadcrumb-trail ol.breadcrumb {
+    margin: 0; padding: 5px 0;
+    font-size: 0.9rem;
+    background: transparent; border-radius:0;
+}
+
+.breadcrumb-trail ol.breadcrumb li.breadcrumb-item {
+    position: relative;
+    display: block;
+    padding-left:0!important;
+}
+
+.breadcrumb-trail ol.breadcrumb li.breadcrumb-item span {
+    display: block;
+}
+
+.breadcrumb-trail ol.breadcrumb li.breadcrumb-item::before {
+    display:none!important;
+}
+
+.breadcrumb-trail ol.breadcrumb li.breadcrumb-item a,
+.breadcrumb-trail ol.breadcrumb li.breadcrumb-item > span {
+    display: block;
+    color: @footer-text;
+    text-decoration:none;
+    padding: 5px 0; 
+}
+
+.breadcrumb-trail ol.breadcrumb li.breadcrumb-item:not(.active) a:hover {
+    color: @footer-link;
+}
+
+.breadcrumb-trail ol.breadcrumb li.breadcrumb-item.active > span {
+    color: @footer-text;
+}
+
+.breadcrumb-trail ol.breadcrumb li.breadcrumb-item i.icon.before { 
+    position: relative; top:1px;
+    margin-right:8px;
+}
+
+
+@media (min-width:0) and (max-width:599px) {
+
+    .breadcrumb-trail ol.breadcrumb li.breadcrumb-item {
+        display: block;
+        flex: 0 0 100%;
+        max-width:100%;
+    }
+
+}
+
+@media (min-width:600px) {
+    .breadcrumb-trail {
+    }
+    .breadcrumb-trail ol.breadcrumb {
+        padding:@base-half-spacing 0;
+    }
+    .breadcrumb-trail ol.breadcrumb li.breadcrumb-item {
+        position: relative;
+        display: inline-block; 
+        margin-right:@base-half-spacing;
+    }
+    .breadcrumb-trail ol.breadcrumb li.breadcrumb-item:not(:first-child) {
+        border-top: 0 none;
+    }
+    .breadcrumb-trail ol.breadcrumb li.breadcrumb-item a,
+    .breadcrumb-trail ol.breadcrumb li.breadcrumb-item a span,
+    .breadcrumb-trail ol.breadcrumb li.breadcrumb-item>span {
+        text-overflow: ellipsis;
+        max-width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+}

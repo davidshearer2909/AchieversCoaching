@@ -1,0 +1,29 @@
+﻿
+/* Vertical position */
+.usn-cms.vertical-position { 
+    margin:0!important; padding:0!important;
+}
+.usn-cms.vertical-position .usn-item.item.smallItem.position-item:not(:nth-child(1)) { 
+  clear:both;
+}
+.usn-cms.vertical-position .usn-item.item.smallItem.position-item { 
+    width:33px; height:33px;
+    float:left;
+    box-sizing:border-box;
+  }
+  .usn-cms.vertical-position .usn-item.item.smallItem.position-item svg { 
+    opacity:1;
+    position:absolute; top:50%; left:50%; 
+    transform:translate(-50%,-50%);
+    transition:opacity 0.3s ease-in-out 0s;
+  }
+  
+  .usn-cms.vertical-position .usn-item.item.smallItem.position-item:nth-child(1) svg { 
+    transform:translate(-50%,-50%) rotate(90deg);
+  }
+  .usn-cms.vertical-position .usn-item.item.smallItem.position-item:nth-child(2) svg { 
+    transform:translate(-50%,-50%);
+  }
+  .usn-cms.vertical-position .usn-item.item.smallItem.position-item:nth-child(3) svg { 
+    transform:translate(-50%,-50%) rotate(270deg);
+  }   

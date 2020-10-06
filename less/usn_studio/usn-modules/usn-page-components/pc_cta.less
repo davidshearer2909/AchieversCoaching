@@ -1,0 +1,77 @@
+/*  
+---------------------------------------------------
+CTA Strip 
+---------------------------------------------------  
+*/
+
+.cta-component {}
+
+.cta-component .info {
+    position: relative;
+    margin-bottom: 0;
+}
+
+.cta-component .heading.main {}
+
+.cta-component .link { 
+    margin-bottom:0;
+}
+
+.cta-component .info,
+.cta-component .link { 
+    flex:0 0 100%;
+    max-width:100%;
+    padding:0 @base-half-spacing;
+}
+
+@media (min-width:992px) {
+
+    .cta-component .text-right .info,
+    .cta-component .text-left .info { 
+        flex: 0 0 70%;
+        -ms-flex: 0 0 70%;
+        max-width: 70%;
+    }
+    .cta-component .text-left .link,
+    .cta-component .text-right .link {
+        flex: 0 0 30%;
+        -ms-flex: 0 0 30%;
+        max-width: 30%;
+    }
+    .cta-component .text-left .link a.btn,
+    .cta-component .text-right .link a.btn { 
+        display:block;
+    }
+
+    .cta-component .text-right .info { 
+        order: 2; 
+    }
+    .cta-component .text-right .link { 
+        order: 1; 
+    }
+
+    .cta-component .link .btn + .btn { 
+        margin-top:5px;
+    }
+
+    .cta-component .text-left .linkm
+    .cta-component .text-right .link { 
+        margin:0;
+    }
+
+}
+
+@media (min-width:1200px) { 
+    .cta-component .text-right .info,
+    .cta-component .text-left .info { 
+        flex: 0 0 75%;
+        -ms-flex: 0 0 75%;
+        max-width: 75%;
+    }
+    .cta-component .text-left .link,
+    .cta-component .text-right .link {
+        flex: 0 0 25%;
+        -ms-flex: 0 0 25%;
+        max-width: 25%;
+    }
+}

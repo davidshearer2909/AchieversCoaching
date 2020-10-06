@@ -1,0 +1,475 @@
+/*  
+----------------------------------------------------------------------------------------------------
+Snipcart 2.0 - https://snipcart.com/
+---------------------------------------------------------------------------------------------------- 
+*/
+
+
+/*  
+----------------------------------------------------------------------------------------------------
+Checkout body
+---------------------------------------------------------------------------------------------------- 
+*/
+
+body.snip-open:not(.no-header) {
+    padding-top: @small-header!important;
+}
+
+@media (min-width:@large-breakpoint) {
+    body.snip-open:not(.no-header) {
+        padding-top: @large-header!important;
+    }
+}
+
+
+/*  
+----------------------------------------------------------------------------------------------------
+Checkout process
+---------------------------------------------------------------------------------------------------- 
+*/
+
+.usn .snip-layout * {
+    border-radius: 0!important;
+    font-size: 17px;
+    letter-spacing: -0.25px;
+    color: @base-text;
+}
+
+.usn .snip-layout {
+    font-size: 17px;
+    letter-spacing: -0.25px;
+    background-color: fade(@true-black, 85%);
+}
+
+
+/* close */
+
+.usn .snip-ico.snip-ico--close {
+    display: inline-block;
+    font-family: "Ionicons";
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    text-rendering: auto;
+    line-height: 1;
+    font-size: 30px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.usn .snip-ico.snip-ico--close::before {
+    content: "\f2c0";
+}
+
+.usn .snip-layout .snip-layout__close .snip-ico.snip-ico--close {
+    color: @base-heading;
+    transition: color 0.3s ease-in-out 0s;
+}
+
+.usn .snip-layout .snip-layout__close .snip-ico.snip-ico--close:hover {
+    color: fade(@base-heading, 70%);
+}
+
+.usn .snip-layout .snip-product__remove {
+    font-size: 20px;
+}
+
+
+/* tabs */
+
+.usn .snip-layout .snip-steps li {
+    background-color: @base-borders;
+}
+
+.usn .snip-layout .snip-steps li.snip-step__item.js-active {
+    background-color: @base-bg;
+    border-bottom-color: @base-bg;
+}
+
+.usn .snip-layout .snip-steps li .snip-step__label {
+    font-size: 13px;
+}
+
+.usn .snip-layout .snip-step__item,
+.usn .snip-layout .snip-step__item+.snip-step__item {
+    border-color: darken(@base-borders, 10%);
+}
+
+
+/* forms */
+
+.usn .snip-layout .snip-form__label {
+    font-size: 15px;
+    text-transform: none;
+    color: @base-text;
+}
+
+.usn .snip-layout input[type=password],
+.usn .snip-layout input[type=text],
+.usn .snip-layout select {
+    font-size: 15px;
+    color: @base-heading;
+}
+
+.usn .snip-layout .snip-actions {
+    border: 0 none;
+}
+
+.usn .snip-layout .snip-actions__link--small {
+    font-size: 14px;
+}
+
+.usn .snip-form__container--select:not(.snipcart-state) {
+    position: relative;
+    z-index: 0;
+    background: none;
+}
+
+.usn .snip-form__container--select:not(.snipcart-state) select {
+    position: relative;
+    z-index: 2;
+    background: none;
+    padding-right: 20px;
+}
+
+.usn .snip-layout__main-container:not(#snip-layout-order-confirm) .snip-form__container--select:not(.snipcart-state)::after {
+    font-family: "Ionicons";
+    content: "\f280";
+    position: absolute;
+    top: 25px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    display: block;
+    width: 100%;
+    height: 37px;
+    padding: 6px 10px 0 0;
+    font-size: 20px;
+    text-align: right;
+    color: @base-text;
+    background-color: none;
+    box-sizing: border-box;
+}
+
+
+/* buttons */
+
+.usn .snip-layout .snip-btn,
+.usn #snipcart-show-discount-box {
+    border: 0 none;
+    border-radius: 0!important;
+    position: relative;
+    padding: 12px 15px 14px;
+    font-size: 14px;
+    height: auto;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.usn #snipcart-show-discount-box {
+    padding: 8px 10px 10px;
+    font-size: 12px;
+}
+
+.usn .snip-layout .snip-btn,
+.usn .snip-layout .snip-quantity-trigger__btn,
+.usn #snipcart-show-discount-box {
+    color: @base-highlight-text;
+    background-color: @base-highlight;
+}
+
+.usn .snip-layout #snipcart-login-submit.snip-btn,
+.usn .snip-layout .snip-btn--highlight,
+.usn .snip-layout #snipcart-newaccount-submit.snip-btn {
+    padding: 15px 20px 17px;
+    font-size: 18px;
+    background-color: @base-highlight;
+}
+
+.usn .snip-layout #snipcart-login-submit.snip-btn {
+    background-color: @base-highlight;
+}
+
+.usn .snip-layout .snip-btn:hover,
+.usn .snip-layout .snip-btn:active,
+.usn .snip-layout .snip-btn:focus,
+.usn .snip-layout .snip-quantity-trigger__btn:hover,
+.usn #snipcart-show-discount-box:hover {
+    background-color: lighten(@base-borders, 15%);
+}
+
+.usn .snip-layout #snipcart-login-submit.snip-btn:hover,
+.usn .snip-layout #snipcart-login-submit.snip-btn:active,
+.usn .snip-layout #snipcart-login-submit.snip-btn:focus,
+.usn .snip-layout #snipcart-newaccount-submit.snip-btn:hover,
+.usn .snip-layout #snipcart-newaccount-submit.snip-btn:active,
+.usn .snip-layout #snipcart-newaccount-submit.snip-btn:focus,
+.usn .snip-layout .snip-btn--highlight:hover,
+.usn .snip-layout .snip-btn--highlight:active,
+.usn .snip-layout .snip-btn--highlight:focus {
+    background-color: darken(@base-highlight, 10%);
+}
+
+.usn .snip-layout #snipcart-login-submit.snip-btn:hover,
+.usn .snip-layout #snipcart-login-submit.snip-btn:active,
+.usn .snip-layout #snipcart-login-submit.snip-btn:focus {
+    background-color: darken(@base-borders, 10%);
+}
+
+
+/* header + footer */
+
+.usn .snip-layout .snip-header__user {
+    padding: @base-half-spacing @base-spacing;
+    color: @base-heading;
+    background-color: @base-bg;
+}
+
+.usn .snip-layout .snip-header__user .snip-header__user-text {
+    color: @base-heading;
+}
+
+.usn .snip-layout .snip-header__user-mail {
+    color: @base-heading;
+    font-weight: 700;
+}
+
+.usn .snip-layout .snip-header {
+    padding: @base-spacing @base-half-spacing;
+    border-bottom: @base-border-width solid @base-borders;
+}
+
+.usn .snip-layout .snip-header {
+    color: @base-heading;
+    background-color: @base-bg;
+}
+
+.usn .snip-layout .snip-header__title {
+    color: @base-heading;
+}
+
+.usn .snip-layout .snip-header a {
+    color: @base-link;
+}
+
+.usn .snip-layout .snip-header__total {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    padding: 10px;
+    height: auto;
+    line-height: 1;
+    color: @base-highlight-text;
+    background: none;
+    background-color: @base-highlight;
+    transform: translate(-50%, -50%);
+}
+
+.usn .snip-layout .snip-header__total span {
+    font-size: 20px;
+}
+
+.usn #snipcart-amount {
+    color: @true-white;
+    font-weight: 900;
+}
+
+.usn .snip-layout .snip-header__total-label {
+    color: @true-white;
+}
+
+.usn .snip-layout .snip-header__title {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1;
+}
+
+.usn .snip-layout .snip-header__title {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+}
+
+.usn .snip-layout .snip-footer {
+    padding: 10px @base-spacing;
+    color: lighten(@base-heading, 20%);
+    background-color: @base-bg;
+    text-align: center;
+}
+
+.usn .snip-layout .snip-footer a,
+.usn .snip-layout .snip-footer b {
+    color: lighten(@base-heading, 20%);
+    font-size: 14px;
+}
+
+.usn .snip-layout .snip-footer b {
+    font-weight: 700;
+}
+
+.usn .snip-layout .snip-footer__copyright {
+    padding-left: 0;
+    background: none;
+}
+
+.usn .snip-layout .snip-footer__copyright::before {
+    content: "\f31d";
+    display: inline-block;
+    margin-right: 8px;
+    font-family: "Ionicons";
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    text-rendering: auto;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: @base-highlight;
+}
+
+
+/* products */
+
+.usn .snip-layout .snip-static__title,
+.usn .snip-layout .snip-table th,
+.usn .snip-layout .snip-product__name {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: @base-heading;
+}
+
+.usn .snip-layout .snip-product__name {
+    font-size: 20px;
+}
+
+.usn .snip-layout .snip-product__remove {
+    color: @base-text;
+    transition: color 0.3s ease-in-out 0s;
+}
+
+.usn .snip-layout .snip-product__remove:hover {
+    color: fade(@base-text, 70%);
+}
+
+
+/* tables */
+
+.usn .snip-layout td,
+.usn .snip-layout th {
+    vertical-align: top;
+    border-color: @base-borders;
+}
+
+.usn .snip-layout .snipcart-items span {
+    font-size: 16px;
+}
+
+.usn .snip-layout .snip-table__body--small,
+.usn .snip-layout .snip-table__body--big {
+    text-align: right;
+}
+
+.usn .snip-layout .snip-static__title,
+.usn .snip-layout .snip-table th {
+    font-size: 16px;
+}
+
+.usn .snip-layout .snip-product__description {
+    font-size: 16px;
+}
+
+.usn .snip-layout .snip-static__content p {
+    font-size: 16px;
+}
+
+.usn .snip-layout .snip-quantity-trigger,
+.usn .snip-layout .snip-table__cell--bold,
+.usn .snip-layout .snip-table__cell--highlight {
+    font-weight: 700;
+}
+
+.usn #snipcart-total * {
+    font-size: 16px;
+}
+
+
+/* loader */
+
+.usn .snip-layout .snip-loader--bar::before {
+    background-color: @true-white;
+}
+
+
+/* images */
+
+.usn .snip-layout #snipcart-cvc-content-holder img.snip-static__item {
+    width: auto;
+    max-width: auto;
+}
+
+
+/* flash messages */
+
+.usn .snip-layout .snip-flash__item {
+    border: 0 none;
+    padding: @base-half-spacing 20px;
+    font-size: 17px;
+}
+
+.usn .snip-layout .snip-flash__item--success {
+    background-color:@form-success;
+    color: @true-white;
+    &:hover {
+        background-color: darken(@form-success, 10%);
+    }
+}
+
+.usn .snip-layout .snip-flash__item--warn {
+    background-color: @form-warning;
+    color: @true-white;
+    &:hover {
+        background-color: darken(@form-warning, 10%);
+    }
+}
+
+.usn .snip-layout .snip-flash__item--error {
+    background-color: @form-errors;
+    color: @true-white;
+    &:hover {
+        background-color: darken(@form-errors, 10%);
+    }
+}
+
+@media (min-width:0) and (max-width:991px) {
+    .usn .snip-layout .snip-discount__remove,
+    .snip-layout .snip-product__remove {
+        right: @base-half-spacing!important;
+    }
+}
+
+@media (min-width:768px) {}
+
+@media (min-width:992px) {
+    .usn .snip-layout .snip-layout__main-container {
+        max-width: 970px;
+    }
+    .usn .snip-layout .snip-header__user {
+        padding-bottom: 0;
+    }
+    .usn .snip-layout .snip-header__total {
+        padding: @base-half-spacing;
+    }
+}
+
+@media (min-width:1200px) {
+    .usn .snip-layout .snip-layout__main-container {
+        max-width: 1140px;
+    }
+}

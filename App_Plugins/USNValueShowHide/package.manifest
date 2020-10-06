@@ -1,0 +1,45 @@
+﻿{
+    propertyEditors: [      
+        {
+			alias: 'USN.ValueShowHide',
+			name: 'USN Value Show Hide',
+			editor:{
+				valueType: "STRING",
+				view: '~/App_Plugins/USNValueShowHide/views/valueshowhide-editor.html',
+				hideLabel: true
+			},
+			prevalues : {
+				fields: [
+					{
+					    label: "Field alias",
+					    description: "Enter the field alias located on the parent page that will be used to show hide fields.",
+					    key: "fieldAlias",
+						view: "textstring"
+					},
+					{
+					    label: "Hide tabs",
+					    description: "Enter the tabs you would like hidden if nothing is selected.",
+					    key: "hideTabs",
+						view: "textstring"
+					},
+					{
+					    label: "Hide fields",
+					    description: "Enter the field alias name you would like hidden if nothing is selected.",
+					    key: "hideFields",
+						view: "textstring"
+					},
+					{
+					    label: "Field values",
+					    key: "items",
+					    view: "~/App_Plugins/USNValueShowHide/views/valueshowhide-prevalues.html"
+					}         
+				]
+			}
+        }
+    ],
+    javascript: [
+		'~/App_Plugins/USNValueShowHide/js/valueshowhide-editor-controller.js',
+		'~/App_Plugins/USNValueShowHide/js/valueshowhide-prevalues-controller.js'
+    ]
+
+}

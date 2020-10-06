@@ -1,0 +1,406 @@
+/*  
+---------------------------------------------------
+Banner Component
+---------------------------------------------------  
+*/
+
+.banner-component {
+    padding: 0!important;
+    overflow: hidden;
+}
+
+.banner-component .item {
+    position: relative;
+}
+
+.banner-component .item.item_scale-banner,
+.banner-component .item.item_scale-banner .image,
+.banner-component .item.item_scale-banner .image .video {
+    height: auto!important;
+}
+
+.banner-component .item.item_scale-banner .container,
+.banner-component .item.item_scale-banner .row {
+    height: 100%;
+}
+
+.banner-component .item.item_short-banner,
+.banner-component .item.item_short-banner .container,
+.banner-component .item.item_short-banner .row,
+.banner-component .item.item_short-banner .image,
+.banner-component .item.item_short-banner .image .video {
+    height: @short-banner;
+    height: calc(@short-banner ~"-" @small-header);
+}
+
+body.no-header .banner-component .item.item_short-banner,
+body.no-header .banner-component .item.item_short-banner .container,
+body.no-header .banner-component .item.item_short-banner .row,
+body.no-header .banner-component .item.item_short-banner .image,
+body.no-header .banner-component .item.item_short-banner .image .video {
+    height: @short-banner;
+}
+
+.banner-component .item.item_medium-banner,
+.banner-component .item.item_medium-banner .container,
+.banner-component .item.item_medium-banner .row,
+.banner-component .item.item_medium-banner .image,
+.banner-component .item.item_medium-banner .image .video {
+    height: @medium-banner;
+    height: calc(@medium-banner ~"-" @small-header);
+}
+
+body.no-header .banner-component .item.item_medium-banner,
+body.no-header .banner-component .item.item_medium-banner .container,
+body.no-header .banner-component .item.item_medium-banner .row,
+body.no-header .banner-component .item.item_medium-banner .image,
+body.no-header .banner-component .item.item_medium-banner .image .video {
+    height: @medium-banner;
+}
+
+.banner-component .item.item_takeover-banner,
+.banner-component .item.item_takeover-banner .container,
+.banner-component .item.item_takeover-banner .row,
+.banner-component .item.item_takeover-banner .image,
+.banner-component .item.item_takeover-banner .image .video {
+    height: @takeover-banner;
+    height: calc(@takeover-banner ~"-" @small-header);
+}
+
+body.browser-ios .banner-component .item.item_takeover-banner,
+body.browser-ios .banner-component .item.item_takeover-banner .container,
+body.browser-ios .banner-component .item.item_takeover-banner .row,
+body.browser-ios .banner-component .item.item_takeover-banner .image,
+body.browser-ios .banner-component .item.item_takeover-banner .image .video {
+    height: @takeover-banner;
+    height: calc(@takeover-banner ~"-" @small-header ~"-" 110px);
+}
+
+body.no-header.browser-ios .banner-component .item.item_takeover-banner,
+body.no-header.browser-ios .banner-component .item.item_takeover-banner .container,
+body.no-header.browser-ios .banner-component .item.item_takeover-banner .row,
+body.no-header.browser-ios .banner-component .item.item_takeover-banner .image,
+body.no-header.browser-ios .banner-component .item.item_takeover-banner .image .video { 
+    height: calc(@takeover-banner ~"-" 110px);
+}
+
+body.no-header:not(.browser-ios) .banner-component .item.item_takeover-banner,
+body.no-header:not(.browser-ios) .banner-component .item.item_takeover-banner .container,
+body.no-header:not(.browser-ios) .banner-component .item.item_takeover-banner .row,
+body.no-header:not(.browser-ios) .banner-component .item.item_takeover-banner .image,
+body.no-header:not(.browser-ios) .banner-component .item.item_takeover-banner .image .video { 
+    height: @takeover-banner;
+}
+
+.banner-component .item:not(.item_scale-banner) .image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 0;
+    background-repeat:no-repeat; background-position: center;
+}
+
+body:not(.browser-ios) .banner-component .item.parallax:not(.item_scale-banner) .image {
+    background-attachment: fixed;
+}
+
+.banner-component .item .image img { 
+    position:relative;
+    z-index:1;
+}
+
+.banner-component .item .image .video { 
+    z-index:2;
+}
+
+.banner-component .item:not(.item_scale-banner) .image .video .video-player {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width:100%; height:100%;
+    transform: translate(-50%, -50%);
+}
+
+.banner-component .item.item_scale-banner .image img + .video { 
+    position: absolute;
+    top: 0;
+    right:0;
+    left: 0;
+}
+
+.banner-component .item .inner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+}
+
+.banner-component .item .inner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    opacity: 0.5;
+}
+
+.banner-component .item.gradient-bg .inner::before {
+    opacity: 0.65;
+}
+
+.banner-component .item .info {
+    position: relative;
+    height: 100%;
+    padding: 70px @base-half-spacing;
+    z-index: 2;
+}
+
+.banner-component .item .info .d-table {
+    height: 100%;
+}
+
+.banner-component .item .info .d-table,
+.banner-component .item .info .d-table-cell {
+    width: 100%;
+}
+
+.banner-component .item .row.info_align-middle .info .d-table-cell {
+    vertical-align: middle;
+}
+
+.banner-component .item .row.info_align-bottom .info .d-table-cell {
+    vertical-align: bottom;
+}
+
+@media (min-width:0) and (max-width:575px) {
+    .banner-component .item.item_scale-banner .inner,
+    .banner-component .item.item_scale-banner .info {
+        position: relative;
+    }
+    .banner-component .item.item_scale-banner .info {
+        padding: @base-half-spacing; padding-bottom: 80px;
+    }
+    .banner-component .item.item_scale-banner .inner::before {
+        display: none;
+    }
+}
+
+@media (min-width:576px) {}
+
+@media (min-width:768px) {
+
+    body.browser-ios .banner-component .item.item_takeover-banner,
+    body.browser-ios .banner-component .item.item_takeover-banner .container,
+    body.browser-ios .banner-component .item.item_takeover-banner .row,
+    body.browser-ios .banner-component .item.item_takeover-banner .image,
+    body.browser-ios .banner-component .item.item_takeover-banner .image .video {
+        height: @takeover-banner;
+        height: calc(@takeover-banner ~"-" @small-header ~"-" 35px);
+    }
+
+    body.no-header.browser-ios .banner-component .item.item_takeover-banner,
+    body.no-header.browser-ios .banner-component .item.item_takeover-banner .container,
+    body.no-header.browser-ios .banner-component .item.item_takeover-banner .row,
+    body.no-header.browser-ios .banner-component .item.item_takeover-banner .image,
+    body.no-header.browser-ios .banner-component .item.item_takeover-banner .image .video { 
+        height: @takeover-banner;
+        height: calc(@takeover-banner ~"-" 35px);
+    }
+
+    body.no-header:not(.browser-ios) .banner-component .item.item_takeover-banner,
+    body.no-header:not(.browser-ios) .banner-component .item.item_takeover-banner .container,
+    body.no-header:not(.browser-ios) .banner-component .item.item_takeover-banner .row,
+    body.no-header:not(.browser-ios) .banner-component .item.item_takeover-banner .image,
+    body.no-header:not(.browser-ios) .banner-component .item.item_takeover-banner .image .video { 
+        height: @takeover-banner;
+    }
+
+}
+
+@media (min-width:992px) {
+
+    .banner-component .item.item_short-banner,
+    .banner-component .item.item_short-banner .container,
+    .banner-component .item.item_short-banner .row,
+    .banner-component .item.item_short-banner .image,
+    .banner-component .item.item_short-banner .image .video {
+        height: @short-banner;
+        height: calc(@short-banner ~"-" @large-header-half);
+        min-height: calc(@short-bannerPX ~"-" @large-header-half);
+    }
+
+    body.no-header .banner-component .item.item_short-banner,
+    body.no-header .banner-component .item.item_short-banner .container,
+    body.no-header .banner-component .item.item_short-banner .row,
+    body.no-header .banner-component .item.item_short-banner .image,
+    body.no-header .banner-component .item.item_short-banner .image .video { 
+        height: @short-banner; 
+        min-height: @short-bannerPX;
+    }
+    
+    .banner-component .item.item_medium-banner,
+    .banner-component .item.item_medium-banner .container,
+    .banner-component .item.item_medium-banner .row,
+    .banner-component .item.item_medium-banner .image,
+    .banner-component .item.item_medium-banner .image .video {
+        height: @medium-banner;
+        height: calc(@medium-banner ~"-" @large-header-half);
+        min-height: calc(@medium-bannerPX ~"-" @large-header-half);
+    }
+
+    body.no-header .banner-component .item.item_medium-banner,
+    body.no-header .banner-component .item.item_medium-banner .container,
+    body.no-header .banner-component .item.item_medium-banner .row,
+    body.no-header .banner-component .item.item_medium-banner .image,
+    body.no-header .banner-component .item.item_medium-banner .image .video { 
+        height: @medium-banner; 
+        min-height: @medium-bannerPX;
+    }
+
+    .banner-component .item.item_takeover-banner,
+    .banner-component .item.item_takeover-banner .container,
+    .banner-component .item.item_takeover-banner .row,
+    .banner-component .item.item_takeover-banner .image,
+    .banner-component .item.item_takeover-banner .image .video {
+        height: @takeover-banner;
+        height: calc(@takeover-banner ~"-" @large-header);
+    }
+
+    body.browser-ios .banner-component .item.item_takeover-banner,
+    body.browser-ios .banner-component .item.item_takeover-banner .container,
+    body.browser-ios .banner-component .item.item_takeover-banner .row,
+    body.browser-ios .banner-component .item.item_takeover-banner .image,
+    body.browser-ios .banner-component .item.item_takeover-banner .image .video {
+        height: @takeover-banner;
+        height: calc(@takeover-banner ~"-" @large-header ~"-" 30px);
+    }
+
+    body.no-header.browser-ios .banner-component .item.item_takeover-banner,
+    body.no-header.browser-ios .banner-component .item.item_takeover-banner .container,
+    body.no-header.browser-ios .banner-component .item.item_takeover-banner .row,
+    body.no-header.browser-ios .banner-component .item.item_takeover-banner .image,
+    body.no-header.browser-ios .banner-component .item.item_takeover-banner .image .video { 
+        height: @takeover-banner;
+        height: calc(@takeover-banner ~"-" 30px);
+    }
+
+    body.no-header:not(.browser-ios) .banner-component .item.item_takeover-banner,
+    body.no-header:not(.browser-ios) .banner-component .item.item_takeover-banner .container,
+    body.no-header:not(.browser-ios) .banner-component .item.item_takeover-banner .row,
+    body.no-header:not(.browser-ios) .banner-component .item.item_takeover-banner .image,
+    body.no-header:not(.browser-ios) .banner-component .item.item_takeover-banner .image .video { 
+        height: @takeover-banner;
+    }
+
+    .banner-component .item .info {
+        padding: 90px @base-half-spacing;
+    }
+    
+}
+
+@media (min-width:1200px) {
+}
+
+
+/*  
+---------------------------------------------------
+Scroll Prompt 
+---------------------------------------------------  
+*/
+
+.scroll-prompt {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    z-index: 100;
+    width: 40px;
+    text-align:center;
+    transform:translateX(-50%);
+
+    opacity:0;
+}
+
+.scroll-prompt a {
+    display: inline-block;
+    width: 100%; height: 30px;
+    margin: 0 auto;
+    cursor: pointer;
+    text-decoration: none !important;
+    color: @base-heading;
+}
+
+.scroll-prompt a i {
+    font-size: 20px; line-height: 20px;
+    display: block;
+    padding: 0; margin: 0 0 0 2px;
+    color:@base-heading;
+}
+
+.scroll-prompt .mouse-scroll {
+    position: relative;
+    width: 21px; height: 35px;
+    margin: 0 auto;
+    border:0 none!important;
+}
+
+.scroll-prompt .mouse-scroll::before {
+    content: "";
+    position: absolute; top: 10px; left: 9px;
+    width: @base-border-width; height: 40px;
+    background-color: @base-heading;
+
+    opacity:0;
+}
+
+/*
+.on-page_banner-section .slick-active .scroll-prompt,
+.slick-active .scroll-prompt,*/
+.scroll-prompt { 
+
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-delay: 2s;
+    animation-delay: 2s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
+
+/*
+.on-page_banner-section .scroll-prompt .mouse-scroll::before,
+.slick-active .scroll-prompt .mouse-scroll::before,*/
+.scroll-prompt .mouse-scroll::before { 
+
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-duration: 1.25s;
+    animation-duration: 1.25s;
+    -webkit-animation-delay: 2s;
+    animation-delay: 2s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: fadeInDown;
+    animation-name: fadeInDown;
+}
+
+@media (min-width: @large-breakpoint) {
+    .scroll-prompt a {
+        height: auto;
+        padding-bottom: 0;
+    }
+    .scroll-prompt a span {
+        font-size: 9px; text-transform: uppercase; letter-spacing: 0.09em;
+        display: block;
+        margin-top: 15px;
+        display: none;
+    }
+    .scroll-prompt a i {
+        font-size: 20px;
+    }
+}

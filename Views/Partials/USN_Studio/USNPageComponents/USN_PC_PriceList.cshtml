@@ -1,0 +1,87 @@
+﻿@inherits UmbracoViewPage<Usn_Pc_PriceList_AN>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    string viewPath = ViewData["viewPath"].ToString();
+    string pageLayout = ViewData["pageLayout"].ToString();
+    string backgroundImageStyle = pageLayout == "pageLayoutFull" ? ThemeHelper.GetBackgroundImageStyle(Model.BackgroundImageOptions, Model.BackgroundImage) : String.Empty;
+    string backGroundColor = Model.BackgroundColor.label + "-bg";
+    USNAnimation animation = ThemeHelper.GetAnimationSettings(Model.Animate,Model.AnimationDelay,Model.AnimationStyle);
+
+    string itemsClass = ThemeHelper.GetItemsPerRowClass(Model.ItemsPerRow,  "items-4");
+
+    string menuContainer = Model.AddMenuContainer ? String.Format("price-list_boxed {0}-bg has-borders {0}-borders",Model.BackgroundColor.label) : String.Empty;
+
+    <section class="content component price-list-component @backGroundColor @Model.CustomComponentClasses" id="@Html.Raw("pos_" + Model.Id)" @Html.Raw(backgroundImageStyle)>
+
+        @if (pageLayout == "pageLayoutFull")
+        {
+            if(Model.ComponentWidth == "componentWidthCenter")
+            {
+                @:<div class="container"><div class="row justify-content-center"><div class="content-col center-col col-lg-6 col-12 col">
+            }
+            else if(Model.ComponentWidth == "componentWidthFull")
+            {
+                @:<div class="container-fluid">
+            }
+            else
+            {
+                @:<div class="container">
+            }
+        }
+
+        @Html.Partial(viewPath + "/USNMiscPageElements/USN_ComponentIntro", @Model as IUsn_Cmp_IntroOutro, new ViewDataDictionary { { "animation", animation }, { "backgroundColor", Model.BackgroundColor.label } })
+
+
+        @if (Model.TableHeading.HasValue() && Model.PriceItems.HasValue() && Model.PriceItems.Any())
+        {
+            <div class="component-main row listing listing_price-list @menuContainer  @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+
+                @if (Model.TableHeading.HasValue())
+                {
+                    <div class="col-12">
+                        <p class="menu-title secondary-heading @(Model.BackgroundColor.label)-secondary-heading">@Model.TableHeading</p>
+                    </div>
+                }
+
+                @foreach (Usn_Nc_PriceListItem item in Model.PriceItems)
+                {
+                    <!-- Item -->
+                    <div class="item @itemsClass item_price-list col-12 @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+                        <div class="d-flex w-100 justify-content-between">
+                            <p class="heading @(Model.BackgroundColor.label)-heading">@item.ItemName</p>
+                            @if (item.ItemPrice.HasValue())
+                            {
+                                <p class="heading price @(Model.BackgroundColor.label)-link">@item.ItemPrice</p>
+                            }
+                        </div>
+                        @if (item.ItemDescription.HasValue())
+                        {
+                            <div class="info @(Model.BackgroundColor.label)-text">
+                                @Html.Raw(item.ItemDescription)
+                            </div>
+                        }
+                    </div>
+                    <!--// Item -->
+                }
+            </div>
+        }
+
+        @Html.Partial(viewPath + "/USNMiscPageElements/USN_ComponentOutro", @Model as IUsn_Cmp_IntroOutro, new ViewDataDictionary { { "animation", animation }, { "backgroundColor", Model.BackgroundColor.label } })
+
+        @if (pageLayout == "pageLayoutFull")
+        {
+            if (Model.ComponentWidth == "componentWidthCenter")
+            {
+            @:</div></div></div>
+            }
+            else
+            {
+                @:</div>
+            }
+        }
+
+    </section>
+}

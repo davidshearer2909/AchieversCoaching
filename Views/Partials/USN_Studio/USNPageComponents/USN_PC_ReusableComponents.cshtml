@@ -1,0 +1,116 @@
+﻿@inherits UmbracoViewPage<Usn_Pc_ReusableComponents_AN>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    string viewPath = ViewData["viewPath"].ToString();
+    string pageLayout = ViewData["pageLayout"].ToString();
+    string backgroundImageStyle = ThemeHelper.GetBackgroundImageStyle(Model.BackgroundImageOptions, Model.BackgroundImage);
+    string backGroundColor = Model.BackgroundColor.label + "-bg";
+    USNAnimation animation = ThemeHelper.GetAnimationSettings(Model.Animate,Model.AnimationDelay,Model.AnimationStyle);
+    int globalSettingsId = Convert.ToInt32(ViewData["globalSettingsID"]);
+    string tabTextAlignment = ThemeHelper.GetJustifyTextAlignmentClass(Model.IntroTextAlignment);
+
+    <section class="content component reusable-component @backGroundColor @Model.CustomComponentClasses" id="@Html.Raw("pos_" + Model.Id)" @Html.Raw(backgroundImageStyle)>
+
+        @if (pageLayout == "pageLayoutFull")
+        {
+            if(Model.ComponentWidth == "componentWidthCenter")
+            {
+                @:<div class="container"><div class="row justify-content-center"><div class="content-col center-col col-lg-6 col-12 col">
+            }
+            else if(Model.ComponentWidth == "componentWidthFull")
+            {
+                @:<div class="container-fluid">
+            }
+            else
+            {
+                @:<div class="container">
+            }
+
+        }
+
+        @Html.Partial(viewPath + "/USNMiscPageElements/USN_ComponentIntro", @Model as IUsn_Cmp_IntroOutro, new ViewDataDictionary { { "animation", animation }, { "backgroundColor", Model.BackgroundColor.label } })
+
+        @if (Model.Components.HasValue() && Model.Components.Any())
+        {
+
+            bool hasTabs = (Model.Style == "layoutTabbed" && Model.Components.Count() > 1) ? true : false;
+
+            int componentCount = 0;
+
+            if (hasTabs)
+            {
+                <!-- ROW -->
+                <div class="repeatable tabbed">
+
+                    <nav class="tabs">
+                        <ul class="nav @tabTextAlignment" role="tablist">
+                            @foreach (IPublishedContent component in Model.Components)
+                            {
+
+                                <li class="tab">
+                                    <a class="nav-item nav-link @(componentCount == 0 ? "active" : "")" id="nav-tab-@Model.Id-@componentCount" data-toggle="tab" href="#nav-@Model.Id-@componentCount" role="tab" aria-controls="nav-@Model.Id-@componentCount" aria-selected="true">
+                                        @component.Name
+                                    </a>
+                                </li>
+                                componentCount += 1;
+                            }
+                        </ul>
+                    </nav>
+
+                </div>
+                <!--// ROW -->
+                componentCount = 1;
+            }
+
+            componentCount = 0;
+
+            if (Model.Components.Any())
+            {
+                if (hasTabs)
+                {
+                    @:<div class="repeatable-content tab-content">
+                }
+
+                foreach (IPublishedContent component in Model.Components)
+                {
+                    if (hasTabs)
+                    {
+                        @:<div id="nav-@Model.Id-@componentCount" role="tabpanel" class="tab-pane @(componentCount == 0 ? "show active" : String.Empty)">
+                        }
+
+                        @Html.Partial(viewPath + "/USNPageComponents/USN_ComponentSwitch", component, new ViewDataDictionary { { "viewPath", viewPath }, { "pageLayout", pageLayout }, { "globalSettingsID", globalSettingsId } })
+
+                        if (hasTabs)
+                        {
+                            componentCount += 1;
+                        @:</div>
+                    }
+
+                }
+
+                if (hasTabs)
+                {
+                    @:</div>
+                }
+            }
+        }
+
+        @Html.Partial(viewPath + "/USNMiscPageElements/USN_ComponentOutro", @Model as IUsn_Cmp_IntroOutro, new ViewDataDictionary { { "animation", animation }, { "backgroundColor", Model.BackgroundColor.label } })
+
+        @if (pageLayout == "pageLayoutFull")
+        {
+            if (Model.ComponentWidth == "componentWidthCenter")
+            {
+                @:</div></div></div>
+            }
+            else
+            {
+                @:</div>
+            }
+        }
+
+    </section>
+}

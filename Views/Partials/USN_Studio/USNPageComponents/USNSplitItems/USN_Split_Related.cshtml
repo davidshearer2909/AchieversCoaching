@@ -1,0 +1,120 @@
+﻿@inherits UmbracoViewPage<Usn_Pc_SplitComponent_AN>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    string splitSide = ViewData["splitSide"].ToString();
+    string viewPath = ViewData["viewPath"].ToString();
+    string colWidthDesktop = splitSide == "First" ? "col-lg-" + Model.DesktopColumnWidthFirst : "col-lg-" + Model.DesktopColumnWidthSecond;
+    string colWidthTablet = splitSide == "First" ? "col-md-" + Model.TabletColumnWidthFirst : "col-md-" + Model.TabletColumnWidthSecond;
+    string itemDesktopOrder = ThemeHelper.GetSplitDesktopTabletOrderClass(splitSide, Model.DesktopTabletOrder);
+    string itemMobileOrder = ThemeHelper.GetSplitMobileOrderClass(splitSide, Model.MobileOrder);
+    string verticalAlignment = splitSide == "First" ? (Model.VerticalPositionFirst.HasValue() ? Model.VerticalPositionFirst.ToString() : String.Empty) : (Model.VerticalPositionSecond.HasValue() ? Model.VerticalPositionSecond.ToString() : String.Empty);
+    string verticalAlignmentClass = ThemeHelper.GetVerticalAlignmentClass(verticalAlignment);
+
+    string itemTextPosition = splitSide == "First" ? Model.RelatedItemTextPositionFirst : Model.RelatedItemTextPositionSecond;
+    string itemsPerRow = splitSide == "First" ? Model.RelatedItemsPerRowFirst : Model.RelatedItemsPerRowSecond;
+    string itemTextAlignment = splitSide == "First" ? Model.RelatedItemTextAlignmentFirst : Model.RelatedItemTextAlignmentSecond;
+    string relatedImageStyle = splitSide == "First" ? Model.RelatedImageStyleFirst : Model.RelatedImageStyleSecond;
+    int summaryTextLength = splitSide == "First" ? (Model.RelatedSummaryTextCharacterCountFirst.HasValue() ? Model.RelatedSummaryTextCharacterCountFirst : 0) : (Model.RelatedSummaryTextCharacterCountSecond.HasValue() ? Model.RelatedSummaryTextCharacterCountSecond : 0);
+    string listingOverlayColor = splitSide == "First" ? Model.RelatedOverlayBackgroundColorFirst.label : Model.RelatedOverlayBackgroundColorSecond.label;
+    string backgroundColor = Model.BackgroundColor.label;
+    string overlayImageClass = itemTextPosition == "textPositionOverlay" ? listingOverlayColor + "-bg gradient-bg" : String.Empty;
+    string backgroundInnerColor = itemTextPosition == "textPositionOverlay" ? listingOverlayColor : backgroundColor;
+
+    IEnumerable<IPublishedContent> relatedContent = splitSide == "First" ? Model.RelatedContentFirst : Model.RelatedContentSecond;
+    USNHeading heading = splitSide == "First" ? Model.RelatedHeadingFirst : Model.RelatedHeadingSecond;
+    string secondaryHeading = splitSide == "First" ? Model.RelatedSecondaryHeadingFirst : Model.RelatedSecondaryHeadingSecond;
+    USNAnimation animation = splitSide == "First" ? ThemeHelper.GetAnimationSettings(Model.AnimateFirst,Model.AnimationDelayFirst,Model.AnimationStyleFirst) : ThemeHelper.GetAnimationSettings(Model.AnimateSecond,Model.AnimationDelaySecond,Model.AnimationStyleSecond);
+
+    string backgroundColorValue = Model.BackgroundColor.value;
+    bool boxPad = splitSide == "First" ? Model.RelatedBoxPadFirst : Model.RelatedBoxPadSecond;
+
+    string itemTextAlignmentClass = ThemeHelper.GetSimpleTextAlignmentClass(itemTextAlignment);
+    string itemStyleClass = ThemeHelper.GetListItemTextPositionClass(itemTextPosition);
+
+    string itemsClass = ThemeHelper.GetItemsPerRowClass(itemsPerRow,  "items-1");
+
+    USNImageSettings imageSettings = ThemeHelper.GetImageSettings(relatedImageStyle, boxPad, backgroundColorValue);
+
+    <div class="item item_block item_listing-block @verticalAlignmentClass @colWidthDesktop @colWidthTablet @itemDesktopOrder @itemMobileOrder col-12 @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+
+        @if (heading.HasValue() || secondaryHeading.HasValue())
+        {
+            <div class="component-introduction @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+
+                @if (secondaryHeading.HasValue())
+                {
+                    <p class="secondary-heading @(backgroundColor)-secondary-heading @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">@secondaryHeading</p>
+                }
+                @if (heading.HasValue())
+                {
+                    @Html.Raw(String.Format("<{0} class=\"heading main {1}-heading\">{2}</{0}>", heading.HeadingTag, backgroundColor, heading.Text))
+                }
+
+            </div>
+        }
+
+        @if (relatedContent.HasValue() && relatedContent.Any())
+        {
+            <!-- Listing -->
+            <div class="row listing listing_basic">
+                @foreach (var item in relatedContent)
+                {
+                    string introText = ThemeHelper.GetIntroText(item,summaryTextLength);
+                    string pageName = item.HasValue("subpageListingLinkText") ? item.Value<string>("subpageListingLinkText") : item.Name;
+
+                    <!-- Item -->
+                    <div class="item @itemsClass col-12 @itemStyleClass @itemTextAlignmentClass @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+                        <div class="inner">
+                            <a href="@item.Url">
+                                @if (item.HasValue("pageListingImage") && item.Value<IPublishedContent>("pageListingImage") != null && itemTextPosition != "textPositionAbove")
+                                {
+                                    <div class="image @overlayImageClass @imageSettings.CircleClass">
+
+                                        @Html.Partial(viewPath + "/USNMiscPageElements/USN_Image", item.Value<Image>("pageListingImage"), new ViewDataDictionary { { "imageSettings", imageSettings }, { "altText", item.Value<string>("pageListingImageAltText") } })
+
+                                    </div>
+                                }
+                                <div class="info info_align-bottom">
+                                    <p class="heading @(backgroundColor)-heading">@pageName</p>
+
+                                    @if (introText != String.Empty)
+                                    {
+                                        <div class="text @(backgroundColor)-text">@Html.Raw(introText)</div>
+                                    }
+                                    @if (item.IsDocumentType(UsnblogPost.ModelTypeAlias) && itemTextPosition == "textPositionOverlay")
+                                    {
+                                        <!-- Meta -->
+                                        <div class="meta @(backgroundColor)-text">
+                                            <p class="date"><time>@(item.Value<DateTime>("postDate").ToString("dd MMM yyyy"))</time></p>
+                                        </div>
+                                        <!--// Meta -->
+                                    }
+
+                                </div>
+                                @if (item.HasValue("pageListingImage") && item.Value<IPublishedContent>("pageListingImage") != null && itemTextPosition == "textPositionAbove")
+                                {
+                                    <div class="image @overlayImageClass @imageSettings.CircleClass">
+                                        @Html.Partial(viewPath + "/USNMiscPageElements/USN_Image", item.Value<Image>("pageListingImage"), new ViewDataDictionary { { "imageSettings", imageSettings }, { "altText", item.Value<string>("pageListingImageAltText") } })
+                                    </div>
+                                }
+                            </a>
+                            @if (item.IsDocumentType(UsnblogPost.ModelTypeAlias) && itemTextPosition != "textPositionOverlay")
+                            {
+                                <!-- Meta -->
+                                <div class="meta @(backgroundColor)-text">
+                                    <p class="date"><time>@(item.Value<DateTime>("postDate").ToString("dd MMM yyyy"))</time></p>
+                                </div>
+                                <!--// Meta -->
+                            }
+                        </div>
+                    </div>
+                    <!--// Item -->
+                }
+            </div>
+            <!--// Listing -->
+        }
+    </div>
+}

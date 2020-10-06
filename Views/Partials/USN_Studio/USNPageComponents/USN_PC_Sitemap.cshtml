@@ -1,0 +1,150 @@
+﻿@inherits UmbracoViewPage<Usn_Pc_Sitemap_AN>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+@using Umbraco.Core.Services;
+
+@{
+    string viewPath = ViewData["viewPath"].ToString();
+    string pageLayout = ViewData["pageLayout"].ToString();
+    string backgroundImageStyle = pageLayout == "pageLayoutFull" ? ThemeHelper.GetBackgroundImageStyle(Model.BackgroundImageOptions, Model.BackgroundImage) : String.Empty;
+    string backGroundColor = Model.BackgroundColor.label + "-bg";
+    USNAnimation animation = ThemeHelper.GetAnimationSettings(Model.Animate,Model.AnimationDelay,Model.AnimationStyle);
+
+    IPublishedContent startPage = Model.Value<IPublishedContent>("sitemapStartPage");
+    
+    <section class="content component sitemap-component @backGroundColor @Model.CustomComponentClasses" id="@Html.Raw("pos_" + Model.Id)" @Html.Raw(backgroundImageStyle)>
+
+        @if (pageLayout == "pageLayoutFull")
+        {
+            if(Model.ComponentWidth == "componentWidthCenter")
+            {
+                @:<div class="container"><div class="row justify-content-center"><div class="content-col center-col col-lg-6 col-12 col">
+            }
+            else if(Model.ComponentWidth == "componentWidthFull")
+            {
+                @:<div class="container-fluid">
+            }
+            else
+            {
+                @:<div class="container">
+            }
+        }
+
+        @Html.Partial(viewPath + "/USNMiscPageElements/USN_ComponentIntro", @Model as IUsn_Cmp_IntroOutro, new ViewDataDictionary { { "animation", animation }, { "backgroundColor", Model.BackgroundColor.label } })
+
+        @if (startPage != null)
+        {
+            <div class="component-main @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+
+                <nav class="sitemap">
+                    <ul class="nav">
+                        <li class="nav-item level-@(startPage.Level)">
+                            <a class="nav-link" href="@startPage.Url">
+                                @if (startPage.HasValue("htmlSitemapLinkText"))
+                                {
+                                    @Html.Raw(startPage.Value<string>("htmlSitemapLinkText"))
+                                }
+                                else
+                                {
+                                    @startPage.Name
+                                }
+                            </a>
+                            @Traverse(startPage)
+                        </li>
+                    </ul>
+                </nav>
+
+            </div>
+        }
+
+        @Html.Partial(viewPath + "/USNMiscPageElements/USN_ComponentOutro", @Model as IUsn_Cmp_IntroOutro, new ViewDataDictionary { { "animation", animation }, { "backgroundColor", Model.BackgroundColor.label } })
+
+        @if (pageLayout == "pageLayoutFull")
+        {
+            if (Model.ComponentWidth == "componentWidthCenter")
+            {
+                @:</div></div></div>
+            }
+            else
+            {
+                @:</div>
+            }
+        }
+
+    </section>
+}
+
+
+@helper Traverse(IPublishedContent node)
+{
+    IPublicAccessService publicAccessService = Services.PublicAccessService;
+    IEnumerable<IPublishedContent> items;
+    
+    if(Model.IncludeProtectedPages)
+    {
+        items = node.Children.Where(x => (x.IsDocumentType(Usnpage.ModelTypeAlias) || x.IsDocumentType(UsnblogLandingPage.ModelTypeAlias) || x.IsDocumentType(UsnloginPage.ModelTypeAlias) || x.IsDocumentType(UsnsearchResultsPage.ModelTypeAlias)) && x.IsVisible());
+    }
+    else
+    {
+        items = node.Children.Where(x => (x.IsDocumentType(Usnpage.ModelTypeAlias) || x.IsDocumentType(UsnblogLandingPage.ModelTypeAlias) || x.IsDocumentType(UsnloginPage.ModelTypeAlias) || x.IsDocumentType(UsnsearchResultsPage.ModelTypeAlias)) && x.IsVisible() && !publicAccessService.IsProtected(x.Path));
+    }
+
+   
+    if (items.Any())
+    {
+        <ul class="nav">
+            @foreach (var item in items)
+            {
+                <li class="nav-item level-@item.Level">
+                    <a class="nav-link" href="@item.Url">
+                        @if (item.HasValue("htmlSitemapLinkText"))
+                        {
+                            @Html.Raw(item.Value<string>("htmlSitemapLinkText"))
+                        }
+                        else
+                        {
+                            @item.Name
+                        }
+                    </a>
+                    @Traverse(item)
+                </li>
+            }
+        </ul>
+    }
+
+    var catFolder = node.Children.FirstOrDefault(x => x.IsDocumentType(UsnblogCategories.ModelTypeAlias));
+
+    if (catFolder != null)
+    {
+        @TraverseCategories(catFolder)
+    }
+}
+
+@helper TraverseCategories(IPublishedContent catFolder)
+{
+    
+    var items = catFolder.Children.Where(x => (x.IsDocumentType(UsnblogCategoryPage.ModelTypeAlias)) && x.IsVisible());
+
+    if (items.Any())
+    {
+        <ul class="nav">
+            @foreach (var item in items)
+            {
+                <li class="nav-item level-@item.Level">
+                    <a class="nav-link" href="@item.Url">
+                        @if (item.HasValue("htmlSitemapLinkText"))
+                        {
+                            @Html.Raw(item.Value<string>("htmlSitemapLinkText"))
+                        }
+                        else
+                        {
+                            @item.Name
+                        }
+                    </a>
+                    @TraverseCategories(item)
+                </li>
+            }
+        </ul>
+    }
+}

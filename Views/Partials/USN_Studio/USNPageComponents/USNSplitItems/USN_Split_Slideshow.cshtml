@@ -1,0 +1,59 @@
+﻿@inherits UmbracoViewPage<Usn_Pc_SplitComponent_AN>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    string viewPath = ViewData["viewPath"].ToString();
+    string splitSide = ViewData["splitSide"].ToString();
+    string colWidthDesktop = splitSide == "First" ? "col-lg-" + Model.DesktopColumnWidthFirst : "col-lg-" + Model.DesktopColumnWidthSecond;
+    string colWidthTablet = splitSide == "First" ? "col-md-" + Model.TabletColumnWidthFirst : "col-md-" + Model.TabletColumnWidthSecond;
+    string itemDesktopOrder = ThemeHelper.GetSplitDesktopTabletOrderClass(splitSide, Model.DesktopTabletOrder);
+    string itemMobileOrder = ThemeHelper.GetSplitMobileOrderClass(splitSide, Model.MobileOrder);
+    string verticalAlignment = splitSide == "First" ? (Model.VerticalPositionFirst.HasValue() ? Model.VerticalPositionFirst.ToString() : String.Empty) : (Model.VerticalPositionSecond.HasValue() ? Model.VerticalPositionSecond.ToString() : String.Empty);
+    string verticalAlignmentClass = ThemeHelper.GetVerticalAlignmentClass(verticalAlignment);
+    string backgroundColorValue = Model.BackgroundColor.value;
+    bool boxPad = splitSide == "First" ? Model.SlideBoxPadFirst : Model.SlideBoxPadSecond;
+
+    IEnumerable<IPublishedElement> imageVideos = splitSide == "First" ? Model.SlideImageVideoFirst : Model.SlideImageVideoSecond;
+    USNHeading heading = splitSide == "First" ? Model.SlideHeadingFirst : Model.SlideHeadingSecond;
+    string secondaryHeading = splitSide == "First" ? Model.SlideSecondaryHeadingFirst : Model.SlideSecondaryHeadingSecond;
+    USNAnimation animation = splitSide == "First" ? ThemeHelper.GetAnimationSettings(Model.AnimateFirst,Model.AnimationDelayFirst,Model.AnimationStyleFirst) : ThemeHelper.GetAnimationSettings(Model.AnimateSecond,Model.AnimationDelaySecond,Model.AnimationStyleSecond);
+
+    if (imageVideos != null && imageVideos.Any())
+    {
+        USNCarouselSettings carouselSettings = splitSide == "First" ? ThemeHelper.GetCarouselSettings("itemsRow_1", true, Model.SlideAutoRotateSpeedFirst, Model.SlideShowDotsFirst, Model.SlideShowArrowsFirst) : ThemeHelper.GetCarouselSettings("itemsRow_1", true, Model.SlideAutoRotateSpeedSecond, Model.SlideShowDotsSecond, Model.SlideShowArrowsSecond);
+        string slideImageStyle = splitSide == "First" ? Model.SlideImageStyleFirst : Model.SlideImageStyleSecond;
+
+        USNImageSettings imageSettings = ThemeHelper.GetImageSettings(slideImageStyle, boxPad, backgroundColorValue);
+
+        <div class="item item_block item_slideshow-block @verticalAlignmentClass @colWidthDesktop @colWidthTablet @itemDesktopOrder @itemMobileOrder col-12 @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+
+            @if (heading.HasValue() || secondaryHeading.HasValue())
+            {
+                <div class="component-introduction @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+
+                    @if (secondaryHeading.HasValue())
+                    {
+                        <p class="secondary-heading @(Model.BackgroundColor.label)-secondary-heading @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">@secondaryHeading</p>
+                    }
+                    @if (heading.HasValue())
+                    {
+                        @Html.Raw(String.Format("<{0} class=\"heading main {1}-heading\">{2}</{0}>", heading.HeadingTag, Model.BackgroundColor.label, heading.Text))
+                    }
+
+                </div>
+            }
+
+            <!-- Slides -->
+            <div class="slides" @Html.Raw(carouselSettings.SlickAttributes)>
+
+                @Html.Partial(viewPath + "/USNPageComponents/USN_Gallery", imageVideos, new ViewDataDictionary { { "carouselSettings", carouselSettings }, { "imageSettings", imageSettings }, { "animation", animation }, { "galleryType", "Split" }, { "modelId", Model.Id },{"viewPath",viewPath } })
+
+            </div>
+            <!--// Slides -->
+
+        </div>
+
+    }
+}

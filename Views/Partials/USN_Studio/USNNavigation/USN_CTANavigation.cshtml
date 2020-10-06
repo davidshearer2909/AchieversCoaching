@@ -1,0 +1,15 @@
+﻿@inherits UmbracoViewPage<USNWebsite.USNModels.USNBaseViewModel>
+
+@{
+    Usnnavigation navigation = (Usnnavigation)Model.Navigation;
+
+    if (navigation.CtaButtons != null && navigation.CtaButtons.Any())
+    {
+        <nav class="cta-links">
+            @foreach (var item in navigation.CtaButtons)
+            {
+                <a class="btn @(item.color.label)-bg @(item.color.label)-text @(item.color.label)-borders" href="@item.link.LinkUrl" @Html.Raw(item.link.LinkTarget) @Html.Raw(item.link.LinkTitle)>@Html.Raw(item.icon)@item.link.LinkText@Html.Raw(item.link.LinkTargetIcon)</a>
+            }
+        </nav>
+    }
+}

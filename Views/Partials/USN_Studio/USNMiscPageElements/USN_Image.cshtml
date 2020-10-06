@@ -1,0 +1,27 @@
+﻿@inherits UmbracoViewPage<IPublishedContent>
+
+@using USNStarterKit.USNModels;
+
+@{
+    USNImageSettings imageSettings = (USNImageSettings)ViewData["imageSettings"];
+    string altText = ViewData["altText"].ToString();
+    string circleClass = ViewData["circleClassOverride"] != null ? ViewData["circleClassOverride"].ToString() : imageSettings.CircleClass;
+
+    string smallImage = String.Empty;
+    string displayImage = String.Empty;
+
+    if (imageSettings.BoxPad)
+    {
+        smallImage = Model.Url + "?width=" + imageSettings.WidthSmall + "&height=" + imageSettings.HeightSmall + "&mode=boxpad&bgcolor=" + imageSettings.BGColor;
+        displayImage = Model.Url + "?width=" + (imageSettings.Width) + "&height=" + (imageSettings.Height) + "&mode=boxpad&bgcolor=" + imageSettings.BGColor;
+    }
+    else
+    {
+        smallImage = Model.GetCropUrl(cropAlias: imageSettings.CropAlias, width: imageSettings.WidthSmall, height: imageSettings.HeightSmall);
+        displayImage = Model.GetCropUrl(cropAlias: imageSettings.CropAlias);
+    }
+
+    <img class="lazyload @circleClass" src="@smallImage" data-src="@displayImage" alt="@altText">
+}
+
+

@@ -1,0 +1,125 @@
+﻿@inherits UmbracoViewPage<Usn_Pc_Links_AN>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    string viewPath = ViewData["viewPath"].ToString();
+    string pageLayout = ViewData["pageLayout"].ToString();
+    string backgroundImageStyle = pageLayout == "pageLayoutFull" ? ThemeHelper.GetBackgroundImageStyle(Model.BackgroundImageOptions, Model.BackgroundImage) : String.Empty;
+    string backGroundColor = Model.BackgroundColor.label;
+    USNAnimation animation = ThemeHelper.GetAnimationSettings(Model.Animate,Model.AnimationDelay,Model.AnimationStyle);
+    string linksSectionClass = Model.IncludeLinkDetail ? "listing_no-spacing listing_links" : "listing_links listing_links-mini";
+
+    string itemsClass = ThemeHelper.GetItemsPerRowClass(Model.ItemsPerRow,  "items-4");
+
+    <section class="content component links-component @(backGroundColor)-bg @Model.CustomComponentClasses" id="@Html.Raw("pos_" + Model.Id)" @Html.Raw(backgroundImageStyle)>
+
+        @if (pageLayout == "pageLayoutFull")
+        {
+            if(Model.ComponentWidth == "componentWidthCenter")
+            {
+                @:<div class="container"><div class="row justify-content-center"><div class="content-col center-col col-lg-6 col-12 col">
+            }
+            else if(Model.ComponentWidth == "componentWidthFull")
+            {
+                @:<div class="container-fluid">
+            }
+            else
+            {
+                @:<div class="container">
+            }
+        }
+
+        @Html.Partial(viewPath + "/USNMiscPageElements/USN_ComponentIntro", @Model as IUsn_Cmp_IntroOutro, new ViewDataDictionary { { "animation", animation }, { "backgroundColor", Model.BackgroundColor.label } })
+
+        @if (Model.Links != null && Model.Links.Any())
+        {
+            <div class="component-main row listing @linksSectionClass @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+
+                @foreach (Usn_Nc_Link item in Model.Links)
+                {
+                    if (item.Link.HasValue() && item.Link.link.HasValue())
+                    {
+                        string note = String.Empty;
+                        string iconClass = String.Empty;
+                        bool fileError = false;
+
+                        switch (item.Link.link.LinkType)
+                        {
+                            case USNLink.UrlPickerTypes.Url:
+                                iconClass = "icon usn_ion-md-open";
+                                note = Umbraco.GetDictionaryValue("USN Link Component External Web Link") + " - " + item.Link.link.LinkUrl;
+                                break;
+                            case USNLink.UrlPickerTypes.Content:
+                                iconClass = "icon usn_ion-md-link";
+                                break;
+                            case USNLink.UrlPickerTypes.Media:
+                                iconClass = "icon usn_ion-md-download";
+                                string fullPathU = Server.MapPath(item.Link.link.LinkUrl);
+                                try
+                                {
+                                    FileInfo finfoU = new FileInfo(fullPathU);
+                                    long fileInMbu = finfoU.Length / 1024;
+
+                                    string fileSizeU = fileInMbu + "KB";
+                                    note = Umbraco.GetDictionaryValue("USN Link Component File Size") + ": " + fileSizeU;
+                                }
+                                catch (Exception e)
+                                {
+                                    fileError = true;
+                                }
+                                break;
+                        }
+                        if (!fileError)
+                        {
+                            <!-- Item -->
+                            <div class="item @itemsClass item_links col-12 @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+                                <a href="@item.Link.link.LinkUrl" @Html.Raw(item.Link.link.LinkTitle) @Html.Raw(item.Link.link.LinkTarget)>
+
+                                    @if (Model.IncludeLinkDetail)
+                                    {
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <p class="heading @(backGroundColor)-heading">@item.Link.link.LinkText</p>
+                                            <i class="@iconClass @(backGroundColor)-highlight"></i>
+                                        </div>
+                                        <div class="info @(backGroundColor)-text">
+                                            @if (item.OptionalAdditionalInformation.HasValue())
+                                            {
+                                                @Html.Raw(item.OptionalAdditionalInformation)
+                                            }
+                                            @if (note != String.Empty)
+                                            {
+                                                <div class="meta small">@note</div>
+                                            }
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        @item.Link.link.LinkText<i class="@iconClass @(backGroundColor)-highlight after"></i>
+                                    }
+                                </a>
+                            </div>
+                            <!--// Item -->
+                        }
+                    }
+                }
+            </div>
+        }
+
+        @Html.Partial(viewPath + "/USNMiscPageElements/USN_ComponentOutro", @Model as IUsn_Cmp_IntroOutro, new ViewDataDictionary { { "animation", animation }, { "backgroundColor", Model.BackgroundColor.label } })
+
+        @if (pageLayout == "pageLayoutFull")
+        {
+            if (Model.ComponentWidth == "componentWidthCenter")
+            {
+                @:</div></div></div>
+            }
+            else
+            {
+                @:</div>
+            }
+        }
+
+    </section>
+}

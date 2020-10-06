@@ -1,0 +1,79 @@
+﻿@inherits UmbracoViewPage<USNStarterKit.USNModels.USNPodModel>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    string itemClass = ViewData["itemClass"].ToString();
+    string componentID = ViewData["componentId"].ToString();
+    string viewPath = ViewData["viewPath"].ToString();
+    USNAnimation animation = ViewData["animation"] == null ? new USNAnimation() : (USNAnimation)ViewData["animation"];
+    string backgroundColorValue = ViewData["backgroundColorValue"].ToString();
+
+    var model = Model.publishedContent == null ? Model.publishedElement : Model.publishedContent;
+
+    USNImageSettings imageSettings = ThemeHelper.GetImageSettings(model.Value<string>("imageStyle"),model.Value<bool>("boxPad"),backgroundColorValue);
+
+    string lightWindow = String.Empty;
+    string title = String.Empty;
+    string footer = String.Empty;
+
+    if (!model.Value<bool>("disableLightWindow"))
+    {
+        lightWindow = " data-toggle=\"lightbox\" data-type=\"image\" data-gallery=\"galleryname-" + componentID + "\"";
+
+        if (model.HasValue("lightWindowTitle"))
+        {
+            title = "data-title=\"" + model.Value<string>("lightWindowTitle") + "\"";
+        }
+
+        if (model.HasValue("lightWindowFooter"))
+        {
+            footer = "data-footer=\"" + model.Value<string>("lightWindowFooter") + "\"";
+        }
+    }
+
+    if (model.HasValue("image") && model.Value<IPublishedContent>("image") != null)
+    {
+        string linkUrl = String.Empty;
+        string linkTarget = String.Empty;
+        string linkTitle = String.Empty;
+
+        if (model.Value<bool>("disableLightWindow") && model.HasValue("imageLink"))
+        {
+            if (model.HasValue("imageLink"))
+            {
+                linkUrl = model.Value<USNMultiUrlPicker>("imageLink").link.LinkUrl;
+                linkTarget = model.Value<USNMultiUrlPicker>("imageLink").link.LinkTarget;
+                linkTitle = model.Value<USNMultiUrlPicker>("imageLink").link.LinkTitle;
+            }
+        }
+        else if (!model.Value<bool>("disableLightWindow"))
+        {
+            linkUrl = model.Value<IPublishedContent>("image").Url;
+        }
+
+        <div class="item @itemClass @imageSettings.CircleClass item_image @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+            <div class="inner">
+                <div class="image @imageSettings.CircleClass">
+                    @if (linkUrl != String.Empty)
+                    {
+                        @:<a href="@linkUrl" @Html.Raw(title) @Html.Raw(footer) target="@linkTarget" @Html.Raw(lightWindow) @Html.Raw(linkTitle)>
+                    }
+
+                    @Html.Partial(viewPath + "/USNMiscPageElements/USN_Image", model.Value<Image>("image"), new ViewDataDictionary { { "imageSettings", imageSettings }, { "altText", model.Value<string>("thumbnailImageAltText") } })
+                    
+                    @if (linkUrl != String.Empty)
+                    {
+                        @:</a>
+                    }
+                    @if (model.HasValue("imageCaption"))
+                    {
+                        <div class="caption">@(model.Value<string>("imageCaption"))</div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+}

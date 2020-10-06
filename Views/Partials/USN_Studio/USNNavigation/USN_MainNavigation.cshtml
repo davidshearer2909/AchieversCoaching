@@ -1,0 +1,95 @@
+﻿@inherits UmbracoViewPage<USNWebsite.USNModels.USNBaseViewModel>
+
+@using USNStarterKit.USNModels;
+
+@{
+    Usnnavigation navigation = (Usnnavigation)Model.Navigation;
+
+    if (navigation.MainNavigation != null && navigation.MainNavigation.Any())
+    {
+        <nav class="main">
+            @Pages(navigation.MainNavigation, String.Empty)
+        </nav>
+    }
+}
+
+@helper Pages(IEnumerable<USNMegaNavItem> pages, string multiColumnStyle)
+{
+    if (pages != null)
+    {
+        bool hasSubPages = false;
+
+        <ul @Html.Raw(multiColumnStyle)>
+            @foreach (var link in pages)
+            {
+                //CONVERT # TO void if present
+                string linkURL = link.link.LinkUrl.Trim() == "#" ? "javascript:void(0);" : link.link.LinkUrl;
+
+                string selected = CheckSelected(link) ? "active" : String.Empty;
+
+                string subPageClass = String.Empty;
+
+                if (link.subPages != null && link.subPages.Any())
+                {
+                    multiColumnStyle = link.subPages.Count() > 6 ? " class=\"multi-col\"" : String.Empty;
+
+                    subPageClass = String.Format(" class=\"has-child {0}\"", selected);
+                    hasSubPages = true;
+                }
+                else
+                {
+                    subPageClass = String.Format(" class=\"no-child {0}\"", selected);
+                }
+
+                <li @Html.Raw(subPageClass)>
+                    <span><a href="@link.link.LinkUrl" @Html.Raw(link.link.LinkTarget) @Html.Raw(link.link.LinkTitle)>@Html.Raw(link.icon)@link.link.LinkText@Html.Raw(link.link.LinkTargetIcon)</a></span>
+                    @if (hasSubPages)
+                    {
+                        @Pages(link.subPages, multiColumnStyle)
+                    }
+                </li>
+            }
+        </ul>
+    }
+}
+
+@functions{
+
+    public bool CheckSelected(USNMegaNavItem currentLink)
+    {
+        bool output = false;
+
+        //Highlight parent for blog pages.
+        if (Model.Content.IsDocumentType(UsnblogPost.ModelTypeAlias))
+        {
+            output = Array.IndexOf(Model.Content.Path.Split(','), currentLink.link.ID.ToString()) >= 0 ? true : false;
+        }
+
+        //current link is current page so must be selected
+        if (currentLink.link.ID == Model.Content.Id)
+            output = true;
+        //if current link has children
+        else if (currentLink.subPages != null && currentLink.subPages.Any())
+        {
+            foreach (var link in currentLink.subPages)
+            {
+                //if child link == current page , parent must be selected
+                if (Model.Content.Id == link.link.ID)
+                {
+                    output = true;
+                    break;
+                }
+                //if child link has children do recursive check
+                else if (link.subPages != null && link.subPages.Any())
+                {
+                    output = CheckSelected(link);
+                    if (output)
+                        break;
+                }
+            }
+        }
+
+        return output;
+
+    }
+}

@@ -1,0 +1,56 @@
+﻿@inherits UmbracoViewPage<USNWebsite.USNModels.USNBaseViewModel>
+
+@using USNStarterKit.USNHelpers;
+
+@{
+    Usnnavigation navigation = (Usnnavigation)Model.Navigation;
+
+    if ((navigation.SecondaryNavigation != null && navigation.SecondaryNavigation.Any()) || navigation.LoginPage != null)
+    {
+        <!-- Secondary navigation -->
+        <nav class="secondary">
+            <ul>
+                @if(navigation.SecondaryNavigation != null && navigation.SecondaryNavigation.Any())
+                {
+                    foreach (var secNavItem in navigation.SecondaryNavigation)
+                    {
+                        <li><span><a href="@secNavItem.link.LinkUrl" @Html.Raw(secNavItem.link.LinkTarget) @Html.Raw(secNavItem.link.LinkTitle)>@Html.Raw(secNavItem.icon)@secNavItem.link.LinkText@Html.Raw(secNavItem.link.LinkTargetIcon)</a></span></li>
+                    }
+                }
+                @if (navigation.LoginPage != null)
+                {
+                    if (Umbraco.MemberIsLoggedOn())
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" id="myAccountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@Context.User.Identity.Name</a>
+
+                            @if (navigation.LoggedInMembersNavigation != null)
+                            {
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="myAccountDropdown">
+                                    @foreach (var memNavItem in navigation.LoggedInMembersNavigation)
+                                    {
+                                        <a class="dropdown-item" href="@memNavItem.link.LinkUrl" @Html.Raw(memNavItem.link.LinkTarget) @Html.Raw(memNavItem.link.LinkTitle)>@Html.Raw(memNavItem.icon)@memNavItem.link.LinkText@Html.Raw(memNavItem.link.LinkTargetIcon)</a>
+                                    }
+                                    <a class="dropdown-item" href="@navigation.LoginPage.Url?signout=true">@Umbraco.GetDictionaryValue("USN Members Navigation Logout")</a>
+                                </div>
+                            }
+                        </li>
+                    }
+                    else
+                    {
+                        string navigationHeading = navigation.MembersNavigationHeading.HasValue() ? navigation.MembersNavigationHeading : Umbraco.GetDictionaryValue("USN Members Navigation Default Heading");
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" id="myAccountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@navigationHeading</a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="myAccountDropdown">
+                                <a class="dropdown-item" href="@navigation.LoginPage.Url">@Umbraco.GetDictionaryValue("USN Members Navigation Login")</a>
+                            </div>
+                        </li>
+                    }
+                }
+
+            </ul>
+        </nav>
+        <!--// Secondary navigation -->
+    }
+}

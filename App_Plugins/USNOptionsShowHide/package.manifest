@@ -1,0 +1,43 @@
+﻿{
+    propertyEditors: [      
+        {
+			alias: 'USN.OptionsShowHide',
+			name: 'USN Options Show Hide',
+			editor:{
+				valueType: "STRING",
+				view: '~/App_Plugins/USNOptionsShowHide/views/optionsshowhide-editor.html',
+				hideLabel: false
+			},
+			prevalues : {
+				fields: [
+					{
+					    label: "Hide tabs",
+					    description: "Enter the tabs you would like hidden if nothing is selected.",
+					    key: "hideTabs",
+						view: "textstring"
+					},
+					{
+					    label: "Hide fields",
+					    description: "Enter the field alias name you would like hidden if nothing is selected.",
+					    key: "hideFields",
+						view: "textstring"
+					},
+					{
+					    label: "Option values",
+					    key: "items",
+					    view: "~/App_Plugins/USNOptionsShowHide/views/optionsshowhide-prevalues.html"
+					}         
+				]
+			}
+        }
+    ],
+    javascript: [
+		'~/App_Plugins/USNOptionsShowHide/js/optionsshowhide-editor-controller.js',
+		'~/App_Plugins/USNOptionsShowHide/js/optionsshowhide-prevalues-controller.js'
+    ],
+
+    css: [
+		'~/App_Plugins/USNOptionsShowHide/css/optionsshowhide-style.css'
+    ]
+
+}

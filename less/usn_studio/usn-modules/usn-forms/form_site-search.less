@@ -1,0 +1,178 @@
+/*  
+---------------------------------------------------
+Site Search Form
+---------------------------------------------------  
+*/
+
+.form.site-search-form { }
+
+.site-search {
+    position: relative;
+    margin: @base-half-spacing 0;
+}
+
+header#site-header .site-search {
+    margin: 0;
+}
+
+.site-search .heading,
+.site-search a.expand-search {
+    display: none;
+}
+
+.site-search a.expand-search {
+    margin: 0;
+}
+
+.site-search fieldset {
+    position: relative;
+    pointer-events: all;
+}
+
+.site-search .form-group {
+    margin:0;
+}
+
+.site-search .form-control {
+    width: 100%;
+    height: 50px;
+    min-height: 50px;
+    padding-right: 50px;
+}
+
+.site-search button.btn {
+    width: 50px;
+    height: 50px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 25px;
+    text-align: center;
+}
+
+
+footer#site-footer .site-search .form-control {
+    width: 100%;
+    height: 40px;
+    min-height: 40px;
+    padding-right: 40px;
+}
+
+footer#site-footer .site-search .form-control { 
+    border:0 none!important;
+    color:@footer-link;
+    background-color:@footer-borders
+}
+
+footer#site-footer .site-search button.btn { 
+    width: 40px;
+    height: 40px;
+    top: 0;
+    right: 0;
+}
+
+@media (min-width:0) and (max-width:@small-breakpoint) {
+    header#site-header .site-search {
+        left:auto!important;
+        margin: @base-spacing @base-half-spacing;
+    }
+    header#site-header nav.cta-links + .site-search { 
+        margin-top:0!important;
+    }
+    header#site-header .site-search fieldset,
+    header#site-header .site-search .form-control {
+        margin: 0;
+    }
+}
+
+@media (min-width:@large-breakpoint) {
+    header#site-header .site-search {
+        margin: 0;
+        overflow: hidden;
+        position: absolute;
+        top: @nav-main-height;
+        right: 0;
+        z-index: 600;
+        width: @nav-main-height;
+        height: @nav-main-height;
+        background: none;
+        transition: max-width 0.35s ease-in-out 0.1s, left 0.35s ease-in-out 0s;
+    }
+    header#site-header .site-search:not(.open-search) {
+        left: auto!important;
+    }
+    header#site-header .site-search.open-search {
+        width: auto;
+        left: ~"calc(@{large-logo-width} - 1px)";
+        left: (@large-logo-width + 39px)
+    }
+    header#site-header .site-search a.expand-search {
+        content: "open";
+        width: @nav-main-height;
+        height: @nav-main-height;
+        padding: 12px 0 0;
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 0;
+        font-size: 25px;
+        cursor: pointer;
+        text-align: center;
+        color:@main-navigation-link;
+    }
+    header#site-header .site-search a.expand-search::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: @base-border-width;
+        height: @nav-main-height;
+        background-color: @header-borders;
+    }
+    header#site-header .site-search a.expand-search em {
+        display: none;
+    }
+    header#site-header .site-search fieldset {
+        right: 0;
+        z-index: -10;
+        display: none;
+    }
+    header#site-header .site-search.open-search fieldset {
+        z-index: 1;
+        display: block;
+    }
+    header#site-header .site-search .form-control {
+        height: @nav-main-height;
+        min-height: @nav-main-height;
+        padding-right: @nav-main-height;
+    }
+    header#site-header .site-search button.btn {
+        width: @nav-main-height;
+        height: @nav-main-height;
+        font-size: 25px;
+        opacity: 0;
+        transition: opacity 0.35s ease-in-out 0.1s;
+    }
+    header#site-header .site-search.open-search button.btn {
+        opacity: 1;
+        transition: opacity 0.35s ease-in-out 0s;
+    }
+    header#site-header .site-search button.btn i {
+        position: relative;
+        top: 0;
+    }
+
+    footer#site-footer .site-search .form-control {
+        height: 50px;
+        min-height: 50px;
+        padding-right: 50px;
+    }
+    footer#site-footer .site-search button.btn { 
+        width: 50px;
+        height: 50px;
+    }
+}

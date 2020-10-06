@@ -1,0 +1,85 @@
+/*  
+---------------------------------------------------
+Sub Navigation
+---------------------------------------------------  
+*/
+
+nav.sub { 
+    border-width: @base-border-width 0 0; border-style: solid; border-color:@base-borders;
+    padding-top:20px;
+    margin-bottom:@base-spacing;
+}
+
+nav.sub > p.heading { 
+    padding:0 0 10px;
+    color:@base-heading;
+}
+
+nav.sub > p.heading a { 
+    color:@base-heading;
+    text-decoration: none;
+}
+
+nav.sub > ul { 
+}
+
+nav.sub ul li { 
+    position:relative;
+    padding:3px 0;
+}
+
+nav.sub ul li span { 
+    position:relative;
+    display:block;
+}
+
+nav.sub ul li span a { 
+    display:block;
+    color:@base-link;
+    transition:all 0.2s ease-in-out 0s;
+}
+
+nav.sub ul > li.active > span > a { 
+    color:@base-heading;
+}
+
+html.no-touch nav.sub ul li:not(.active) span a:hover { 
+    padding-left:3px;
+}
+html.no-touch nav.sub ul li:not(.active) span a:hover,
+nav.sub ul li:not(.active) span a:focus,
+nav.sub ul li:not(.active) span a:active { 
+    color:@base-link-hover;
+}
+
+
+/* Levels */
+nav.sub ul ul { 
+    padding:5px 0 2px;
+}
+nav.sub ul ul ul { 
+    padding-left:12px;
+}
+nav.sub ul ul li {
+    padding:3px 0;
+}
+nav.sub ul ul li span a { 
+    padding-left:12px;
+}
+html.no-touch nav.sub ul ul li:not(.active) span a:hover { 
+    padding-left:15px;
+}
+nav.sub ul ul li span a::before { 
+    content:"";
+    position:absolute; top:11px; left:0;
+    width:5px; height:@base-border-width;
+    background-color:@base-borders;
+    transition:all 0.2s ease-in-out 0s;
+}
+html.no-touch nav.sub ul ul li:not(.active) span a:hover::before { 
+    width:8px;
+    background-color:darken(@base-borders, 20%);
+}
+nav.sub ul ul li.active span a::before { 
+    background-color:@base-heading;
+}

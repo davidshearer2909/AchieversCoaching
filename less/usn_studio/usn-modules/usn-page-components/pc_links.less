@@ -1,0 +1,72 @@
+/*  
+---------------------------------------------------
+Links 
+---------------------------------------------------  
+*/
+
+.links-component { 
+}
+
+.listing.listing_links:not(.listing_links-mini) { 
+    margin-right:0; margin-left:0;
+    border-width:@base-border-width @base-border-width 0 0; border-style: solid;
+    border-color: @base-borders;
+}
+
+.listing.listing_links:not(.listing_links-mini) .item a { 
+    padding:@base-half-spacing;
+    border-width:0 0 @base-border-width @base-border-width; border-style: solid;
+    border-color: @base-borders;
+}
+
+.listing.listing_links:not(.listing_links-mini) .item a:hover { 
+    background-color: @base-borders;
+}
+
+.listing.listing_links:not(.listing_links-mini) .item .heading { 
+    margin-top:0;
+}
+
+@media (min-width:992px) { 
+
+    .listing.listing_links:not(.listing_links-mini) .item a { 
+        padding:@base-spacing;
+    }
+
+}
+
+/*  
+---------------------------------------------------
+Links - Mini Links
+---------------------------------------------------  
+*/
+
+.listing.listing_links.listing_links-mini .item { 
+    margin:5px 0;
+}
+
+.listing.listing_links.listing_links-mini .item a { 
+    position:relative;
+    padding-left:15px;
+}
+
+.listing.listing_links.listing_links-mini .item a:hover { 
+    padding-left:18px;
+}
+
+.listing.listing_links.listing_links-mini .item a::after {
+    content: "";
+    position: absolute;
+    top: 11px;
+    left: 0;
+    display: block;
+    width: 5px;
+    height: @base-border-width;
+    background-color: @base-link;
+}
+
+.listing.listing_links.listing_links-mini .item a:hover::after {
+    width: 8px;
+    background-color: @base-link-hover;
+}
+

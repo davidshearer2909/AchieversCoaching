@@ -1,0 +1,363 @@
+/*	
+--------------------------------------------------
+Palette 
+-------------------------------------------------- 
+*/
+
+
+/* 	
+--------------------------------------------------
+Table of contents
+-------------------------------------------------- 
+
+Logo
+
+General Colours
+
+Base Colours
+
+Backgrounds
+- Background
+- Secondary heading
+- Heading
+- Text
+- Borders 
+- Links
+
+Buttons
+- Background
+- Borders
+- Text
+	
+*/
+
+/*	
+--------------------------------------------------
+Logo
+-------------------------------------------------- 
+*/
+
+header#site-header #logo {
+    width: @small-logo-width; /* width based on ratio of image */
+    height: @small-logo-height;
+}
+header#site-header #logo a {
+    width: @small-logo-width; /* width based on ratio of image */
+    height: @small-logo-height;
+    background-image: @background-image;
+}
+@media (min-width:@large-breakpoint) {
+    header#site-header #logo {
+        width: @large-logo-width; /* width based on ratio of image */
+        height: @large-logo-height;
+    }
+    header#site-header #logo a {
+        width: @large-logo-width; /* width based on ratio of image */
+        height: @large-logo-height;
+    }
+}
+
+
+/*	
+--------------------------------------------------
+General Colours
+-------------------------------------------------- 
+*/
+
+/* VARIABLES CREATED BY CMS
+
+@small-logo-height
+@large-logo-height
+
+
+General Colors
+----------------------
+@body-bg
+@header-bg
+@header-text
+@header-borders
+@header-highlight
+@main-navigation-link
+@main-navigation-link-hover
+@main-navigation-link-active
+@main-navigation-dropdown
+@main-navigation-dropdown-link
+@main-navigation-dropdown-link-hover
+@main-navigation-dropdown-link-active
+@secondary-navigation-link
+@secondary-navigation-link-hover
+@footer-bg
+@footer-heading
+@footer-text
+@footer-link
+@footer-link-hover
+@footer-borders
+@footer-highlight
+
+Base Content
+-----------------------
+@base-bg
+@base-heading
+@base-secondary-heading
+@base-text
+@base-borders
+@base-link
+@base-link-hover
+@base-highlight
+@base-highlight-text
+
+Base Button
+-----------------------
+@base-btn-bg
+@base-btn-borders
+@base-btn-text
+@base-btn-bg-hover
+@base-btn-borders-hover
+@base-btn-text-hover
+
+
+Additional Content Options (n) - number
+-----------------------
+@c(n)-bg
+@c(n)-heading
+@c(n)-secondary-heading
+@c(n)-text
+@c(n)-borders
+@c(n)-link
+@c(n)-link-hover
+@c(n)-highlight
+@c(n)-highlight-text
+
+
+Additional Button Options (n) - number
+-----------------------
+@c(n)-btn-bg
+@c(n)-btn-borders
+@c(n)-btn-text
+@c(n)-btn-bg-hover
+@c(n)-btn-borders-hover
+@c(n)-btn-text-hover
+*/
+
+
+
+body {
+    background-color: @body-bg;
+}
+
+header#site-header {
+    color: @header-text;
+    background-color: @header-bg;
+}
+
+footer#site-footer {
+    color: @footer-text;
+    background-color: @footer-bg;
+}
+
+
+/*	
+--------------------------------------------------
+White and Black
+-------------------------------------------------- 
+*/
+
+.white-bg { 
+    background-color: @true-white;
+}
+.white-text { 
+    color: @true-white;
+}
+.black-bg { 
+    background-color: @true-black;
+}
+.black-text { 
+    color: @true-black;
+}
+
+
+/*	
+--------------------------------------------------
+Base Colours - Backgrounds
+-------------------------------------------------- 
+*/
+
+
+
+/* */
+
+.base-bg,
+.item.item_overlay .inner .image.base-bg::before,
+.banner-component .item.item_overlay.base-bg .inner::before,
+table {
+    background-color: @base-bg;
+}
+
+table tr:nth-of-type(even) td,
+.tables table tr:nth-of-type(even) td { 
+    background-color: darken(@base-bg, 1.5%);
+}
+
+.item.item_overlay .inner .image.base-bg.gradient-bg::before,
+.banner-component .item.item_overlay.base-bg.gradient-bg .inner::before {
+    background: linear-gradient(to bottom, fade(@base-bg, 50%) 0%, fade(@base-bg, 100%) 100%);
+}
+
+h1:not(.heading), h2:not(.heading), h3:not(.heading), h4:not(.heading), h5:not(.heading), h6:not(.heading),
+.base-bg h1:not(.heading), .base-bg h2:not(.heading), .base-bg h3:not(.heading), .base-bg h4:not(.heading), .base-bg h5:not(.heading), .base-bg h6:not(.heading),
+.base-heading, 
+thead {
+    color: @base-heading;
+}
+
+.base-secondary-heading {
+    color: @base-secondary-heading;
+}
+
+body,
+.base-text {
+    color: @base-text;
+}
+
+.base-borders,
+table, table th, table td {
+    border-color: @base-borders;
+}
+thead,
+.quick-links ul li a::after { 
+    background-color: @base-borders;
+}
+
+a,
+.base-link {
+    color: @base-link;
+}
+
+a:hover,
+a:focus,
+a:active,
+.base-link:hover,
+.base-link:focus,
+.base-link:active {
+    color: @base-link-hover;
+}
+
+.base-highlight-bg {
+    background-color:@base-highlight;
+}
+
+blockquote::before,
+.base-bg blockquote::before,
+.component .component.base-bg div > blockquote::before { 
+    color:@base-highlight;
+}
+
+.base-highlight-text {
+    color:@base-highlight-text;
+}
+
+.base-bg .label {
+    background-color:@base-highlight;
+    color:@base-highlight-text;
+}
+
+/* Tabs */
+.repeatable .tab .nav-link { 
+    color: @base-highlight;
+    background-color: @base-bg;
+    border-color: @base-borders;
+}
+.repeatable.tabbed  .tab .nav-link { 
+    background-color: darken(@base-bg, 5%);
+}
+.repeatable.tabbed .tab .nav-link:not(.active):hover,
+.repeatable.accordion .tab .nav-link.collapsed:hover { 
+    color: darken(@base-highlight, 5%);
+    background-color: darken(@base-bg, 10%);
+}
+.repeatable.tabbed .tab .nav-link.active,
+.repeatable.accordion .tab .nav-link:not(.collapsed) { 
+    color: @base-heading;
+    background-color: @base-bg;
+}
+.repeatable.tabbed .tab .nav-link.active { 
+    border-bottom-color: @base-bg;
+}
+.repeatable .repeatable-content { 
+    background-color: @base-bg;
+    border-color: @base-borders;
+}
+
+
+/*	
+--------------------------------------------------
+Buttons
+-------------------------------------------------- 
+*/
+
+
+/*	
+--------------------------------------------------
+Base Colours - Buttons
+-------------------------------------------------- 
+*/
+
+
+
+/* */
+
+.btn.base-btn-bg, .btn-bg_base-btn-bg .btn {
+    background-color: @base-btn-bg;
+}
+
+.base-btn-bg:hover, .btn-bg_base-btn-bg .btn:hover,
+.btn.base-btn-bg:focus,
+.btn.base-btn-bg:active {
+    background-color: @base-btn-bg-hover;
+}
+
+.btn.base-btn-borders, .btn-borders_base-btn-borders .btn {
+    border-color: @base-btn-borders;
+}
+
+.btn.base-btn-borders:hover, .btn-borders_base-btn-borders .btn:hover,
+.btn.base-btn-borders:focus, .btn-borders_base-btn-borders .btn:focus,
+.btn.base-btn-borders:active, .btn-borders_base-btn-borders .btn:active {
+    border-color: @base-btn-borders-hover;
+}
+
+.btn.base-btn-text, .btn-text_base-btn-text .btn {
+    color: @base-btn-text;
+}
+
+.btn.base-btn-text:hover, .btn-text_base-btn-text .btn:hover,
+.btn.base-btn-text:focus, .btn-text_base-btn-text .btn:focus,
+.btn.base-btn-text:active, .btn-text_base-btn-text .btn:active {
+    color: @base-btn-text-hover;
+}
+
+.btn.btn-xs.base-btn-text, .btn-text_base-btn-text .btn.btn-xs,
+.btn.btn-sm.base-btn-text, .btn-text_base-btn-text .btn.btn-sm {
+    color: @base-btn-bg;
+}
+
+.btn.btn-xs.base-btn-text:hover, .btn-text_base-btn-text .btn.btn-xs:hover,
+.btn.btn-xs.base-btn-text:focus, .btn-text_base-btn-text .btn.btn-xs:focus,
+.btn.btn-xs.base-btn-text:active, .btn-text_base-btn-text .btn.btn-xs:active,
+.btn.btn-sm.base-btn-text:hover, .btn-text_base-btn-text .btn.btn-sm:hover,
+.btn.btn-sm.base-btn-text:focus, .btn-text_base-btn-text .btn.btn-sm:focus,
+.btn.btn-sm.base-btn-text:active, .btn-text_base-btn-text .btn.btn-sm:active {
+    color: @base-btn-bg-hover;
+}
+
+.basic-buttons .btn.base-btn-text, .basic-buttons .btn-text_base-btn-text .btn {
+    color: @base-btn-bg;
+}
+
+.basic-buttons .btn.base-btn-text:hover, .basic-buttons .btn-text_base-btn-text .btn:hover,
+.basic-buttons .btn.base-btn-text:focus, .basic-buttons .btn-text_base-btn-text .btn:focus,
+.basic-buttons .btn.base-btn-text:active, .basic-buttons .btn-text_base-btn-text .btn:active {
+    color: @base-btn-bg-hover;
+}
+
+

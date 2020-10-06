@@ -1,0 +1,47 @@
+﻿/* Headings */
+.usn-heading-items * {
+    box-sizing: border-box;
+}
+
+.usn-heading-items .usn-item.usn-heading-item {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    margin:0 2.5px 2.5px 0;
+}
+
+.usn-heading-items .input-field input.usn-text-field {
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    font-size: 15px;
+    outline: 0 none !important;
+}
+
+.usn-heading-items .input-field {
+    margin-bottom: 10px;
+}
+
+.usn-heading-items .usn-item.item.usn-heading-item .name {
+    bottom: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.usn-heading-items .input-field input.usn-text-field:focus {
+}
+
+@media (min-width: 992px) {
+    .usn-heading-items .input-field input.usn-text-field,
+    .usn-heading-items .heading-picker {
+        width: 60%;
+        display: block;
+        float: left;
+    }
+
+    .usn-heading-items .heading-picker {
+        width: 35%;
+        margin-left: 10px;
+    }
+}

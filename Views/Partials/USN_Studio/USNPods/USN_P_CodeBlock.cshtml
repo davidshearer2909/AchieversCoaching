@@ -1,0 +1,17 @@
+﻿@inherits UmbracoViewPage<USNStarterKit.USNModels.USNPodModel>
+
+@using USNStarterKit.USNModels;
+
+@{
+    string itemClass = ViewData["itemClass"].ToString();
+    USNAnimation animation = ViewData["animation"] == null ? new USNAnimation() : (USNAnimation)ViewData["animation"];
+
+    var model = Model.publishedContent == null ? Model.publishedElement : Model.publishedContent;
+
+    <div class="item @itemClass item_codeblock @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+        <div class="inner">
+            @Html.Raw(model.Value<string>("code"))
+        </div>
+    </div>
+
+}

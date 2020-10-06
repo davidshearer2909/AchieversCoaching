@@ -1,0 +1,14 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<USNWebsite.USNModels.USNBaseViewModel>
+
+@{ 
+    if (!Model.Content.Value<bool>("hidePageTitle"))
+    {
+    <!-- Row -->
+    <div class="row">
+        <div class="heading-col col">
+            <h1 class="heading main base-heading">@(Model.Content.HasValue("onPageTitle") ? Model.Content.Value<string>("onPageTitle") : Model.Content.Name)</h1>
+        </div>
+    </div>
+    <!--// Row -->
+    }
+}

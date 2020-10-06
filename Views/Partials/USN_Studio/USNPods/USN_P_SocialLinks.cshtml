@@ -1,0 +1,47 @@
+﻿@inherits UmbracoViewPage<USNStarterKit.USNModels.USNPodModel>
+
+@using USNStarterKit.USNModels;
+@using USNStarterKit.USNHelpers;
+
+@{
+    string itemClass = ViewData["itemClass"].ToString();
+    USNAnimation animation = ViewData["animation"] == null ? new USNAnimation() : (USNAnimation)ViewData["animation"];
+
+    var model = Model.publishedContent == null ? Model.publishedElement : Model.publishedContent;
+
+    <div class="item @itemClass item_social-links @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+        <div class="inner">
+
+            @if (model.HasValue("heading"))
+            {
+                <p class="heading footer-heading">@(model.Value<string>("heading"))</p>
+            }
+
+            @if (model.HasValue("socialLinks") && model.Value<IEnumerable<USNMultiUrlPicker>>("socialLinks").Any())
+            {
+                <nav class="social">
+
+                    <ul>
+                        @foreach (USNMultiUrlPicker item in model.Value<IEnumerable<USNMultiUrlPicker>>("socialLinks"))
+                        {
+                            <li>
+                                <span>
+                                    <a href="@item.link.LinkUrl" @Html.Raw(item.link.LinkTarget) @Html.Raw(item.link.LinkTitle)>
+                                        @if (item.image.HasValue())
+                                        {
+                                            <img class="lazyload" src="@item.image.Url?height=16" data-src="@item.image.Url?height=160" alt="@item.link.LinkText" />
+                                        }
+                                        else
+                                        {
+                                            @item.link.LinkText
+                                        }
+                                    </a>
+                                </span>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            }
+        </div>
+    </div>
+}

@@ -1,0 +1,60 @@
+﻿{
+    propertyEditors: [
+    {
+        alias: "USN.TrueFalseShowHide",
+        name: "USN True/False Show Hide",
+        editor:{
+            view: "~/App_Plugins/USNTrueFalseShowHide/views/truefalseshowhide-editor.html",
+            valueType: "INT"
+        },
+		prevalues : {
+				fields: [
+					{
+					    label: "Hide tabs",
+					    description: "Enter the tabs you would like hidden if nothing is selected.",
+					    key: "hideTabs",
+						view: "textstring"
+					},
+					{
+					    label: "Hide fields",
+					    description: "Enter the field alias name you would like hidden if nothing is selected.",
+					    key: "hideFields",
+						view: "textstring"
+					},
+					{
+					    label: "False tabs",
+						description: "Enter the tabs you would like displayed/hidden if false is selected.",
+					    key: "falseTabs",
+					    view: "textstring"
+					}
+					,
+					{
+					    label: "True tabs",
+						description: "Enter the tabs you would like displayed/hidden if true is selected.",
+					    key: "trueTabs",
+					    view: "textstring"
+					},
+					{
+					    label: "False fields",
+						description: "Enter the fields you would like displayed/hidden if false is selected.",
+					    key: "falseFields",
+					    view: "textstring"
+					}
+					,
+					{
+					    label: "True fields",
+						description: "Enter the fields you would like displayed/hidden if true is selected.",
+					    key: "trueFields",
+					    view: "textstring"
+					}   
+				]
+			}
+  	}],
+  	javascript: [
+	  "~/App_Plugins/USNTrueFalseShowHide/js/switcher.js",
+      "~/App_Plugins/USNTrueFalseShowHide/js/truefalseshowhide-editor-controller.js"
+	],
+    css: [
+        "~/App_Plugins/USNTrueFalseShowHide/css/truefalseshowhide-style.css"
+    ]
+}

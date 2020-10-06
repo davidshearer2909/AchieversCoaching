@@ -1,0 +1,32 @@
+﻿{
+    propertyEditors:[
+        {
+            alias: "USN.MegaNav",
+            name: "USN Mega Nav",
+            editor: {
+				valueType: "JSON",
+                view: "~/App_Plugins/USNMegaNav/views/meganav-editor.html"
+            },
+			prevalues : {
+				fields: [
+					{
+					    label: "Class name regex",
+					    key: "styleRegex",
+						description: "Regex that matches the class name pattern.",
+					    view: "textstring"
+					}   
+				]
+			}
+        }
+    ],
+	javascript: [
+		"~/App_Plugins/USNMegaNav/js/meganav-editor-controller.js",
+		"~/App_Plugins/USNMegaNav/js/meganav-iconpicker-controller.js",
+		"~/App_Plugins/USNMegaNav/js/angular-ui-tree.js"
+	],
+	css: [
+        "~/App_Plugins/USNMegaNav/css/meganav-style.css",
+		"~/App_Plugins/USNMegaNav/css/angular-ui-tree.min.css",
+		"~/App_Plugins/USNMegaNav/css/app.css"
+    ]
+}

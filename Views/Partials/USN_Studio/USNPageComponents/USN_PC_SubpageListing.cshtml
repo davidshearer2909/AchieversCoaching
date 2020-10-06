@@ -1,0 +1,269 @@
+﻿@inherits UmbracoViewPage<Usn_Pc_SubpageListing_AN>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    string viewPath = ViewData["viewPath"].ToString();
+    string pageLayout = ViewData["pageLayout"].ToString();
+    string backgroundImageStyle = pageLayout == "pageLayoutFull" ? ThemeHelper.GetBackgroundImageStyle(Model.BackgroundImageOptions, Model.BackgroundImage) : String.Empty;
+    string backgroundColor = Model.BackgroundColor.label;
+    string backgroundColorValue = Model.BackgroundColor.value;
+    string overlayImageClass = Model.ItemTextPosition == "textPositionOverlay" ? Model.OverlayBackgroundColor.label + "-bg gradient-bg" : String.Empty;
+    string backgroundInnerColor = Model.ItemTextPosition == "textPositionOverlay" ? Model.OverlayBackgroundColor.label : backgroundColor;
+    string itemStyleClass = ThemeHelper.GetListItemTextPositionClass(Model.ItemTextPosition);
+    string itemTextAlignment = ThemeHelper.GetSimpleTextAlignmentClass(Model.ItemTextAlignment);
+    USNAnimation animation = ThemeHelper.GetAnimationSettings(Model.Animate,Model.AnimationDelay,Model.AnimationStyle);
+    string tabTextAlignment = ThemeHelper.GetJustifyTextAlignmentClass(Model.IntroTextAlignment);
+    USNImageSettings imageSettings = ThemeHelper.GetImageSettings(Model.ImageStyle, Model.BoxPad, backgroundColorValue);
+
+    int summaryTextLength = 0;
+
+    if (Model.SummaryTextCharacterCount.HasValue())
+    {
+        summaryTextLength = Model.SummaryTextCharacterCount;
+    }
+
+    <section class="content component listing-component @(backgroundColor)-bg @Model.CustomComponentClasses" id="@Html.Raw("pos_" + Model.Id)" @Html.Raw(backgroundImageStyle)>
+
+        @if (pageLayout == "pageLayoutFull")
+        {
+            if(Model.ComponentWidth == "componentWidthCenter")
+            {
+                @:<div class="container"><div class="row justify-content-center"><div class="content-col center-col col-lg-6 col-12 col">
+            }
+            else if(Model.ComponentWidth == "componentWidthFull")
+            {
+                @:<div class="container-fluid">
+            }
+            else
+            {
+                @:<div class="container">
+            }
+        }
+
+        @Html.Partial(viewPath + "/USNMiscPageElements/USN_ComponentIntro", @Model as IUsn_Cmp_IntroOutro, new ViewDataDictionary { { "animation", animation }, { "backgroundColor", Model.BackgroundColor.label } })
+
+        @{
+
+            if (Model.LinkToListing != null && Model.LinkToListing.Any())
+            {
+                string itemsPerRowValue = String.Empty;
+
+                if (Model.ItemTextPosition == "textPositionBelow" || Model.ItemTextPosition == "textPositionAbove" || Model.ItemTextPosition == "textPositionOverlay")
+                {
+                    itemsPerRowValue = Model.ItemsPerRow8;
+                }
+                else if (Model.ItemTextPosition == "textPositionLeft" || Model.ItemTextPosition == "textPositionRight")
+                {
+                    itemsPerRowValue = Model.ItemsPerRow4;
+                }
+
+                USNCarouselSettings carouselSettings = ThemeHelper.GetCarouselSettings(itemsPerRowValue, Model.EnableCarousel, Model.AutoRotateSpeed, Model.ShowDots, Model.ShowArrows);
+
+                int listPage = 0;
+
+                //Get all main pages to display
+                List<IPublishedContent> mainPages = new List<IPublishedContent>();
+                List<string> tabHeadings = new List<string>();
+                List<string> tabIcons = new List<string>();
+
+                if (Model.LinkToListing != null && Model.LinkToListing.Any())
+                {
+                    foreach (var pageLink in Model.LinkToListing)
+                    {
+                        if (pageLink.link.LinkType == USNLink.UrlPickerTypes.Content)
+                        {
+                            Udi udi;
+                            bool udiCorrect = Udi.TryParse(pageLink.link.LinkUdi, out udi);
+                            var page = Umbraco.Content(udi);
+
+                            if (page != null && (page.IsDocumentType(Usnpage.ModelTypeAlias) || page.IsDocumentType(UsnblogLandingPage.ModelTypeAlias) || page.IsDocumentType(UsnblogCategoryPage.ModelTypeAlias)))
+                            {
+                                mainPages.Add(page);
+                                tabHeadings.Add(pageLink.link.LinkText);
+                                tabIcons.Add(pageLink.icon);
+                            }
+                        }
+                    }
+                }
+
+                if (mainPages.Any() && mainPages.Count() > 1)
+                {
+                    <div class="repeatable tabbed @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+
+                        <nav class="tabs">
+                            <ul class="nav @tabTextAlignment" role="tablist">
+                                @foreach (var item in mainPages)
+                                {
+                                    <li class="tab">
+                                        <a class="nav-item nav-link @(listPage == 0 ? "active" : "")" id="nav-tab-@Model.Id-@listPage" data-toggle="tab" href="#nav-@Model.Id-@listPage" role="tab" aria-controls="nav-@Model.Id-@listPage" aria-selected="true">
+                                            @Html.Raw(tabIcons[listPage])@tabHeadings[listPage]
+                                        </a>
+                                    </li>
+                                    listPage += 1;
+                                }
+                            </ul>
+                        </nav>
+
+                    </div>
+                }
+
+                listPage = 0;
+
+                if (mainPages.Any())
+                {
+
+                    <div class="repeatable-content tab-content">
+
+                        @foreach (var landingPage in mainPages)
+                        {
+                            <div id="nav-@Model.Id-@listPage" role="tabpanel" class="tab-pane @(listPage == 0 ? "show active" : String.Empty)">
+
+                                <div class="component-main row @carouselSettings.CarouselRowClass listing listing_basic-grid" @Html.Raw(carouselSettings.SlickAttributes)>
+                                    @if (landingPage.IsDocumentType(Usnpage.ModelTypeAlias))
+                                    {
+                                        var pages = landingPage.Children.Where(x => x.IsDocumentType(Usnpage.ModelTypeAlias));
+
+                                        if (Model.PagesToDisplay.HasValue() && Model.PagesToDisplay != 0)
+                                        {
+                                            pages = pages.Take(Model.PagesToDisplay).ToList();
+                                        }
+
+                                        foreach (var page in pages)
+                                        {
+                                            string introText = ThemeHelper.GetIntroText(page,summaryTextLength);
+                                            string pageName = page.HasValue("subpageListingLinkText") ? page.Value<string>("subpageListingLinkText") : page.Name;
+
+                                            <div class="item @carouselSettings.ItemsClass @itemStyleClass @itemTextAlignment @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+                                                <div class="inner @overlayImageClass @imageSettings.CircleClass">
+                                                    <a href="@page.Url">
+                                                        @if (page.HasValue("pageListingImage") && page.Value<IPublishedContent>("pageListingImage") != null && Model.ItemTextPosition != "textPositionAbove")
+                                                        {
+                                                            <div class="image @overlayImageClass @imageSettings.CircleClass">
+                                                                @Html.Partial(viewPath + "/USNMiscPageElements/USN_Image", page.Value<Image>("pageListingImage"), new ViewDataDictionary { { "imageSettings", imageSettings }, { "altText", page.Value<string>("pageListingImageAltText") } })
+                                                            </div>
+                                                        }
+                                                        <div class="info info_align-bottom">
+                                                            <p class="heading @(backgroundInnerColor)-heading">@pageName</p>
+
+                                                            @if (introText != String.Empty)
+                                                            {
+                                                                <div class="text @(backgroundInnerColor)-text">@Html.Raw(introText)</div>
+                                                            }
+
+                                                        </div>
+                                                        @if (page.HasValue("pageListingImage") && page.Value<IPublishedContent>("pageListingImage") != null && Model.ItemTextPosition == "textPositionAbove")
+                                                        {
+                                                            <div class="image @overlayImageClass @imageSettings.CircleClass">
+                                                                @Html.Partial(viewPath + "/USNMiscPageElements/USN_Image", page.Value<Image>("pageListingImage"), new ViewDataDictionary { { "imageSettings", imageSettings }, { "altText", page.Value<string>("pageListingImageAltText") } })
+                                                            </div>
+                                                        }
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                    else if (landingPage.IsDocumentType(UsnblogLandingPage.ModelTypeAlias) || landingPage.IsDocumentType(UsnblogCategoryPage.ModelTypeAlias))
+                                    {
+                                        string category = null;
+                                        IPublishedContent blogLandingPage;
+
+                                        if (landingPage.IsDocumentType(UsnblogCategoryPage.ModelTypeAlias))
+                                        {
+                                            category = landingPage.Id.ToString();
+                                            blogLandingPage = landingPage.AncestorOrSelf(UsnblogLandingPage.ModelTypeAlias);
+                                        }
+                                        else
+                                        {
+                                            blogLandingPage = landingPage;
+                                        }
+
+                                        int pagesToDisplay = (Model.PagesToDisplay.HasValue() && Model.PagesToDisplay != 0) ? Model.PagesToDisplay : -1;
+
+                                        USNSearchResults searchResult = UmbracoContext.GetBlogListing(blogLandingPage.Id, null, null, category, 1, pagesToDisplay);
+
+                                        if (searchResult != null && searchResult.SearchResults.Any())
+                                        {
+                                            foreach (var page in searchResult.SearchResults)
+                                            {
+                                                string introText = ThemeHelper.GetIntroText(page, summaryTextLength);
+                                                string pageName = page.HasValue("subpageListingLinkText") ? page.Value<string>("subpageListingLinkText") : page.Name;
+
+                                            <div class="item item-blog @carouselSettings.ItemsClass @itemStyleClass @itemTextAlignment @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+                                                <div class="inner @overlayImageClass @imageSettings.CircleClass">
+                                                    <a href="@page.Url">
+                                                        @if (page.HasValue("pageListingImage") && page.Value<IPublishedContent>("pageListingImage") != null && Model.ItemTextPosition != "textPositionAbove")
+                                                        {
+                                                            <div class="image @overlayImageClass @imageSettings.CircleClass">
+                                                                 @Html.Partial(viewPath + "/USNMiscPageElements/USN_Image", page.Value<Image>("pageListingImage"), new ViewDataDictionary { { "imageSettings", imageSettings }, { "altText", page.Value<string>("pageListingImageAltText") } })
+                                                            </div>
+                                                        }
+                                                        <div class="info info_align-bottom">
+                                                            <p class="heading @(backgroundInnerColor)-heading">@pageName</p>
+
+                                                            @if (introText != String.Empty)
+                                                            {
+                                                                <div class="text @(backgroundInnerColor)-text">@Html.Raw(introText)</div>
+                                                            }
+
+                                                            @if (Model.ItemTextPosition == "textPositionOverlay")
+                                                            {
+                                                                <!-- Meta -->
+                                                                <div class="meta @(backgroundInnerColor)-text">
+                                                                    <p class="date"><time>@(page.Value<DateTime>("postDate").ToString("dd MMM yyyy"))</time></p>
+                                                                </div>
+                                                                <!--// Meta -->
+                                                            }
+
+                                                        </div>
+                                                        @if (page.HasValue("pageListingImage") && page.Value<IPublishedContent>("pageListingImage") != null && Model.ItemTextPosition == "textPositionAbove")
+                                                        {
+                                                            <div class="image @overlayImageClass @imageSettings.CircleClass">
+                                                                @Html.Partial(viewPath + "/USNMiscPageElements/USN_Image", page.Value<Image>("pageListingImage"), new ViewDataDictionary { { "imageSettings", imageSettings }, { "altText", page.Value<string>("pageListingImageAltText") } })
+                                                            </div>
+                                                        }
+                                                    </a>
+                                                    @if (Model.ItemTextPosition != "textPositionOverlay")
+                                                    {
+                                                        <!-- Meta -->
+                                                        <div class="meta @(backgroundInnerColor)-text">
+                                                            <p class="date"><time>@(page.Value<DateTime>("postDate").ToString("dd MMM yyyy"))</time></p>
+                                                            @Html.Partial(viewPath + "/USNBlog/USN_BlogPostCategories", page)
+                                                        </div>
+                                                        <!--// Meta -->
+                                                    }
+                                                </div>
+                                            </div>
+                                            }
+                                        }
+                                    }
+                                </div>
+
+                            </div>
+
+                            listPage += 1;
+
+                        }
+
+                    </div>
+                }
+            }
+        }
+
+        @Html.Partial(viewPath + "/USNMiscPageElements/USN_ComponentOutro", @Model as IUsn_Cmp_IntroOutro, new ViewDataDictionary { { "animation", animation }, { "backgroundColor", Model.BackgroundColor.label } })
+
+        @if (pageLayout == "pageLayoutFull")
+        {
+            if (Model.ComponentWidth == "componentWidthCenter")
+            {
+            @:</div></div></div>
+            }
+            else
+            {
+                @:</div>
+            }
+        }
+
+    </section>
+}

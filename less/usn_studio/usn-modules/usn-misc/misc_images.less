@@ -1,0 +1,122 @@
+/* 	
+-------------------------------------------------- 
+Images
+-------------------------------------------------- 
+*/
+
+.image {
+    position: relative;
+    overflow: hidden;
+}
+
+img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    transform: scale(1);
+    transform-origin: center;
+}
+
+.image img,
+.image.background-image,
+.image.icon-image {
+    transform: scale(1);
+    transform-origin: center;
+}
+
+.image img,
+.image.icon-image {
+    transition: all 0.4s ease-in-out 0s;
+}
+
+.image.background-image {
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: cover;
+
+    transition: transform 0.4s ease-in-out 0s;
+}
+
+.image.lazyload img,
+.image.background-image.lazyload {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.image img.lazyloaded,
+.image.background-image.lazyloaded {
+}
+
+
+/* IMAGE TRANSITIONS */
+
+.image,
+.image.video {
+    overflow: hidden;
+    padding: 0;
+}
+
+.image a:hover img,
+a:hover .image img,
+.item a:hover .image.background-image {
+    transform: scale(1.05);
+}
+
+/*
+.item.item_overlay a:hover { 
+    transform: scale(0.975);
+    box-shadow: 0 0 5px fade(@true-black, 20%);
+}
+*/
+
+.ekko-lightbox img {
+    width: auto;
+    height: auto!important;
+    margin: 0 auto;
+}
+
+.image .caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 101;
+    padding: 5px 10px 7px;
+    font-size: 85%;
+    font-style: italic;
+    opacity: 0.8;
+    color: @true-white;
+    background-color: fade(@true-black, 60%);
+}
+
+.image.rounded-circle .caption {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+i.fa,
+i.before {
+    margin-right: 5px;
+}
+
+i.fa.after,
+i.after {
+    margin-right: 0;
+    margin-left: 5px;
+}
+
+i.fa.before.after,
+i.before.after {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+@media (min-width:0) and (max-width:575px) {}
+
+@media (min-width:576px) {}
+
+@media (min-width:768px) {}
+
+@media (min-width:992px) {}
+
+@media (min-width:1200px) {}

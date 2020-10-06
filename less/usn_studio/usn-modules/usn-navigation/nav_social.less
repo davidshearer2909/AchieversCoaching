@@ -1,0 +1,61 @@
+/*	
+--------------------------------------------------
+Social navigation
+-------------------------------------------------- 
+*/
+
+nav.social {
+    margin-bottom: @base-spacing;
+}
+
+nav.social ul {
+    line-height: 0;
+}
+
+nav.social ul li {
+    display: inline-block;
+    position: relative;
+    margin: 5px 2px 0 0!important;
+}
+
+nav.social ul li a {
+    position: relative;
+    display: block;
+    float: left;
+    width: 40px;
+    height: 40px;
+    transition: opacity 0.3s ease-in-out 0s;
+}
+
+.author-bio nav.social ul li a { 
+    width:40px; height:40px;
+}
+
+nav.social ul li a img {
+    display:block;
+    width: 40px;
+    height: 40px;
+}
+
+.author-bio nav.social ul li a img { 
+    width:40px; height:40px;
+}
+
+html.no-touch nav.social ul li a:hover {
+    opacity: 0.7;
+}
+
+@media (min-width:@large-breakpoint) { 
+
+    nav.social ul li a {
+        width: 50px;
+        height: 50px;
+    }
+
+    nav.social ul li a img {
+        display:block;
+        width: 50px;
+        height: 50px;
+    }
+
+}

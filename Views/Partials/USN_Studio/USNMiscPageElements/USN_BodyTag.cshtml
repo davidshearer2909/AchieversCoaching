@@ -1,0 +1,60 @@
+﻿@inherits UmbracoViewPage<USNWebsite.USNModels.USNBaseViewModel>
+
+@using USNStarterKit.USNHelpers;
+
+@{
+    Usnstyle websiteStyle = (Usnstyle)Model.WebsiteStyle;
+    string pageLayout = Model.Content.Value<string>("pageLayout");
+    string headerClass = Model.Content.Value<bool>("hideWebsiteHeaderSection") ? headerClass = "no-header" : String.Empty;
+    headerClass = Model.Content.Value<bool>("hideWebsiteFooterSection") ? headerClass + " no-footer" : headerClass;
+    string customBodyClass = Model.Content.HasValue("customBodyClasses") ? Model.Content.Value<string>("customBodyClasses") : String.Empty;
+    string fixedWidthClass = websiteStyle.FixedWidth ? "max-width" : String.Empty;
+    string pageClass = pageLayout == "pageLayoutFull" ? "full-page" : String.Empty;
+    UsnglobalSettings globalSettings = (UsnglobalSettings)Model.GlobalSettings;
+
+    string bannerClass = String.Empty;
+
+    IEnumerable<IPublishedContent> components = null;
+
+    if (Model.Content.Value<bool>("overrideDefaultTopComponents"))
+    {
+        if (Model.Content.HasValue("topComponents"))
+        {
+            components = Model.Content.Value<IEnumerable<IPublishedContent>>("topComponents");
+        }
+    }
+    else
+    {
+        if (globalSettings.DefaultTopComponents.HasValue())
+        {
+            components = globalSettings.DefaultTopComponents;
+        }
+    }
+
+    if (components != null && components.Any())
+    {
+        bannerClass = components.FirstOrDefault().IsDocumentType(Usn_Pc_Banner_AN.ModelTypeAlias) ? "banner-top" : "";
+    }
+
+    //If no top components look at header image section
+    else if (components == null || !components.Any())
+    {
+        if (Model.Content.Value<bool>("displayBannerSection"))
+        {
+            bannerClass = "banner-top";
+        }
+
+    }
+
+    if(bannerClass == String.Empty)
+    {
+        UsnpageComponentsFolder pageComponentsNode = Model.Content.Children<UsnpageComponentsFolder>().FirstOrDefault();
+
+        if (pageComponentsNode != null && pageComponentsNode.Children.FirstOrDefault() != null && pageComponentsNode.Children.First().IsDocumentType(Usn_Pc_Banner_AN.ModelTypeAlias))
+        {
+            bannerClass = "banner-top";
+        }
+    }
+}
+
+@Html.Raw(" class=\"" + bannerClass + " " + headerClass + " " + pageClass + " " + fixedWidthClass + " " + customBodyClass + "\"")

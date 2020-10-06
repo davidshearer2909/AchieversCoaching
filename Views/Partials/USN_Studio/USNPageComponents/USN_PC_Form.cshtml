@@ -1,0 +1,108 @@
+﻿@inherits UmbracoViewPage<Usn_Pc_Form_AN>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    string viewPath = ViewData["viewPath"].ToString();
+    string pageLayout = ViewData["pageLayout"].ToString();
+    string backgroundImageStyle = ThemeHelper.GetBackgroundImageStyle(Model.BackgroundImageOptions, Model.BackgroundImage);
+    string backGroundColor = Model.BackgroundColor.label + "-bg";
+    USNAnimation animation = ThemeHelper.GetAnimationSettings(Model.Animate,Model.AnimationDelay,Model.AnimationStyle);
+    string formColor = Model.FormContainerBackgroundColor.label;
+    string formButtonColor = Model.FormButtonColor.label;
+    int globalSettingsId = Convert.ToInt32(ViewData["globalSettingsID"]);
+    string pageName = Model.Parent.Parent.Name;
+    string newsletterClass = (Model.FormType == "signupForm" && Model.HideFields) ? "item_form-single_field" : String.Empty;
+
+    <section class="content component form-component @backGroundColor @Model.CustomComponentClasses" id="@Html.Raw("pos_" + Model.Id)" @Html.Raw(backgroundImageStyle)>
+
+        @if (pageLayout == "pageLayoutFull")
+        {
+            if(Model.ComponentWidth == "componentWidthCenter")
+            {
+                @:<div class="container"><div class="row justify-content-center"><div class="content-col center-col col-lg-6 col-12 col">
+            }
+            else if(Model.ComponentWidth == "componentWidthFull")
+            {
+                @:<div class="container-fluid">
+            }
+            else
+            {
+                @:<div class="container">
+            }
+
+        }
+
+        @Html.Partial(viewPath + "/USNMiscPageElements/USN_ComponentIntro", @Model as IUsn_Cmp_IntroOutro, new ViewDataDictionary { { "animation", animation }, { "backgroundColor", Model.BackgroundColor.label } })
+
+        <div class="@newsletterClass @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+            @switch (Model.FormType)
+            {
+                case "contactForm":
+                    @Html.Action("Index", "USNContactFormSurface", new
+                    {
+                        GlobalSettingsID = globalSettingsId,
+                        ViewPath = viewPath,
+                        DataSize = "normal",
+                        FormColor = Model.FormContainerBackgroundColor.label,
+                        FormButtonColor = Model.FormButtonColor.label,
+                        FormHeading = Model.FormHeading,
+                        FormSecondaryHeading = Model.FormSecondaryHeading,
+                        FormIntroduction = Model.FormIntroduction,
+                        FormButtonText = Model.FormButtonText,
+                        FormSubmissionMessage = Model.FormSubmissionMessage,
+                        FormSubscriberListID = Model.FormSubscriberListID,
+                        ContactRecipientEmailAddress = StringCipher.Encrypt(Model.ContactRecipientEmailAddress),
+                        PageName = pageName
+                    })
+                    break;
+                case "signupForm":
+                    @Html.Action("Index", "USNNewsletterSignupSurface", new
+                    {
+                        NodeID = Model.Id,
+                        GlobalSettingsID = globalSettingsId,
+                        ViewPath = viewPath,
+                        DataSize = "normal",
+                        FormColor = Model.FormContainerBackgroundColor.label,
+                        FormButtonColor = Model.FormButtonColor.label,
+                        FormHeading = Model.FormHeading,
+                        FormSecondaryHeading = Model.FormSecondaryHeading,
+                        FormIntroduction = Model.FormIntroduction,
+                        FormButtonText = Model.FormButtonText,
+                        FormSubmissionMessage = Model.FormSubmissionMessage,
+                        FormSubscriberListID = Model.FormSubscriberListID,
+                        FormHideFields = Model.HideFields
+                    })
+                    break;
+                case "umbracoForm":
+                    <div class="umbraco-forms form">
+                        <div class="inner @(formColor)-bg @(formColor)-text btn-bg_@(formButtonColor)-btn-bg btn-text_@(formButtonColor)-btn-text btn-borders_@(formButtonColor)-btn-borders">
+                            @if (Model.UmbracoForm.HasValue())
+                            {
+                                var formGuid = Model.UmbracoForm;
+
+                                @Umbraco.RenderMacro("renderUmbracoForm", new { FormGuid = formGuid, FormTheme = "uSkinned", CurrentNodeID = Model.Id, ExcludeScripts = "0" })
+                            }
+                        </div>
+                    </div>
+                    break;
+            }
+        </div>
+
+        @Html.Partial(viewPath + "/USNMiscPageElements/USN_ComponentOutro", @Model as IUsn_Cmp_IntroOutro, new ViewDataDictionary { { "animation", animation }, { "backgroundColor", Model.BackgroundColor.label } })
+
+        @if (pageLayout == "pageLayoutFull")
+        {
+            if (Model.ComponentWidth == "componentWidthCenter")
+            {
+            @:</div></div></div>
+            }
+            else
+            {
+                @:</div>
+            }
+        }
+
+    </section>
+}

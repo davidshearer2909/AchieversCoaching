@@ -1,0 +1,115 @@
+﻿<div ng-controller="USN.ShowHideTabs.prevaluesController">
+
+    <table class="table table-striped table-responsive table-hover prevaluesTable">
+        <thead>
+            <tr>
+                <th>Icon</th>
+                <th>Text</th>
+                <th>Key</th>
+                <th>Tabs</th>
+                <th>Fields</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody ui-sortable="sortableOptions" ng-model="model.value.items">
+            <tr ng-repeat="item in model.value.items">
+                <td>
+                    <select ng-model="item.icon">
+                        <option value="itemsRow_1">1 item</option>
+                        <option value="itemsRow_2">2 items</option>
+                        <option value="itemsRow_3">3 items</option>
+                        <option value="itemsRow_4">4 items</option>
+                        <option value="itemsRow_5">5 items</option>
+                        <option value="itemsRow_6">6 items</option>
+                        <option value="itemsRow_7">7 items</option>
+                        <option value="itemsRow_8">8 items</option>
+                        <option value="textAlignmentLeft">Text alignment left</option>
+                        <option value="textAlignmentCenter">Text alignment center</option>
+                        <option value="textAlignmentRight">Text alignment right</option>
+                        <option value="bannerSizeTakeover">Banner size takeover</option>
+                        <option value="bannerSizeMedium">Banner size medium</option>
+                        <option value="bannerSizeShort">Banner size short</option>
+                        <option value="bannerSizeScale">Banner size scale</option>
+                        <option value="pageLayoutLeft">Page layout left</option>
+                        <option value="pageLayoutRight">Page layout right</option>
+                        <option value="pageLayoutCenter">Page layout center</option>
+                        <option value="pageLayoutCenterAlt">Page layout center alt</option>
+                        <option value="pageLayoutWide">Page layout wide</option>
+                        <option value="pageLayoutFull">Page layout full</option>
+                        <option value="listingStyleVerticle">Listing style verticle</option>
+                        <option value="listingStyleGrid">Listing style grid</option>
+                        <option value="textPositionLeft">Text position left</option>
+                        <option value="textPositionRight">Text position right</option>
+                        <option value="textPositionBelow">Text position below</option>
+                        <option value="textPositionAbove">Text position above</option>
+                        <option value="textPositionOverlay">Text position overlay</option>
+                        <option value="componentWidthCenter">Component width center</option>
+                        <option value="componentWidthWide">Component width wide</option>
+                        <option value="componentWidthFull">Component width full</option>
+                        <option value="layoutTabbed">Tab</option>
+                        <option value="layoutAccordion">Accordion</option>
+                        <option value="windowsOrderBigFirst_4">Windows order big first 4</option>
+                        <option value="windowsOrderSmallFirst_4">Windows order small first 4</option>
+                        <option value="windowsOrderBigFirst_3">Windows order big first 3</option>
+                        <option value="windowsOrderSmallFirst_3">Windows order small first 3</option>
+                        <option value="windowsOrder_4">Windows order 4 per row</option>
+                        <option value="windowsOrder_3">Windows order 3 per row</option>
+                        <option value="windowsOrder_2">Windows order 2 per row</option>
+                        <option value="windowsOrder_1">Windows order 1 per row</option>
+                        <option value="newsletterCM">Newsletter Campaign Monitor</option>
+                        <option value="newsletterMC">Newsletter Mailchimp</option>
+                        <option value="smallItem">Just text</option>
+                        <option value="imageStyleLandscape">Image style landscape</option>
+                        <option value="imageStylePortrait">Image style portrait</option>
+                        <option value="imageStyleSquare">Image style square</option>
+                        <option value="imageStyleCircle">Image style circle</option>
+                        <option value="imageStyleWide">Image style wide</option>
+                        <option value="imageEdgeStraight">Image edge straight</option>
+                        <option value="imageEdgeCircular">Image edge circle</option>
+                        <option value="imageEdgeRounded">Image edge rounded</option>
+                        <option value="umbracoForm">Umbraco Form</option>
+                        <option value="contactForm">Contact Form</option>
+                        <option value="signupForm">Signup Form</option>
+                        <option value="media">Media</option>
+                        <option value="form">Form</option>
+                        <option value="listing">Listing</option>
+                        <option value="code">Code</option>
+                        <option value="richText">Rich text</option>
+                        <option value="pods">Pods</option>
+                        <option value="vimeo">Vimeo</option>
+                        <option value="youtube">YouTube</option>
+                        <option value="mp4">MP4</option>
+                        <option value="textBlock">Text Block</option>
+                        <option value="slideshow">Slideshow</option>
+                        <option value="relatedContent">Related Content</option>
+                        <option value="desktopOne">Desktop One</option>
+                        <option value="desktopTwo">Desktop Two</option>
+                        <option value="mobileOne">Mobile One</option>
+                        <option value="mobileTwo">Mobile Two</option>
+                        <option value="username">Username</option>
+                        <option value="hashtag">Hashtag</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" ng-model="item.text" />
+                </td>
+                <td>
+                    <input type="text" ng-model="item.key" />
+                </td>
+                <td>
+                    <input type="text" ng-model="item.tabs" />
+                </td>
+                <td>
+                    <input type="text" ng-model="item.fields" />
+                </td>
+                <td class="actions">
+                    <span class="btn btn-default icon icon-height sortHandle" style="font-size: 18px;" title="sort"></span>
+                    <span ng-click="removeItem($index)" class="btn btn-danger icon icon-trash" title="remove"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button type="button" class="btn btn-default add-item" ng-click="addItem()">Add value</button>
+
+</div>

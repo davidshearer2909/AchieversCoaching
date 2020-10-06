@@ -1,0 +1,141 @@
+<div ng-controller="USN.MultiUrlPicker" class="usn-multiurlpicker">
+    <p ng-if="(renderModel|filter:{trashed:true}).length == 1"><localize key="contentPicker_pickedTrashedItem"></localize></p>
+    <p ng-if="(renderModel|filter:{trashed:true}).length > 1"><localize key="contentPicker_pickedTrashedItems"></localize></p>
+
+    <ng-form name="multiUrlPickerForm">
+        <div ui-sortable="sortableOptions" ng-model="renderModel">
+
+            <div class="usn-links" ng-repeat="item in renderModel">
+                <i class="list-view-falink__sort-handle icon-navigation"></i>
+
+                <div class="usn-icon usn-media" ng-show="model.config.displayMedia == 1">
+                    <a prevent-default ng-click="openMediaPicker(item)" ng-show="isEmpty(item.media)">Add Image</a>
+                    <div class="usn-remove-media" ng-show="!isEmpty(item.media)">
+
+                        <img height="40" width="40" ng-if="item.media.thumbnail && item.media.extension !== 'svg'"
+                             ng-class="{'trashed': item.media.trashed}" ng-src="{{item.media.thumbnail}}"
+                             ng-attr-title="{{item.media.trashed ? 'Trashed' + ': ' + item.media.name : item.media.name}}"
+                             alt="{{item.media.name}}" />
+
+                        <!-- SVG -->
+                        <img height="40" width="40" ng-if="item.media.thumbnail && item.media.extension === 'svg'"
+                             ng-class="{'trashed': item.media.trashed}" ng-src="{{item.media.thumbnail}}"
+                             ng-attr-title="{{item.media.trashed ? 'Trashed' + ': ' + item.media.name : item.media.name}}"
+                             alt="{{item.media.name}}" />
+
+                        <a class="umb-node-preview__action umb-node-preview__action--red" title="Remove" ng-click="removeMedia(item)" prevent-default>
+                            Remove
+                        </a>
+                    </div>
+                </div>
+
+                <div class="usn-color" ng-show="model.config.displayButtonColor == 1">
+                    <a prevent-default ng-click="openColorPicker(item)" ng-show="isEmpty(item.color)">Add Color</a>
+                    <div class="usn-remove-color" ng-show="!isEmpty(item.color)">
+                        <span class="usn-color-swatch" style="background-color:{{'#' + item.color.value}}">Color</span>
+                        <a class="umb-node-preview__action umb-node-preview__action--red" title="Remove" ng-click="removeColor(item)" prevent-default>
+                            Remove
+                        </a>
+                    </div>
+                </div>
+
+                <div class="usn-icon" ng-show="model.config.displayIcon == 1">
+                    <a prevent-default ng-click="openIconPicker(item)" ng-show="!item.icon">Add Icon</a>
+
+                    <div class="usn-remove-icon" ng-show="item.icon">
+                        <span ng-bind-html="render(item.icon)"></span>
+                        <a class="umb-node-preview__action umb-node-preview__action--red" title="Remove" ng-click="removeIcon(item)" prevent-default>
+                            Remove
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="usn-link">
+                    <umb-node-preview ng-repeat="link in item.link"
+                                      icon="link.icon"
+                                      name="link.name"
+                                      published="link.published"
+                                      description="link.url + (link.queryString ? link.queryString : '')"
+                                      sortable="!sortableOptions.disabled"
+                                      allow-remove="true"
+                                      allow-edit="true"
+                                      on-remove="removeLink(item)"
+                                      on-edit="openLinkPicker(item,link)">
+                    </umb-node-preview>
+                    <a ng-show="item.link.length == 0"
+                       class="umb-node-preview-add"
+                       ng-click="openLinkPicker(item)"
+                       prevent-default>
+                        Add Link
+                    </a>
+                </div>
+
+                <div class="usn-delete">
+                    <a prevent-default ng-click="deleteItem($index)"><i class="icon-trash"></i></a>
+                </div>
+
+            </div>
+        </div>
+
+        <a ng-show="!model.config.maxNumber || renderModel.length < model.config.maxNumber"
+           class="umb-node-preview-add"
+           href
+           ng-click="addLink()"
+           prevent-default>
+            <localize key="general_add">Add</localize>
+        </a>
+
+        <div class="umb-contentpicker__min-max-help">
+
+
+            <!-- Both min and max items -->
+            <span ng-if="model.config.minNumber && model.config.maxNumber && model.config.minNumber !== model.config.maxNumber">
+                <span ng-if="renderModel.length < model.config.maxNumber">Add between {{model.config.minNumber}} and {{model.config.maxNumber}} items</span>
+                <span ng-if="renderModel.length > model.config.maxNumber">
+                    <localize key="validation_maxCount">You can only have</localize> {{model.config.maxNumber}} <localize key="validation_itemsSelected"> items selected</localize>
+                </span>
+            </span>
+
+            <!-- Equal min and max -->
+            <span ng-if="model.config.minNumber && model.config.maxNumber && model.config.minNumber === model.config.maxNumber">
+                <span ng-if="renderModel.length < model.config.maxNumber">Add {{model.config.minNumber - renderModel.length}} item(s)</span>
+                <span ng-if="renderModel.length > model.config.maxNumber">
+                    <localize key="validation_maxCount">You can only have</localize> {{model.config.maxNumber}} <localize key="validation_itemsSelected"> items selected</localize>
+                </span>
+            </span>
+
+            <!-- Only max -->
+            <span ng-if="!model.config.minNumber && model.config.maxNumber">
+                <span ng-if="renderModel.length < model.config.maxNumber">Add up to {{model.config.maxNumber}} items</span>
+                <span ng-if="renderModel.length > model.config.maxNumber">
+                    <localize key="validation_maxCount">You can only have</localize> {{model.config.maxNumber}} <localize key="validation_itemsSelected">items selected</localize>
+                </span>
+            </span>
+
+            <!-- Only min -->
+            <span ng-if="model.config.minNumber && !model.config.maxNumber && renderModel.length < model.config.minNumber">
+                Add at least {{model.config.minNumber}} item(s)
+            </span>
+
+        </div>
+
+        <!--These are here because we need ng-form fields to validate against-->
+        <input type="hidden" name="minCount" ng-model="renderModel" />
+        <input type="hidden" name="maxCount" ng-model="renderModel" />
+
+        <div ng-messages="contentPickerForm.minCount.$error" show-validation-on-submit>
+            <div class="help-inline" ng-message="minCount">
+                <localize key="validation_minCount">You need to add at least</localize> {{model.config.minNumber}} <localize key="validation_items">items</localize>
+            </div>
+        </div>
+        <div ng-messages="contentPickerForm.maxCount.$error" show-validation-on-submit>
+            <div class="help-inline" ng-message="maxCount">
+                <localize key="validation_maxCount">You can only have</localize> {{model.config.maxNumber}} <localize key="validation_itemsSelected">items selected</localize>
+            </div>
+        </div>
+    </ng-form>
+
+    <umb-overlay ng-if="iconOverlay.show" model="iconOverlay" view="iconOverlay.view" position="right"> </umb-overlay>
+    <umb-overlay ng-if="colorOverlay.show" model="colorOverlay" view="colorOverlay.view" position="right"> </umb-overlay>
+</div>

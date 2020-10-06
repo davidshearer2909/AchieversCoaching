@@ -1,0 +1,152 @@
+﻿@inherits UmbracoViewPage<USNStarterKit.USNModels.USNPodModel>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    string itemClass = ViewData["itemClass"].ToString();
+    string componentID = ViewData["componentId"].ToString();
+    var model = Model.publishedContent == null ? Model.publishedElement : Model.publishedContent;
+    USNAnimation animation = ViewData["animation"] == null ? new USNAnimation() : (USNAnimation)ViewData["animation"];
+    string backgroundColorValue = ViewData["backgroundColorValue"].ToString();
+
+    USNImageSettings imageSettings = ThemeHelper.GetImageSettings(model.Value<string>("imageStyle"));
+
+    string lightWindow = String.Empty;
+    string title = String.Empty;
+    string footer = String.Empty;
+    string smallImage = String.Empty;
+    string displayImage = String.Empty;
+
+    if (!model.Value<bool>("disableLightWindow"))
+    {
+        lightWindow = " data-toggle=\"lightbox\" data-type=\"image\" data-gallery=\"galleryname-" + componentID + "\"";
+
+        if (model.HasValue("lightWindowTitle"))
+        {
+            title = "data-title=\"" + model.Value<string>("lightWindowTitle") + "\"";
+        }
+
+        if (model.HasValue("lightWindowFooter"))
+        {
+            footer = "data-footer=\"" + model.Value<string>("lightWindowFooter") + "\"";
+        }
+    }
+    else
+    {
+        imageSettings.CircleClass = String.Empty;
+    }
+
+    if (model.HasValue("videoSource") && (model.Value<string>("videoSource") == "youtube" || model.Value<string>("videoSource") == "vimeo") && model.HasValue("video3rdParty"))
+    {
+        USNVideo video = VideoHelper.GetVideo(model.Value<string>("video3rdParty"));
+
+        if (model.Value<bool>("boxPad"))
+        {
+            smallImage = model.HasValue("galleryImageThumbnail") ? model.Value<IPublishedContent>("galleryImageThumbnail").Url + "?width=" + imageSettings.WidthSmall + "&height=" + imageSettings.HeightSmall + "&mode=boxpad&bgcolor=" + backgroundColorValue : video.VideoImage + "?width=" + imageSettings.WidthSmall + "&height=" + imageSettings.HeightSmall + "&mode=boxpad&bgcolor=" + backgroundColorValue;
+            displayImage = model.HasValue("galleryImageThumbnail") ? model.Value<IPublishedContent>("galleryImageThumbnail").Url + "?width=" + (imageSettings.Width) + "&height=" + (imageSettings.Height) + "&mode=boxpad&bgcolor=" + backgroundColorValue : video.VideoImage  + "?width=" + (imageSettings.Width) + "&height=" + (imageSettings.Height) + "&mode=boxpad&bgcolor=" + backgroundColorValue;
+        }
+        else
+        {
+            smallImage = model.HasValue("galleryImageThumbnail") ? model.Value<IPublishedContent>("galleryImageThumbnail").GetCropUrl(cropAlias: imageSettings.CropAlias, width: imageSettings.WidthSmall, height: imageSettings.HeightSmall) : video.VideoImage;
+            displayImage = model.HasValue("galleryImageThumbnail") ? model.Value<IPublishedContent>("galleryImageThumbnail").GetCropUrl(cropAlias: imageSettings.CropAlias) : video.VideoImage;
+        }
+
+        <div class="item @itemClass @imageSettings.CircleClass item_video @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+            <div class="inner">
+            @if (model.Value<bool>("disableLightWindow") && video.VideoID != String.Empty)
+            {
+                string videoSrc = String.Empty;
+                string videoVendor = String.Empty;
+
+                if (model.Value<string>("videoSource") == "youtube")
+                {
+                    videoSrc = "https://www.youtube.com/watch?v=" + video.VideoID;
+                    videoVendor = "youtube";
+                }
+                else
+                {
+                    videoSrc = "https://vimeo.com/" + video.VideoID;
+                    videoVendor = "vimeo";
+                }
+
+                <div class="image lazyframe lazyframe-video" data-vendor="@videoVendor" data-src="@videoSrc" data-ratio="16:9">
+                    <img class="lazyload" src="@smallImage" data-src="@displayImage" alt="@(model.Value<string>("thumbnailImageAltText"))">
+                    @if (model.HasValue("videoCaption"))
+                    {
+                        <div class="caption">@(model.Value<string>("videoCaption"))</div>
+                    }
+                </div>
+            }
+            else
+            {
+                <a href="@video.VideoURLModified" @Html.Raw(title) @Html.Raw(footer) data-toggle="lightbox" @Html.Raw(video.VideoDataRemote) data-gallery="galleryname-@componentID" data-width="1350">
+
+                    <div class="image @imageSettings.CircleClass video">
+                        <img class="@imageSettings.CircleClass lazyload" src="@smallImage" data-src="@displayImage" alt="@(model.Value<string>("thumbnailImageAltText"))">
+                        <div class="overlayicon">
+                            <i class="icon usn_ion-md-play"></i>
+                        </div>
+                        @if (model.HasValue("videoCaption"))
+                        {
+                            <div class="caption">@(model.Value<string>("videoCaption"))</div>
+                        }
+                    </div>
+                </a>
+            }
+           
+            </div>
+        </div>
+
+    }
+
+    else if (model.HasValue("videoSource") && model.Value<string>("videoSource") == "mp4" && model.HasValue("videoMp4"))
+    {
+        if (model.Value<bool>("boxPad"))
+        {
+            smallImage = model.HasValue("galleryImageThumbnail") ? model.Value<IPublishedContent>("galleryImageThumbnail").Url + "?width=" + imageSettings.WidthSmall + "&height=" + imageSettings.HeightSmall + "&mode=boxpad&bgcolor=" + backgroundColorValue : "/images/clear.gif?width=" + imageSettings.WidthSmall + "&height=" + imageSettings.HeightSmall + "&mode=boxpad&bgcolor=" + backgroundColorValue;
+            displayImage = model.HasValue("galleryImageThumbnail") ? model.Value<IPublishedContent>("galleryImageThumbnail").Url + "?width=" + (imageSettings.Width) + "&height=" + (imageSettings.Height) + "&mode=boxpad&bgcolor=" + backgroundColorValue : "/images/clear.gif?width=" + (imageSettings.Width) + "&height=" + (imageSettings.Height) + "&mode=boxpad&bgcolor=" + backgroundColorValue;
+        }
+        else
+        {
+            smallImage = model.HasValue("galleryImageThumbnail") ? model.Value<IPublishedContent>("galleryImageThumbnail").GetCropUrl(cropAlias: imageSettings.CropAlias, width: imageSettings.WidthSmall, height: imageSettings.HeightSmall) : "/images/clear.gif";
+            displayImage = model.HasValue("galleryImageThumbnail") ? model.Value<IPublishedContent>("galleryImageThumbnail").GetCropUrl(cropAlias: imageSettings.CropAlias) : "/images/clear.gif?width=" + imageSettings.Width + "&height=" + imageSettings.Height;
+        }
+
+        <div class="item @itemClass @imageSettings.CircleClass item_video @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+            <div class="inner">
+                @if (model.Value<bool>("disableLightWindow"))
+                {
+                    <div class="image @imageSettings.CircleClass video embed-responsive embed-responsive-16by9">
+                        <video class="embed-responsive-item" controls>
+                            <source src="@(model.Value<IPublishedContent>("videoMp4").Url)" type="video/mp4">
+                        </video>
+                        @if (model.HasValue("videoCaption"))
+                        {
+                            <div class="caption">@(model.Value<string>("videoCaption"))</div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <a href="@(model.Value<IPublishedContent>("videoMp4").Url)" data-type="video" @Html.Raw(title) @Html.Raw(footer) data-toggle="lightbox" data-gallery="galleryname-@componentID" data-width="1350" data-height="750">
+
+                        <div class="image @imageSettings.CircleClass video">
+                            <img class="@imageSettings.CircleClass lazyload" src="@smallImage" data-src="@displayImage" alt="@(model.Value<string>("thumbnailImageAltText"))">
+                            <div class="overlayicon">
+                                <i class="icon usn_ion-md-play"></i>
+                            </div>
+                            @if (model.HasValue("videoCaption"))
+                            {
+                                <div class="caption">@(model.Value<string>("videoCaption"))</div>
+                            }
+                        </div>
+
+                    </a>
+                }
+
+            </div>
+        </div>
+    }
+
+}

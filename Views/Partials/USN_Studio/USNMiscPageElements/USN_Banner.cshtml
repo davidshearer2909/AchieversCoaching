@@ -1,0 +1,228 @@
+﻿@inherits UmbracoViewPage<IUsn_Cmp_Banner>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    string parallaxClass = Model.BannerParallax ? "parallax" : String.Empty;
+
+    USNAnimation animation = ThemeHelper.GetAnimationSettings(Model.BannerAnimate, Model.BannerAnimationDelay, Model.BannerAnimationStyle);
+
+    string colorOverlayClass = Model.BannerAddColorOverlay ? "item_overlay" : String.Empty;
+
+    string bannerStyle = "item_medium-banner";
+    int imageHeightSmall = 65;
+    string cropAlias = "Medium Banner";
+
+    switch (Model.BannerStyle)
+    {
+        case "bannerSizeShort":
+            bannerStyle = "item_short-banner";
+            cropAlias = "Short Banner";
+            imageHeightSmall = parallaxClass != String.Empty ? 11 : 5;
+            break;
+        case "bannerSizeMedium":
+            bannerStyle = "item_medium-banner";
+            cropAlias = "Medium Banner";
+            imageHeightSmall = parallaxClass != String.Empty ? 11 : 7;
+            break;
+        case "bannerSizeTakeover":
+            bannerStyle = "item_takeover-banner";
+            imageHeightSmall = 110;
+            cropAlias = "Takeover Banner";
+            break;
+        case "bannerSizeScale":
+            bannerStyle = "item_scale-banner";
+            cropAlias = "Scale Banner";
+            parallaxClass = String.Empty;
+            break;
+    }
+
+    string bgImage = String.Empty;
+    string bgImageSmall = String.Empty;
+
+    if (Model.BannerImage != null)
+    {
+        bgImage = Model.BannerImage.GetCropUrl(cropAlias: cropAlias);
+        bgImageSmall = "style=\"background-image:url('" + Model.BannerImage.GetCropUrl(cropAlias: cropAlias, width: 15, height: imageHeightSmall) + "')\"";
+    }
+
+    string backGroundColor = Model.BannerBackgroundColor.HasValue() ? Model.BannerBackgroundColor.label + "-bg" : String.Empty;
+
+    <div class="item @colorOverlayClass @bannerStyle @parallaxClass @backGroundColor">
+
+        @if (Model.BannerVideoSource.HasValue() && (Model.BannerVideoSource == "youtube" || Model.BannerVideoSource == "vimeo") && Model.BannerVideo3rdParty.HasValue())
+        {
+            USNVideo video = VideoHelper.GetVideo(Model.BannerVideo3rdParty);
+            string videoID = video.VideoID;
+            string videoSrc = String.Empty;
+
+            if (Model.BannerVideoSource == "youtube")
+            {
+                videoSrc = "https://www.youtube.com/embed/" + videoID + "?autoplay=1&loop=1&mute=1&controls=0&showinfo=0&disablekb=1&fs=0&modestbranding=1&playsinline=1&playlist=" + videoID;
+            }
+            else
+            {
+                videoSrc = "https://player.vimeo.com/video/" + videoID + "?autoplay=1&loop=1&autopause=0&playsinline=1&muted=1&background=1";
+            }
+
+            if (Model.BannerStyle == "bannerSizeScale")
+            {
+                <div class="image">
+                    @if (Model.BannerImage != null)
+                    {
+                        <img class="lazyload" src="@Model.BannerImage.GetCropUrl(cropAlias: cropAlias, width: 16, height: 9)" data-src="@Model.BannerImage.GetCropUrl(cropAlias: cropAlias)" alt="@Model.BannerImageAltText">
+                    }
+                    <div class="video embed-responsive embed-responsive-16by9">
+                        <iframe class="video-player embed-responsive-item lazyload" type="text/html" width="640" height="360" src="@videoSrc" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    </div>
+
+                </div>
+            }
+            else
+            {
+                <div class="image lazyload background-image" style="@bgImageSmall" data-bg="@bgImage">
+
+                    <div class="video">
+                        <iframe class="video-player lazyload" type="text/html" width="640" height="360" src="@videoSrc" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    </div>
+
+                </div>
+            }
+        }
+        else if (Model.BannerVideoSource.HasValue() && Model.BannerVideoSource == "mp4" && Model.BannerVideoMp4.HasValue())
+        {
+            if (Model.BannerStyle == "bannerSizeScale")
+            {
+                <div class="image">
+                    @if (Model.BannerImage != null)
+                    {
+                        <img class="lazyload" src="@Model.BannerImage.GetCropUrl(cropAlias: cropAlias, width: 16, height: 9)" data-src="@Model.BannerImage.GetCropUrl(cropAlias: cropAlias)" alt="@Model.BannerImageAltText">
+                    }
+                    <div class="video embed-responsive embed-responsive-16by9">
+                        <video class="video-player embed-responsive-item" playsinline autoplay muted loop preload width="640" height="360">
+                            <source src="@Model.BannerVideoMp4.Url" type="video/mp4">
+                        </video>
+                    </div>
+
+                </div>
+            }
+            else
+            {
+                <div class="image lazyload background-image" style="@bgImageSmall" data-bg="@bgImage">
+
+                    <div class="video">
+                        <video class="video-player" playsinline autoplay muted loop preload width="640" height="360">
+                            <source src="@Model.BannerVideoMp4.Url" type="video/mp4">
+                        </video>
+                    </div>
+
+                </div>
+            }
+        }
+        else if (Model.BannerImage != null && Model.BannerStyle != "bannerSizeScale")
+        {
+            <!-- IMAGE -->
+            <div class="image lazyload background-image" @Html.Raw(bgImageSmall) data-bg="@bgImage">
+
+            </div>
+            <!--// IMAGE -->
+        }
+        else if (Model.BannerImage != null && Model.BannerStyle == "bannerSizeScale")
+        {
+            <div class="image">
+                <img class="lazyload" src="@Model.BannerImage.GetCropUrl(cropAlias: cropAlias, width: 16, height: 9)" data-src="@Model.BannerImage.GetCropUrl(cropAlias: cropAlias)" alt="@Model.BannerImageAltText">
+            </div>
+        }
+
+        @if (Model.BannerHeading != null || Model.BannerText.HasValue() || Model.BannerButtons != null || Model.BannerSecondaryHeading.HasValue())
+        {
+            string textAlignment = ThemeHelper.GetSimpleTextAlignmentClass(Model.BannerTextAlignment);
+
+            string textPosition;
+
+            switch (Model.BannerTextPosition)
+            {
+                case "Text_TopLeft":
+                    textPosition = "justify-content-start info_align-top";
+                    break;
+                case "Text_TopCenter":
+                    textPosition = "justify-content-center info_align-top";
+                    break;
+                case "Text_TopRight":
+                    textPosition = "justify-content-end info_align-top";
+                    break;
+                case "Text_CenterLeft":
+                    textPosition = "justify-content-start info_align-middle";
+                    break;
+                case "Text_CenterCenter":
+                    textPosition = "justify-content-center info_align-middle";
+                    break;
+                case "Text_CenterRight":
+                    textPosition = "justify-content-end info_align-middle";
+                    break;
+                case "Text_BottomLeft":
+                    textPosition = "justify-content-start info_align-bottom";
+                    break;
+                case "Text_BottomCenter":
+                    textPosition = "justify-content-center info_align-bottom";
+                    break;
+                case "Text_BottomRight":
+                    textPosition = "justify-content-end info_align-bottom";
+                    break;
+                default:
+                    textPosition = "justify-content-center info_align-middle";
+                    break;
+            }
+
+            <div class="inner">
+                <div class="container">
+                    <!-- ROW -->
+                    <div class="row @textAlignment @textPosition">
+
+                        <div class="info col-xl-6 col-lg-8 col">
+                            <div class="d-table">
+
+                                <div class="d-table-cell">
+                                    @if (Model.BannerSecondaryHeading.HasValue())
+                                    {
+                                        <p class="secondary-heading @(Model.BannerBackgroundColor.label)-secondary-heading @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">@Model.BannerSecondaryHeading</p>
+                                    }
+                                    @if (Model.BannerHeading != null)
+                                    {
+                                        @Html.Raw(String.Format("<{0} class=\"heading main {1}-heading {2}\" data-os-animation=\"{3}\" data-os-animation-delay=\"{4}\">{5}</{0}>", Model.BannerHeading.HeadingTag, Model.BannerBackgroundColor.label, animation.AnimationClass, animation.AnimationStyle, animation.AnimationDelay, Model.BannerHeading.Text))
+                                    }
+                                    @if (Model.BannerText.HasValue())
+                                    {
+                                        <div class="text @(Model.BannerBackgroundColor.label)-text @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+                                            @Html.Raw(Model.BannerText)
+                                        </div>
+                                    }
+                                    @if (Model.BannerButtons != null)
+                                    {
+                                        <p class="link @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+                                            @foreach (var button in Model.BannerButtons)
+                                            {
+                                                <a class="btn @(button.color.label)-bg @(button.color.label)-text @(button.color.label)-borders" href="@button.link.LinkUrl" @Html.Raw(button.link.LinkTarget) @Html.Raw(button.link.LinkTitle)>@Html.Raw(button.icon)@button.link.LinkText@Html.Raw(button.link.LinkTargetIcon)</a>
+                                            }
+                                        </p>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--// ROW -->
+                </div>
+            </div>
+        }
+        @if (Model.BannerScrollPrompt)
+        {
+            <!-- SCROLL PROMPT -->
+            <div class="scroll-prompt">
+                <a class="d-xl-none d-lg-none d-md-block d-sm-block d-block"><i class="icon usn_ion-ios-arrow-down"></i></a>
+                <a class="d-xl-block d-lg-block d-md-none d-sm-none d-none"><div class="mouse-scroll"></div><span class="d-none">@Umbraco.GetDictionaryValue("USN Banner Component Scroll Prompt")</span></a>
+            </div>
+            <!--// SCROLL PROMPT -->
+        }
+    </div>
+}

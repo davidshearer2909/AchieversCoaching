@@ -1,0 +1,44 @@
+﻿@inherits UmbracoViewPage<IUsn_Cmp_IntroOutro>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    if (Model.DisplayOutro)
+    {
+        USNAnimation animation = (USNAnimation)ViewData["animation"];
+        string colorLabel = ViewData["backgroundColor"].ToString();
+        string textAlignmentClass = ThemeHelper.GetIntroOutroTextAlignmentClass(Model.OutroTextAlignment);
+
+        <!-- Outro -->
+        <div class="component-outro row @textAlignmentClass @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+            <div class="info col-xl-8 col-lg-10 col">
+                @if (Model.OutroSecondaryHeading.HasValue())
+                {
+                    <p class="secondary-heading @(colorLabel)-secondary-heading">@Model.OutroSecondaryHeading</p>
+                }
+                @if (Model.OutroHeading.HasValue())
+                {
+                    @Html.Raw(String.Format("<{0} class=\"heading main {1}-heading\">{2}</{0}>", Model.OutroHeading.HeadingTag, colorLabel, Model.OutroHeading.Text))
+                }
+                @if (Model.OutroText.HasValue())
+                {
+                    <div class="text @(colorLabel)-text">
+                        @Html.Raw(Model.OutroText)
+                    </div>
+                }
+                @if (Model.OutroButtons.HasValue())
+                {
+                    <p class="link">
+                        @foreach (var button in Model.OutroButtons)
+                        {
+                            <a class="btn @(button.color.label)-bg @(button.color.label)-text @(button.color.label)-borders" href="@button.link.LinkUrl" @Html.Raw(button.link.LinkTarget) @Html.Raw(button.link.LinkTitle)>@Html.Raw(button.icon)@button.link.LinkText@Html.Raw(button.link.LinkTargetIcon)</a>
+                        }
+                    </p>
+                }
+            </div>
+        </div>
+        <!--// Outro -->
+    }
+}
+

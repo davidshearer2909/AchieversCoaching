@@ -1,0 +1,18 @@
+﻿{
+    propertyEditors:[
+        {
+            alias: "USN.Heading",
+            name: "USN Heading",
+            editor: {
+                view: "~/App_Plugins/USNHeading/views/heading-editor.html",
+				valueType: "JSON"
+            }
+        }
+    ],
+	javascript: [
+		"~/App_Plugins/USNHeading/js/heading-editor-controller.js"
+	],
+	css: [
+        "~/App_Plugins/USNHeading/css/heading-style.css"
+    ]
+}

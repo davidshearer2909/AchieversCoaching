@@ -1,0 +1,44 @@
+﻿@inherits UmbracoViewPage<IUsn_Cmp_IntroOutro>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    if (Model.DisplayIntro)
+    {
+        USNAnimation animation = (USNAnimation)ViewData["animation"];
+        string colorLabel = ViewData["backgroundColor"].ToString();
+        string textAlignmentClass = ThemeHelper.GetIntroOutroTextAlignmentClass(Model.IntroTextAlignment);
+
+        <!-- Introduction -->
+        <div class="component-introduction row @textAlignmentClass @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+            <div class="info col-xl-8 col-lg-10 col">
+                @if (Model.IntroSecondaryHeading.HasValue())
+                {
+                    <p class="secondary-heading @(colorLabel)-secondary-heading">@Model.IntroSecondaryHeading</p>
+                }
+                @if (Model.IntroHeading.HasValue())
+                {
+                    @Html.Raw(String.Format("<{0} class=\"heading main {1}-heading\">{2}</{0}>", Model.IntroHeading.HeadingTag, colorLabel, Model.IntroHeading.Text))
+                }
+                @if (Model.IntroText.HasValue())
+                {
+                    <div class="text @(colorLabel)-text">
+                        @Html.Raw(Model.IntroText)
+                    </div>
+                }
+                @if (Model.IntroButtons.HasValue())
+                {
+                    <p class="link">
+                        @foreach (var button in Model.IntroButtons)
+                        {
+                            <a class="btn @(button.color.label)-bg @(button.color.label)-text @(button.color.label)-borders" href="@button.link.LinkUrl" @Html.Raw(button.link.LinkTarget) @Html.Raw(button.link.LinkTitle)>@Html.Raw(button.icon)@button.link.LinkText@Html.Raw(button.link.LinkTargetIcon)</a>
+                        }
+                    </p>
+                }
+            </div>
+        </div>
+        <!--// Introduction -->
+    }
+}
+

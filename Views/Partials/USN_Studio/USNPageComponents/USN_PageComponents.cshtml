@@ -1,0 +1,17 @@
+﻿@inherits UmbracoViewPage<USNWebsite.USNModels.USNBaseViewModel>
+
+@{
+    string pageLayout = ViewData["pageLayout"].ToString();
+    UsnpageComponentsFolder pageComponents = Model.Content.Children<UsnpageComponentsFolder>().FirstOrDefault();
+
+    if (pageComponents != null)
+    {
+        foreach (IPublishedContent component in pageComponents.Children)
+        {
+            if (component != null)
+            {
+                @Html.Partial(Model.ViewPath + "/USNPageComponents/USN_ComponentSwitch", component, new ViewDataDictionary { { "viewPath", Model.ViewPath }, { "pageLayout", pageLayout },{ "globalSettingsID", Model.GlobalSettings.Id } })
+            }
+        }
+    }
+}

@@ -1,0 +1,86 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<USNWebsite.USNModels.USNBaseViewModel>
+@using USNStarterKit.USNHelpers;
+
+@{
+    //Starter kit compatibility: 1.0
+
+    UsnglobalSettings globalSettings = (UsnglobalSettings)Model.GlobalSettings;
+    Usnstyle websiteStyle = (Usnstyle)Model.WebsiteStyle;
+
+    string textDirection = globalSettings.EnableRightToLeftText ? "rtl" : "ltl";
+
+    string backgroundImageStyle = ThemeHelper.GetBackgroundImageStyle(websiteStyle.BodyBgimageOptions, websiteStyle.BodyBackgroundImage);
+}
+
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6 usn"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7 usn"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8 usn"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9 usn"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="@textDirection" @Html.Raw(globalSettings.HtmlLanguageCodeReference.HasValue() ? "lang=\"" + globalSettings.HtmlLanguageCodeReference + "\"" : String.Empty) class="no-js usn">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=2">
+    @Html.Partial(Model.ViewPath + "/USNWebsiteHeadSection/USN_SEOPageHead", Model)
+    @Html.Partial(Model.ViewPath + "/USNWebsiteHeadSection/USN_StyleSheets", Model)
+    @Html.Partial(Model.ViewPath + "/USNWebsiteHeadSection/USN_Icons", Model)
+    @Html.Partial(Model.ViewPath + "/USNMiscPageElements/USN_NotificationDurationVariable", Model)
+    @Html.Partial(Model.ViewPath + "/USNWebsiteHeadSection/USN_HeaderScripts", Model)
+</head>
+
+<body @RenderSection("BodyTag", false) @Html.Raw(backgroundImageStyle)>
+    @Html.Partial(Model.ViewPath + "/USNMiscPageElements/USN_AfterOpeningBodyScripts", Model)
+
+    <!-- Skip to content -->
+    <a class="skip-to-content sr-only sr-only-focusable" href="#site-content">@Umbraco.GetDictionaryValue("USN Skip to Content")</a>
+    <!--// Skip to content -->
+    <!-- Site -->
+    <div id="site">
+
+        <!-- Header -->
+        @Html.Partial(Model.ViewPath + "/USNWebsiteHeadSection/USN_HeaderSection", Model)
+        <!--// Header -->
+        <!-- Content -->
+        <div id="site-content">
+
+            @Html.Partial(Model.ViewPath + "/USNPageComponents/USN_TopComponents", Model)
+
+            @Html.Partial(Model.ViewPath + "/USNMiscPageElements/USN_BannerSection", Model.Content, new ViewDataDictionary { { "displayBannerSection", Model.Content.Value<bool>("displayBannerSection") }, { "viewPath", Model.ViewPath } })
+
+            @RenderBody()
+
+            @Html.Partial(Model.ViewPath + "/USNPageComponents/USN_BottomComponents", Model)
+
+        </div>
+        <!--// Content -->
+        <!-- Breadcrumb -->
+        @Html.Partial(Model.ViewPath + "/USNNavigation/USN_Breadcrumb", Model)
+        <!--// Breadcrumb -->
+        <!-- Footer -->
+        @Html.Partial(Model.ViewPath + "/USNWebsiteFooterSection/USN_FooterSection", Model)
+        <!--// Footer -->
+
+    </div>
+    <!--// Site -->
+
+    @Html.Partial(Model.ViewPath + "/USNMiscPageElements/USN_Notification", Model)
+    @Html.Partial(Model.ViewPath + "/USNMiscPageElements/USN_BackToTop", Model)
+    @Html.Partial(Model.ViewPath + "/USNWebsiteFooterSection/USN_FooterScripts", Model)
+    @Html.Partial(Model.ViewPath + "/USNMiscPageElements/USN_BeforeClosingBodyScripts", Model)
+
+</body>
+
+<!--
+    ____        _ ____              _ __  __             _____ __   _                      __
+   / __ )__  __(_) / /_   _      __(_) /_/ /_     __  __/ ___// /__(_)___  ____  ___  ____/ /
+  / __  / / / / / / __/  | | /| / / / __/ __ \   / / / /\__ \/ //_/ / __ \/ __ \/ _ \/ __  /
+ / /_/ / /_/ / / / /_    | |/ |/ / / /_/ / / /  / /_/ /___/ / ,< / / / / / / / /  __/ /_/ /
+/_____/\__,_/_/_/\__/    |__/|__/_/\__/_/ /_/   \__,_//____/_/|_/_/_/ /_/_/ /_/\___/\__,_/
+
+Find out more at uSkinned.net
+
+-->
+
+</html>

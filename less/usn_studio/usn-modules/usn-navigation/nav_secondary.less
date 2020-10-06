@@ -1,0 +1,133 @@
+/*  
+---------------------------------------------------
+Secondary Navigation
+---------------------------------------------------  
+*/
+
+nav.secondary ul li span div,
+nav.secondary ul li span a,
+nav.secondary ul li a {
+    display: block;
+    text-decoration: none;
+    color: @secondary-navigation-link;
+    transition: all 0.3s ease-in-out 0s;
+}
+nav.secondary ul li span div { 
+    color: @header-text;
+}
+
+html.no-touch nav.secondary ul li span a:hover,
+nav.secondary ul li span a:focus,
+nav.secondary ul li span a:active,
+html.no-touch nav.secondary ul li.dropdown>a:hover,
+nav.secondary ul li.dropdown a:focus,
+nav.secondary ul li.dropdown a:active,
+nav.secondary ul li.dropdown.show>a {
+    color: @secondary-navigation-link-hover;
+}
+
+nav.secondary ul li.dropdown > a.dropdown-toggle::after {
+    margin-left: 4px;
+    border-top: .25em solid;
+    border-right: .25em solid transparent;
+    border-bottom: 0;
+    border-left: .25em solid transparent;
+}
+
+nav.secondary ul li.phone-number strong {
+    color: @header-highlight;
+}
+
+nav.secondary ul li.dropdown .dropdown-menu { 
+    background-color: @header-bg;
+}
+nav.secondary ul li.dropdown .dropdown-menu { 
+    padding:0;
+    border-radius: 0; border-color:@header-borders;
+}
+
+nav.secondary ul li.dropdown .dropdown-menu a { 
+    color: @secondary-navigation-link;
+}
+
+html.no-touch nav.secondary ul li.dropdown .dropdown-menu a:hover,
+nav.secondary ul li.dropdown .dropdown-menu a:focus,
+nav.secondary ul li.dropdown .dropdown-menu a:active { 
+    color: @secondary-navigation-link-hover;
+    background:none!important;
+}
+
+@media (min-width:0) and (max-width:@small-breakpoint) {
+    nav.secondary { 
+        padding:@base-spacing @base-half-spacing!important;
+    }
+    .site-search + nav.secondary {
+        padding-top:0!important;
+    }
+    nav.secondary ul li span a,
+    nav.secondary ul li span div,
+    nav.secondary>ul>li>a { 
+        padding:5px 0;
+    }
+    nav.secondary ul li.phone-number { 
+        font-size:1.2rem;
+        padding-bottom:10px;
+    }
+    nav.secondary ul li.dropdown .dropdown-menu { 
+        width:100%;
+        border:0 none; 
+        position:relative!important; top:auto!important; left:auto!important;
+        transform:none!important;
+
+        padding-bottom:10px;
+    }
+    nav.secondary ul li.dropdown .dropdown-menu > a { 
+        background:none;
+    
+        padding:5px 0;
+    }
+}
+
+@media (min-width:@large-breakpoint) {
+    nav.secondary {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding-right: @base-half-spacing;
+        z-index: 601;
+    }
+    nav.secondary>ul {
+        display: flex;
+        display: -ms-flexbox;
+        flex-direction: row;
+        -ms-flex-direction: row;
+        font-size: 0.95rem;
+    }
+    nav.secondary ul li.dropdown .dropdown-menu { 
+        font-size: 0.95rem;
+    }
+    nav.secondary>ul i.icon { 
+        font-size:1rem;
+    }
+    nav.secondary>ul>li>span>div,
+    nav.secondary>ul>li>span>a,
+    nav.secondary>ul>li>a  {
+        display: block;
+        padding: 33px 10px 0;
+        height:@nav-main-height;
+    }
+    nav.secondary ul li.dropdown .dropdown-menu { 
+        top:-2px!important;
+        background-color:@main-navigation-dropdown;
+        border:0 none;
+        box-shadow: 2px 2px 4px fade(@true-black, 10%);
+    }
+    nav.secondary ul li.dropdown .dropdown-menu > a { 
+        padding:8px 15px;
+        color: @main-navigation-dropdown-link;
+    }
+    nav.secondary ul li.dropdown .dropdown-menu > a:hover { 
+        padding:8px 15px;
+        color: @main-navigation-dropdown-link-hover!important;
+    }
+}

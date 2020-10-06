@@ -1,0 +1,82 @@
+/*	
+--------------------------------------------------
+Reusable Component
+-------------------------------------------------- 
+*/
+
+.reusable-component {
+    padding:0!important;
+}
+
+.reusable-component > .container-fluid > .component-introduction,
+.reusable-component > .container-fluid > .component-outro { 
+    margin:0;
+}
+
+.reusable-component > .container-fluid { 
+    padding:0;
+}
+
+/* Tabs */
+.reusable-component:not(.p-0) .repeatable:first-child .tabs { 
+    padding:@base-half-spacing @base-half-spacing 0;
+}
+
+.reusable-component > .container-fluid >  .component-introduction + .repeatable .tabs { 
+    padding:0 @base-half-spacing;
+}
+
+.reusable-component .repeatable-content.tab-content { 
+    top:0;
+    border:0 none!important;
+}
+
+@media (min-width:0) and (max-width:575px) {
+    .reusable-component .component-introduction,
+    .reusable-component:not(.p-0) .repeatable:first-child .tabs {
+        padding-top: @pc-spacing;
+    }
+    .reusable-component .component-outro {
+        padding-bottom: @pc-spacing;
+    }
+}
+
+@media (min-width:576px) {
+    .reusable-component .component-introduction,
+    .reusable-component:not(.p-0) .repeatable:first-child .tabs {
+        padding-top: @pc-spacing_sm;
+    }
+    .reusable-component .component-outro {
+        padding-bottom: @pc-spacing_sm;
+    }
+}
+
+@media (min-width:768px) {
+    .reusable-component .component-introduction,
+    .reusable-component:not(.p-0) .repeatable:first-child .tabs {
+        padding-top: @pc-spacing_md;
+    }
+    .reusable-component .component-outro {
+        padding-bottom: @pc-spacing_md;
+    }
+}
+
+@media (min-width:992px) {
+    .reusable-component .component-introduction,
+    .reusable-component:not(.p-0) .repeatable:first-child .tabs {
+        padding-top: @pc-spacing_lg;
+    }
+    .reusable-component .component-outro {
+        padding-bottom: @pc-spacing_lg;
+    }
+}
+
+@media (min-width:1200px) {
+    .reusable-component .component-introduction,
+    .reusable-component:not(.p-0) .repeatable:first-child .tabs {
+        padding-top: @pc-spacing_xl;
+    }
+    .reusable-component .component-outro {
+        padding-bottom: @pc-spacing_xl;
+    }
+}

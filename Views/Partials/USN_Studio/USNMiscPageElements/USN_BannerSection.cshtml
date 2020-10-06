@@ -1,0 +1,19 @@
+﻿@inherits UmbracoViewPage<IUsn_Cmp_Banner>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    string viewPath = ViewData["viewPath"].ToString();
+
+    bool displayBannerSection = (bool)ViewData["displayBannerSection"];
+
+    if (displayBannerSection)
+    {
+    <section class="content component banner-component on-page_banner-section">
+
+        @Html.Partial(viewPath + "/USNMiscPageElements/USN_Banner", Model)
+
+    </section>
+    }
+}

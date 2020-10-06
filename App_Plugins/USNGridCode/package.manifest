@@ -1,0 +1,16 @@
+﻿{
+    "gridEditors": 
+    [
+      {
+        "name": "Code",
+        "alias": "code",
+        "view": "textstring",
+        "render": "/app_plugins/USNGridCode/editor.cshtml",
+        "icon": "icon-code",
+        "config": {
+          "style": "border-left: 3px solid #ccc; padding: 10px; color: #fff; background-color: #000; font-size: 14px; font-family:monospace;",
+          "markup": "#value#"
+        }
+      }
+    ]
+}

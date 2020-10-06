@@ -1,0 +1,26 @@
+﻿@inherits UmbracoViewPage<USNWebsite.USNModels.USNBaseViewModel>
+
+@{
+    UsnglobalSettings globalSettings = (UsnglobalSettings)Model.GlobalSettings;
+
+    <!-- uSkinned Icons CSS -->
+    <link rel="stylesheet" href="@Model.CssPath/icons.css">
+    <!-- Bootstrap CSS -->
+
+    if (globalSettings.EnableRightToLeftText)
+    {
+        <link rel="stylesheet" href="@Model.CssPath/bootstrap-4.3.1.min-RTL.css">
+    }
+    else
+    {
+        <link rel="stylesheet" href="@Model.CssPath/bootstrap-4.3.1.min.css">
+    }
+
+    <!-- Slick Carousel CSS -->
+    <link rel="stylesheet" href="@Model.CssPath/slick-carousel-1.8.1.min.css">
+    <!-- Lightbox CSS -->
+    <link rel="stylesheet" href="@Model.CssPath/ekko-lightbox-5.3.0.min.css">
+    <!-- uSkinned Compiled CSS -->
+    <link rel="stylesheet" href="/style.axd?styleId=@(Model.StyleID)">
+
+}

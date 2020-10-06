@@ -1,0 +1,311 @@
+/*  
+---------------------------------------------------
+Listing 
+
+This is also the basis for:
+
+- Windows
+- Pods
+- Footer items
+
+---------------------------------------------------  
+*/
+
+.listing-component { 
+
+}
+
+.component .listing:not(.listing_no-spacing):not(.listing_window-mosaic):not(.listing_short):not(.listing_search-results),
+.component:not(.listing_no-spacing) .listing:not(.listing_window-mosaic):not(.listing_short):not(.listing_search-results) { 
+    margin-top:-10px;
+}
+
+.component .listing.listing_no-spacing:not(.listing_window-mosaic):not(.listing_short):not(.listing_search-results),
+.component.listing_no-spacing .listing:not(.listing_window-mosaic):not(.listing_short):not(.listing_search-results) { 
+    margin-top:0;
+}
+
+.listing.listing_search-results { 
+    margin-top:@base-half-spacing;
+    margin-bottom:@base-half-spacing;
+}
+
+.listing_no-spacing .listing:not(.listing_window-mosaic),
+.listing.listing_no-spacing:not(.listing_window-mosaic) {
+    margin-top: @base-half-spacing;
+    margin-bottom: @base-half-spacing;
+}
+
+.listing_no-spacing.p-0 .listing:not(.listing_window-mosaic):first-child,
+.p-0 .listing.listing_no-spacing:not(.listing_window-mosaic):first-child { 
+    margin-top: 0;
+}
+
+.listing_no-spacing.p-0 .listing:not(.listing_window-mosaic):last-child,
+.p-0 .listing.listing_no-spacing:not(.listing_window-mosaic):last-child { 
+    margin-bottom: 0;
+}
+
+.listing_no-spacing .row.listing:not(.listing_window-mosaic),
+.row.listing.listing_no-spacing:not(.listing_window-mosaic) {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.repeatable.tabbed + .repeatable-content .listing { 
+    padding:@base-half-spacing 0 0;
+}
+
+.listing .item {
+    margin: @base-half-spacing 0;
+}
+
+.listing_no-spacing .listing:not(.listing_window-mosaic) .item,
+.listing.listing_no-spacing:not(.listing_window-mosaic) .item {
+    padding: 0;
+    margin: 0;
+}
+
+.item .inner {
+    position: relative;
+    width: 100%;
+    /*
+    overflow: hidden;
+    */
+}
+
+.item.item_text-boxed .inner::after {
+    content: "";
+    display: block;
+}
+
+.item a:not(.btn) {
+    display: block;
+    text-decoration: none;
+    overflow: hidden;
+    height: 100%;
+}
+
+.item .text a:not(.btn) { 
+    display:inline;
+}
+
+.item a.btn + a.btn { 
+    margin-left:5px;
+}
+
+.item .image {
+    position: relative;
+    z-index: 0;
+}
+
+.item .image img { 
+    width:100%;
+}
+
+/*
+.item.item_text-boxed .inner,
+.item.item_text-boxed .inner > a { 
+    height:100%;
+}
+*/
+
+.item.item_overlay .image::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+    opacity: 0.4;
+    transition: opacity 0.3s ease-in-out 0s;
+}
+
+.item.item_overlay a:hover .image::before {
+    opacity: 0.8;
+}
+
+.item.item_text-boxed .info {
+    padding: @base-spacing;
+}
+
+.item.item_text-boxed .info {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.item.item_text-boxed .info.info_align-middle {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.item.item_text-boxed .info.info_align-bottom {
+    top: auto;
+    bottom: 0;
+}
+
+@media (min-width:0) and (max-width:575px) {}
+
+@media (min-width:576px) and (max-width:991px) { }
+
+@media (min-width:768px) { }
+
+@media (min-width:992px) { 
+
+    .listing.listing_search-results { 
+        margin-top:@base-spacing;
+        margin-bottom:@base-spacing;
+    }
+
+}
+
+@media (min-width:1200px) {}
+
+
+/*  
+---------------------------------------------------
+LISTING - Standard Layout
+---------------------------------------------------  
+*/
+
+.listing.listing_basic-grid {}
+
+.listing.listing_basic-grid .item {}
+
+.item.item_text-below:not(.item_has-bg) .image,
+.item.item_text-left:not(.item_has-bg) .image,
+.item.item_text-right:not(.item_has-bg) .image {
+    margin-bottom: @base-half-spacing;
+}
+
+.item.item_text-above:not(.item_has-bg) .image {
+    margin-top: @base-half-spacing;
+}
+
+.item.item_text-below.item_has-bg .info,
+.item.item_text-left.item_has-bg .info,
+.item.item_text-right.item_has-bg .info {
+    padding: @base-spacing;
+}
+
+.icon-images .item.item_text-left .image,
+.icon-images .item.item_text-right .image { 
+    max-width: 50px;
+}
+
+@media (min-width:0) and (max-width:575px) {}
+
+@media (min-width:768px) {
+
+    .item.item_text-above:not(.item_has-bg) .image {
+        margin-top: @base-half-spacing;
+    }
+    .item.item_text-below:not(.item_has-bg) .image {
+        margin-bottom: @base-half-spacing;
+    }
+
+    .item.item_text-left,
+    .item.item_text-right,
+    .item.item_text-left .inner,
+    .item.item_text-right .inner,
+    .item.item_text-left .inner > a:not(.btn),
+    .item.item_text-right .inner > a:not(.btn) { 
+        display: flex;
+        display: -ms-flexbox;
+        flex-direction: row-reverse;
+        -ms-flex-direction: row-reverse;
+    }
+    .item.item_text-left .inner,
+    .item.item_text-right .inner,
+    .item.item_text-left .inner > a:not(.btn),
+    .item.item_text-right .inner > a:not(.btn) { 
+        width:100%;
+    }
+    .item.item_text-right,
+    .item.item_text-right .inner,
+    .item.item_text-right .inner > a:not(.btn) { 
+        flex-direction: row;
+        -ms-flex-direction: row;
+    }
+    
+    .item.item_text-left .image,
+    .item.item_text-right .image {
+        flex: 0 0 40%;
+        -ms-flex: 0 0 40%;
+        max-width: 40%; 
+        margin: 0!important;
+    }
+    .icon-images .item.item_text-left .image,
+    .icon-images .item.item_text-right .image { 
+        flex: 0 0 10%;
+        -ms-flex: 0 0 10%;
+        max-width: 10%;
+    }
+    .item.item_text-left .info,
+    .item.item_text-right .info {
+        flex: 0 0 100%;
+        -ms-flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .item.item_text-left .image + .info,
+    .item.item_text-right .image + .info {
+        flex: 0 0 60%;
+        -ms-flex: 0 0 60%;
+        max-width: 60%;
+    }
+    .icon-images .item.item_text-left .image + .info,
+    .icon-images .item.item_text-right .image + .info {
+        flex: 0 0 90%;
+        -ms-flex: 0 0 90%;
+        max-width: 90%;
+    }
+    
+    /* Blog items - text left, text right */
+    .item.item-blog.item_text-right:not(.item_has-bg) .info {
+        padding: 0 0 60px 0;
+    }
+    .item.item-blog.item_text-left:not(.item_has-bg) .info {
+        padding: 0 0 60px 0;
+    }
+    .item.item-blog.item_text-right:not(.item_has-bg) .image + .info {
+        padding: 0 0 60px @base-spacing;
+    }
+    .item.item-blog.item_text-left:not(.item_has-bg) .image + .info {
+        padding: 0 @base-spacing 60px 0;
+    }
+
+    /* Non blog items - text left, text right */
+    .item.item_text-right:not(.item_has-bg):not(.item-blog) .info {
+        padding: 0 0 @base-spacing 0;
+    }
+    .item.item_text-left:not(.item_has-bg):not(.item-blog) .info {
+        padding: 0 0 @base-spacing 0;
+    }
+    .item.item_text-right:not(.item_has-bg):not(.item-blog) .image + .info {
+        padding: 0 0 @base-spacing @base-spacing;
+    }
+    .item.item_text-left:not(.item_has-bg):not(.item-blog) .image + .info {
+        padding: 0 @base-spacing @base-spacing 0;
+    }
+    .icon-images .item.item_text-right:not(.item_has-bg):not(.item-blog) .image + .info {
+        padding: 0 0 @base-spacing @base-half-spacing;
+    }
+    .icon-images .item.item_text-left:not(.item_has-bg):not(.item-blog) .image + .info {
+        padding: 0 @base-half-spacing @base-spacing 0;
+    }
+    
+}
+
+/*  
+---------------------------------------------------
+Listing Short
+---------------------------------------------------  
+*/
+
+.listing.listing_short { }
+
+.listing.listing_short .item.item_text-only { }

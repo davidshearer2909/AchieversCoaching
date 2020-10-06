@@ -1,0 +1,133 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<USNWebsite.USNModels.USNBaseViewModel>
+
+@using USNStarterKit.USNHelpers;
+@using System.Text.RegularExpressions;
+@using Examine.Search;
+
+@{
+    UsnglobalSettings globalSettings = (UsnglobalSettings)Model.GlobalSettings;
+
+    if (globalSettings.SearchResultsPage.HasValue())
+    {
+        UsnsearchResultsPage searchResultsPage = (UsnsearchResultsPage)Model.Content;
+
+        int itemsPerPage = searchResultsPage.SearchResultsPageSize; // How many items per page
+        int currentPagePosition; // The page we are viewing
+        string originalSearchTerm = String.Empty;
+        string searchTerm = String.Empty;
+        int totalNodes = 0;
+        int totalPages = 0;
+        List<IPublishedContent> pagedList = new List<IPublishedContent>();
+
+        if (!String.IsNullOrEmpty(Context.Request.QueryString["search_field"]))
+        {
+            //Makes search query safe
+            //Match all characters that DO NOT (^) match (\w alphanumeric characters) and \s (white space and tab) and - (hyphen) and replace them with ""
+            originalSearchTerm = Request.QueryString["search_field"].Trim();
+            searchTerm = Regex.Replace(originalSearchTerm, @"[^\w\s-]", "");
+
+            //Match any white space character
+            searchTerm = Regex.Replace(searchTerm, @"\s+", " ");
+        }
+
+        if (!int.TryParse(Request.QueryString["page"], out currentPagePosition))
+        {
+            currentPagePosition = 1;
+        }
+
+        if (!String.IsNullOrEmpty(searchTerm) && ExamineManager.Instance.TryGetIndex("ExternalIndex", out var index))
+        {
+            var searcher = index.GetSearcher();
+
+            var criteria = searcher.CreateQuery("content", BooleanOperation.And)
+                    .GroupedOr(new List<string> { "combinedField" }, searchTerm)
+                   .And()
+                   .Field("searchablePath", Model.HomeNode.Id.ToString())
+                   .Not()
+                   .Field("umbracoNaviHide", "1");
+
+
+            var searchList = criteria.Execute();
+            var result = searchList.ToPublishedSearchResults(UmbracoContext.PublishedSnapshot.Content);
+            IEnumerable<IPublishedContent> finalSearchList = result.Select(x => x.Content);
+
+
+            //create a list of nodes based on parent page.
+            foreach (var item in finalSearchList)
+            {
+                var node = Umbraco.Content(item.Id);
+
+                if (node != null)
+                {
+                    //Check if node found has a parent redirect template. If it does we want to find the first parent page.
+                    if (node.GetTemplateAlias() == "USNParentRedirect")
+                    {
+                        node = node.Ancestors().First(x => x.GetTemplateAlias() != "USNParentRedirect");
+                    }
+
+                    if (node.IsVisible())
+                    {
+                        pagedList.Add(node);
+                    }
+                }
+            }
+
+            //remove duplicates
+            pagedList = pagedList.GroupBy(x => x.Id).Select(y => y.First()).ToList();
+
+            totalNodes = pagedList.Count;
+            totalPages = (int)Math.Ceiling(totalNodes / (double)itemsPerPage);
+
+            if (currentPagePosition > totalPages)
+            {
+                currentPagePosition = totalPages;
+            }
+            else if (currentPagePosition < 1)
+            {
+                currentPagePosition = 1;
+            }
+        }
+
+        if (totalNodes == 0)
+        {
+            <p>@Umbraco.GetDictionaryValue("USN Search Results Nothing Found")</p>
+            @Html.Partial(Model.ViewPath + "/USNForms/USN_SearchForm", Model)
+        }
+        else
+        {
+            //Please note the dictionary item should have a {0} and {1} placeholder for string formatting.
+            string searchResultsFeedback = Umbraco.GetDictionaryValue("USN Search Results Feedback");
+            searchResultsFeedback = String.Format(searchResultsFeedback, originalSearchTerm, totalNodes);
+
+            <p>@Html.Raw(searchResultsFeedback)</p>
+            @Html.Partial(Model.ViewPath + "/USNForms/USN_SearchForm", Model)
+
+            <div class="component-main row listing listing_basic-grid listing_search-results">
+                @foreach (var item in pagedList.Skip((currentPagePosition - 1) * itemsPerPage).Take(itemsPerPage))
+                {
+                    <div class="item items-1 col-12">
+                        <div class="inner">
+                            <a href="@item.Url">
+                                <div class="info info_align-middle">
+                                    <p class="heading base-heading">@(item.HasValue("onPageTitle") ? item.Value<string>("onPageTitle") : item.Name)</p>
+                                    @if (item.HasValue("metaDescription"))
+                                    {
+                                        <div class="text base-text">@Html.Raw(Html.ReplaceLineBreaksForHtml(item.Value<string>("metaDescription")))</div>
+                                    }
+                                    <p class="url base-text">@Umbraco.GetDictionaryValue("USN Search Results Link Label") <span class="base-link">@item.Url</span></p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            if (totalPages > 1)
+            {
+                <!-- PAGINATION -->
+                @Html.Partial(Model.ViewPath + "/USNMiscPageElements/USN_Paging", new ViewDataDictionary { { "totalPageCount", totalPages } })
+                <!--// PAGINATION -->
+            }
+        }
+    }
+}

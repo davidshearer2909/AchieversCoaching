@@ -1,0 +1,222 @@
+/*  
+---------------------------------------------------
+Anchors Component
+---------------------------------------------------  
+*/
+
+.anchors-component { 
+    position: relative;
+    top: 0; z-index:101;
+    padding: @base-half-spacing 0!important;
+    width:100%;
+    transition:top 0.5s ease-in-out 0s;
+}
+
+section.content.anchors-component.sticky { 
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -o-sticky;
+    position: -ms-sticky;
+    position: sticky;
+    top: 0;
+}
+
+body:not(.no-header) section.content.anchors-component.sticky { 
+    top: @small-header;
+}
+
+.anchors-component,
+.anchors-component ul.nav { 
+    margin: 0;
+    font-weight: 500;
+}
+
+.anchors-component ul.nav.justify-content-center { 
+    text-align:center;
+}
+.anchors-component ul.nav.justify-content-left { 
+    text-align:left;
+}
+.anchors-component ul.nav.justify-content-right { 
+    text-align:right;
+}
+
+.anchors-component ul.nav li.nav-item { 
+    position:relative;
+}
+
+.anchors-component ul.nav li.nav-item span {
+    position: relative;
+    display:inline-block;
+}
+
+.anchors-component ul.nav li.nav-item a.nav-link { 
+    padding:5px 10px;
+    margin:0;
+    color: @base-heading;
+}
+
+.anchors-component ul.nav li.nav-item a.nav-link::after { 
+    content: '';
+    position:absolute; right:10px; bottom:-2px; left:10px;
+    height:@base-border-width;
+    opacity: 0;
+    transition: all 0.3s ease-in-out 0s;
+}
+
+.anchors-component ul.nav li.nav-item a.nav-link:not(.active):hover::after { 
+    bottom:4px;
+    background-color: @base-link-hover;
+    opacity: 1;
+}
+
+.anchors-component ul.nav li.nav-item a.nav-link.active::after { 
+    bottom:3px;
+    background-color: @base-highlight;
+    opacity: 1;
+}
+
+@media (min-width: 0) and (max-width: 767px) { 
+
+    .anchors-component nav:not(.open-mobile) { 
+        display:none;
+    }
+    .anchors-component nav { 
+        padding-top:@base-half-spacing;
+    }
+    .anchors-component ul.nav li.nav-item { 
+        width:100%;
+    }
+
+    .anchors-component ul.nav { 
+        font-size:85%;
+    }
+}
+
+@media (min-width: 768px) { 
+
+    .anchors-component ul.nav li.nav-item a.nav-link { 
+        margin:0;
+    }
+
+}
+
+@media (min-width: @large-breakpoint) {
+
+    body.max-width .anchors-component {
+        max-width: @site-max-width;
+    }
+
+    html.nav-up body:not(.no-header) .anchors-component.sticky { 
+        top: 0;
+    }
+    
+    html.reached-top body:not(.no-header) .anchors-component.sticky,
+    html.nav-down body:not(.no-header) .anchors-component.sticky { 
+        top: @large-header;
+    }
+
+    body.browser-safari:not(.no-header) .anchors-component.sticky { 
+        top: @large-header!important;
+    }
+    
+    body:not(.no-header) .anchors-component.sticky { 
+        top: @large-header;
+    }
+
+}
+
+
+/* 
+---------------------------------------------------
+Anchors Expand
+---------------------------------------------------  
+*/
+
+.anchors-component .expand {
+    position:relative;
+    color: @base-heading;
+    font-size:85%;
+    width:100%; height:15px;
+    display: block;
+    cursor: pointer;
+    text-indent: -9999px;
+    transition: all 0.3s ease-in-out 0s;
+}
+
+.anchors-component .expand span:before,
+.anchors-component .expand span,
+.anchors-component .expand span:after {
+    content: "";
+    display: block;
+    width: 7px;
+    height: 7px;
+    border-radius:50%;
+    position: absolute;
+    left: 0;
+    background-color: @base-heading;
+    opacity: 1;
+    transition: all 0.3s ease-in-out 0s;
+}
+
+.anchors-component .expand span {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.anchors-component .expand span:before {
+    top:0;
+    left: -12px;
+}
+
+.anchors-component .expand span:after {
+    top:0;
+    left:auto;
+    right: -12px;
+}
+
+.anchors-component .expand.anchor-active span {
+    width: 0;
+}
+
+.anchors-component .expand.anchor-active span:before,
+.anchors-component .expand.anchor-active span:after {
+    top: 2px;
+    left: -9px;
+    border-radius:0; 
+    width:20px; height:3px;
+}
+
+.anchors-component .expand.anchor-active span::before {
+    transform: rotate(-45deg);
+}
+
+.anchors-component .expand.anchor-active span::after {
+    transform: rotate(45deg);
+}
+
+
+.anchors-component .expand.justify-content-center { 
+    text-align:center;
+}
+.anchors-component .expand.justify-content-left { 
+    text-align:left;
+}
+.anchors-component .expand.justify-content-right { 
+    text-align:right;
+}
+
+@media (min-width: 768px) { 
+    
+    .anchors-component .expand { 
+        display:none
+    }
+
+}
+
+
+/* IE10+ specific styles go here */ 
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {  
+    .anchors-component { position:relative; top:0!important; }
+}

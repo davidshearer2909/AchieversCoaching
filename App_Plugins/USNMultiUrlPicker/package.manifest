@@ -1,0 +1,57 @@
+﻿{
+    propertyEditors: [      
+        {
+			alias: 'USN.MultiUrlPicker',
+			name: 'USN Multi Url Picker',
+			editor:{
+				valueType: "JSON",
+				view: '~/App_Plugins/USNMultiUrlPicker/views/multiurlpicker-editor.html',
+				hideLabel: false
+			},
+			prevalues : {
+				fields: [
+					{
+					    label: "Minimum number of items",
+					    key: "minNumber",
+						view: "number"
+					},
+					{
+					    label: "Maximum number of items",
+					    key: "maxNumber",
+						view: "number"
+					},
+					{
+						label: "Display button color option",
+						key: "displayButtonColor",
+						view: "boolean"
+					},
+					{
+						label: "Display icon option",
+						key: "displayIcon",
+						view: "boolean"
+					},
+					{
+						label: "Display media option",
+						key: "displayMedia",
+						view: "boolean"
+					},
+					{
+					    label: "Class name regex",
+					    key: "styleRegex",
+						description: "Regex that matches the class name pattern.",
+					    view: "textstring"
+					}   
+				]
+			}
+        }
+    ],
+    javascript: [
+		'~/App_Plugins/USNMultiUrlPicker/js/multiurlpicker-editor-controller.js',
+		'~/App_Plugins/USNMultiUrlPicker/js/multiurlpicker-iconpicker-controller.js',
+		'~/App_Plugins/USNMultiUrlPicker/js/multiurlpicker-colorpicker-controller.js'
+    ],
+	css: [
+        "~/App_Plugins/USNMultiUrlPicker/css/multiurlpicker-style.css"
+    ]
+
+}

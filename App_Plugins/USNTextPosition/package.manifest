@@ -1,0 +1,18 @@
+﻿{
+    propertyEditors:[
+        {
+            alias: "USN.TextPosition",
+            name: "USN Text Position",
+            editor: {
+				valueType: "STRING",
+                view: "~/App_Plugins/USNTextPosition/views/textposition-editor.html"
+            }
+        }
+    ],
+	javascript: [
+		"~/App_Plugins/USNTextPosition/js/textposition-editor-controller.js"
+	],
+    css: [
+        "~/App_Plugins/USNTextPosition/css/textposition-style.css"
+    ]
+}

@@ -1,0 +1,102 @@
+/*  
+---------------------------------------------------
+Header
+---------------------------------------------------  
+*/
+
+header#site-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1001;
+    min-height: @small-header;
+    transition: box-shadow 0.4s ease-in-out 0s;
+}
+
+html.nav-down:not(.reached-top) header#site-header, 
+html.nav-up:not(.reached-top) header#site-header {
+    background-color: @header-bg;
+    box-shadow:0 0 20px fade(@true-black, 5%);
+}
+
+header#site-header>.container>.row { 
+    position: relative;
+}
+
+header#site-header a { 
+    text-decoration: none;
+}
+
+header#site-header #logo {
+    position: relative;
+}
+
+header#site-header #logo {
+    padding: 17.5px 15px;
+    width: ~"calc(@{small-logo-width} + 30px)";
+    height: ~"calc(@{small-logo-height} + 35px)";
+}
+
+header#site-header #logo a {
+    display: block;
+    text-indent: -9999px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+@media (min-width:0) and (max-width:@small-breakpoint) {
+    html.reveal-out header#site-header {
+        height: 100%; max-height: 100%;
+        overflow: auto;
+        padding-bottom:@small-header;
+    }
+    header#site-header>.container-fluid>.row,
+    header#site-header>.container>.row { 
+        display:block!important;
+    }
+    header#site-header>.container { 
+        width:100%!important; max-width:100%!important;
+    }
+    html.reveal-out header#site-header::after { 
+        display:none;
+    }
+}
+
+@media (min-width:@large-breakpoint) {
+    header#site-header {
+        min-height: @large-header;
+    }
+    header#site-header #logo {
+        padding: 30px 15px 30px 15px;
+        width: ~"calc(@{large-logo-width} + 30px)";
+        height: ~"calc(@{large-logo-height} + 60px)";
+    }
+
+    body.max-width header#site-header {
+        width:100%;
+        margin: 0 auto;
+        right:auto; left:auto;
+        max-width: @site-max-width;
+    }
+}
+
+
+
+/*  
+---------------------------------------------------
+Header on scroll
+---------------------------------------------------  
+*/
+
+@media (min-width:@large-breakpoint) {
+
+    html.nav-up body:not(.browser-safari) header#site-header { 
+        top:-(@header-on-scroll * 1.5);
+    }
+    body:not(.browser-safari) header#site-header { 
+        transition:all 0.4s ease-in-out 0s, box-shadow 0.4s ease-in-out 0s;
+    }
+
+}

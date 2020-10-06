@@ -1,0 +1,547 @@
+/*
+--------------------------------------------------
+Typography
+-------------------------------------------------- 
+*/
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,400i,600,600i,700,700i&display=swap');
+
+/*
+--------------------------------------------------
+font-family: 'Montserrat', sans-serif;
+font-weight: 400;
+font-weight: 600;
+font-weight: 700;
+-------------------------------------------------- 
+*/
+
+body {
+    font-family: 'Montserrat', sans-serif;
+
+    font-weight: 400;
+    font-size: 100%;
+    letter-spacing: -0.015em;
+    -webkit-font-smoothing: antialiased;
+}
+
+input,
+select,
+textarea,
+button,
+.form-control,
+.usn .snip-layout * {
+    font-family: 'Montserrat', sans-serif;
+
+    font-weight: 400;
+    font-size: 100%;
+    letter-spacing: -0.015em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.heading {
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+h1,
+.component .heading.main {
+    font-size: 2rem;
+}
+
+h2,
+.content-col > .component .heading.main {
+    font-size: 1.75rem;
+}
+
+h3 {
+    font-size: 1.6rem;
+}
+
+h4 {
+    font-size: 1.45rem;
+}
+
+h5,
+p.heading:not(.main) {
+    font-size: 1.2rem;
+}
+
+h6,
+p,
+ul,
+ol,
+table td,
+dt {
+    font-size: 1rem;
+}
+
+/*  Items */
+.item .heading.main.footer-heading,
+.item:not(.item_blockquote) p.heading:not(.main),
+.pods-component .item .heading.main {
+    font-size: 1.4rem;
+}
+
+.item.item_listing .listing.listing_short .item.item_text-only p.heading:not(.main) { 
+    font-size: 1rem;
+}
+
+blockquote,
+.item.item_blockquote p.heading:not(.main) {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+    
+/* Windows */
+.listing.listing_window-mosaic .heading.main { 
+    font-size: 1.4rem;
+}
+
+.secondary-heading {
+    font-size: 0.85rem;
+}
+
+h1,
+h2,
+h3 {
+    margin: @base-half-spacing 0;
+}
+
+h4,
+h5,
+h6,
+p.heading {
+    margin: 10px 0;
+}
+
+p {
+    margin: 8px 0 @base-half-spacing;
+}
+
+p,
+.text {
+    line-height: 1.4;
+}
+
+.secondary-heading {
+    font-weight: 600;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+p.caption {
+    margin: 10px 0 0;
+    font-size: 0.8rem;
+    font-style: italic;
+    opacity: 0.6;
+}
+
+.intro {
+    font-size: 1.2rem;
+}
+
+.secondary-heading+.heading {
+    margin-top: 10px;
+}
+
+.heading {
+    margin: 0;
+}
+
+.secondary-heading+.heading {
+    margin: 5px 0 0;
+}
+
+.secondary-heading+.text,
+.heading+.text {
+    margin: 10px 0 0;
+}
+
+.link {
+    margin-top: @base-half-spacing;
+}
+
+ul, ol { 
+    margin:8px 18px @base-half-spacing; padding:0;
+}
+ul ul, ol ol { 
+    margin:8px 18px;
+}
+
+b,
+strong {
+    font-weight: 700;
+}
+
+small {
+    font-size: 90%;
+}
+
+table {
+    margin: 5px 0 @base-spacing;
+}
+
+blockquote {
+    position: relative;
+    padding: 40px 0 @base-half-spacing;
+    margin: @base-half-spacing 0;
+    border: 0 none;
+    font-style: italic;
+}
+
+.item blockquote { 
+    padding-bottom:0; margin-bottom:0;
+}
+
+blockquote::before {
+    content: "\f35f";
+    display: inline-block;
+    font-family: "Ionicons";
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    text-rendering: auto;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    position: absolute;
+}
+
+blockquote::before {
+    top: -5px;
+    left: 0;
+    font-size: 35px;
+    transform: scaleX(-1) scaleY(-1);
+}
+
+.text-center blockquote::before {
+    left: 50%;
+    transform: translateX(-50%) scaleX(-1);
+}
+
+.text-right blockquote::before {
+    right: 0;
+    left: auto;
+}
+
+blockquote p.heading,
+blockquote p { margin:0; line-height:1.4; }
+
+blockquote cite {
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: -0.25px;
+}
+
+a.skip-to-content {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    z-index: -1;
+    width: auto;
+    height: auto;
+    font-size: 12px;
+    transform: translateX(-50%);
+}
+
+a.skip-to-content:focus {
+    z-index: 1001;
+    clip: auto;
+    padding: 0;
+    margin: 0;
+}
+
+.info :first-child,
+.text :first-child,
+.alert :first-child {
+    margin-top: 0;
+}
+
+.info :last-child,
+.text :last-child,
+.alert :last-child {
+    margin-bottom: 0;
+}
+
+.label { 
+    display:inline-block;
+    padding:0 3px;
+    font-weight:bold;
+    border-radius:3px;
+}
+
+@media (min-width:768px) and (max-width:@small-breakpoint) {
+    
+    /* Windows */
+    .listing.listing_window-mosaic .heading.main { 
+        font-size: 1.6rem;
+    }
+
+}
+
+@media (min-width:@large-breakpoint) {
+    h1,
+    .component .heading.main {
+        font-size: 2.6rem;
+    }
+    .heading-col .heading.main,
+    body.banner-top div:not(.left-col):not(.right-col):not(.center-col) > .component.banner-component:first-of-type .heading.main {
+        font-size: 3rem;
+        font-weight: 900;
+    }
+    h2,
+    .content-col > .component .heading.main {
+        font-size: 2rem;
+    }
+    h3 {
+        font-size: 1.8rem;
+    }
+    h4,
+    p.heading:not(.main) {
+        font-size: 1.45rem;
+    }
+    body.banner-top div:not(.left-col):not(.right-col):not(.center-col) > .component.banner-component:first-of-type .intro {
+        font-size: 1.2rem;
+    }
+    body.banner-top div:not(.left-col):not(.right-col):not(.center-col) > .component.banner-component:first-of-type .secondary-heading {
+        font-size: 1.1rem;
+    }
+    #site-content > .component.split-component .item_text-block .secondary-heading,
+    #site-content > .component .component-introduction .secondary-heading,
+    #site-content > .component .component-outro .secondary-heading,
+    #site-content > .component.cta-component .secondary-heading {
+        font-size: 1rem;
+    }
+    h5, 
+    nav.sub > p.heading,
+    .author-bio .item p.heading:not(.main) {
+        font-size: 1.1rem;
+    }
+    h6 { 
+        font-size: 1.05rem;
+    }
+
+    /*  Items */
+    .item.items-1:not(.item_links):not(.item_price-list) p.heading:not(.main),
+    .pods-component .item.items-1 .heading.main {
+        font-size: 1.6rem;
+    }
+    .item.items-2:not(.item_links):not(.item_price-list) p.heading:not(.main),
+    .pods-component .item.items-2 .heading.main {
+        font-size: 1.4rem;
+    }
+    .item.items-3:not(.item_links):not(.item_price-list) p.heading:not(.main),
+    .pods-component .item.items-3 .heading.main {
+        font-size: 1.2rem;
+    }
+    .item.items-4:not(.item_links):not(.item_price-list) p.heading:not(.main),
+    .pods-component .item.items-4 .heading.main {
+        font-size: 1.1rem;
+    }
+    .item.items-5:not(.item_links):not(.item_price-list) p.heading:not(.main),
+    .item.items-6:not(.item_links):not(.item_price-list) p.heading:not(.main),
+    .item.items-7:not(.item_links):not(.item_price-list) p.heading:not(.main),
+    .item.items-8:not(.item_links):not(.item_price-list) p.heading:not(.main),
+    .pods-component .item.items-5 .heading.main,
+    .pods-component .item.items-6 .heading.main,
+    .pods-component .item.items-7 .heading.main,
+    .pods-component .item.items-8 .heading.main {
+        font-size: 1rem;
+    }
+
+    .item.items-1.item_price-list p.heading:not(.main),
+    .item.items-1.item_links p.heading:not(.main),
+    .item.items-2.item_price-list p.heading:not(.main),
+    .item.items-2.item_links p.heading:not(.main),
+    .item.item_price-list p.heading:not(.main),
+    .item.item_links p.heading:not(.main) {
+        font-size: 1rem;
+    }
+    
+    /* Wide Windows */
+    .container-fluid .listing.listing_window-mosaic .heading.main { 
+        font-size: 1.8rem;
+    }
+
+    .container-fluid .listing.listing_window-mosaic.windows-4.big-window-first .item:nth-child(1) .heading.main,
+    .container-fluid .listing.listing_window-mosaic.windows-4.big-window-first .item:nth-child(4) .heading.main,
+    .container-fluid .listing.listing_window-mosaic.windows-4.small-window-first .item:nth-child(2) .heading.main,
+    .container-fluid .listing.listing_window-mosaic.windows-4.small-window-first .item:nth-child(3) .heading.main { 
+        font-size: 2rem;
+    }
+
+    .container-fluid .listing.listing_window-mosaic.windows-3.big-window-first .item:nth-child(1) .heading.main,
+    .container-fluid .listing.listing_window-mosaic.windows-3.small-window-first .item:nth-child(3) .heading.main { 
+        font-size: 2.6rem;
+    }
+
+    .container-fluid .listing.listing_window-mosaic.basic-windows.windows-3 .heading.main { 
+        font-size: 1.45rem;
+    }
+
+    .container-fluid .listing.listing_window-mosaic.basic-windows.windows-4 .heading.main { 
+        font-size: 1.25rem;
+    }
+
+    /* Fixed width Windows */
+    .container .listing.listing_window-mosaic .heading.main { 
+        font-size: 1.6rem;
+    }
+
+    .container .listing.listing_window-mosaic.windows-3.big-window-first .item:nth-child(1) .heading.main,
+    .container .listing.listing_window-mosaic.windows-3.small-window-first .item:nth-child(3) .heading.main { 
+        font-size: 2rem;
+    }
+
+    .container .listing.listing_window-mosaic.basic-windows.windows-3 .heading.main { 
+        font-size: 1.2rem;
+    }
+
+    .container .listing.listing_window-mosaic.basic-windows.windows-4 .heading.main { 
+        font-size: 1.2rem;
+    }
+
+    .link {
+        margin-top: @base-spacing;
+    }
+}
+
+@media (min-width:1200px) {
+    h1,
+    .component .heading.main {
+        font-size: 3rem;
+    }
+    .heading-col .heading.main,
+    body.banner-top div:not(.left-col):not(.right-col):not(.center-col) > .component.banner-component:first-of-type .heading.main {
+        font-size: 3.5rem;
+        font-weight: 900;
+    }
+    h2,
+    .content-col .component .heading.main {
+        font-size: 2.25rem;
+    }
+    h3 {
+        font-size: 2rem;
+    }
+    h4,
+    p.heading:not(.main) {
+        font-size: 1.65rem;
+    }
+    body.banner-top div:not(.left-col):not(.right-col):not(.center-col) > .component.banner-component:first-of-type .intro {
+        font-size: 1.4rem;
+    }
+    body.banner-top div:not(.left-col):not(.right-col):not(.center-col) > .component.banner-component:first-of-type .secondary-heading {
+        font-size: 1.2rem;
+    }
+    #site-content > .component.split-component .item_text-block .secondary-heading,
+    #site-content > .component .component-introduction .secondary-heading,
+    #site-content > .component .component-outro .secondary-heading,
+    #site-content > .component.cta-component .secondary-heading {
+        font-size: 1.1rem;
+    }
+    h5, 
+    nav.sub > p.heading,
+    .author-bio .item p.heading:not(.main) {
+        font-size: 1.2rem;
+    }
+    h6 { 
+        font-size: 1.15rem;
+    }
+
+    /*  Items */
+
+    /* Listings */
+    .item.items-1:not(.item_links):not(.item_price-list) p.heading:not(.main),
+    .pods-component .item.items-1 .heading.main {
+        font-size: 1.8rem;
+    }
+    .item.items-2:not(.item_links):not(.item_price-list) p.heading:not(.main),
+    .pods-component .item.items-2 .heading.main {
+        font-size: 1.6rem;
+    }
+    .item.items-3:not(.item_links):not(.item_price-list) p.heading:not(.main),
+    .pods-component .item.items-3 .heading.main {
+        font-size: 1.4rem;
+    }
+    .item.items-4:not(.item_links):not(.item_price-list) p.heading:not(.main),
+    .pods-component .item.items-4 .heading.main {
+        font-size: 1.2rem;
+    }
+    .item.items-5:not(.item_links):not(.item_price-list) p.heading:not(.main),
+    .item.items-6:not(.item_links):not(.item_price-list) p.heading:not(.main),
+    .pods-component .item.items-5 .heading.main,
+    .pods-component .item.items-6 .heading.main {
+        font-size: 1.1rem;
+    }
+    .item.items-7:not(.item_links):not(.item_price-list) p.heading:not(.main),
+    .item.items-8:not(.item_links):not(.item_price-list) p.heading:not(.main),
+    .pods-component .item.items-7 .heading.main,
+    .pods-component .item.items-8 .heading.main {
+        font-size: 1rem;
+    }
+
+    /* Price List and Links */
+    .item.items-1.item_price-list p.heading:not(.main),
+    .item.items-1.item_links p.heading:not(.main),
+    .item.items-2.item_price-list p.heading:not(.main),
+    .item.items-2.item_links p.heading:not(.main) {
+        font-size: 1.1rem;
+    }
+    .item.item_price-list p.heading:not(.main),
+    .item.item_links p.heading:not(.main) {
+        font-size: 1rem;
+    }
+    
+    /* Wide Windows */
+    .container-fluid .listing.listing_window-mosaic .heading.main { 
+        font-size: 2.25rem;
+    }
+
+    .container-fluid .listing.listing_window-mosaic.windows-4.big-window-first .item:nth-child(1) .heading.main,
+    .container-fluid .listing.listing_window-mosaic.windows-4.big-window-first .item:nth-child(4) .heading.main,
+    .container-fluid .listing.listing_window-mosaic.windows-4.small-window-first .item:nth-child(2) .heading.main,
+    .container-fluid .listing.listing_window-mosaic.windows-4.small-window-first .item:nth-child(3) .heading.main { 
+        font-size: 2.5rem;
+    }
+
+    .container-fluid .listing.listing_window-mosaic.windows-3.big-window-first .item:nth-child(1) .heading.main,
+    .container-fluid .listing.listing_window-mosaic.windows-3.small-window-first .item:nth-child(3) .heading.main { 
+        font-size: 3rem;
+    }
+
+    .container-fluid .listing.listing_window-mosaic.basic-windows.windows-3 .heading.main { 
+        font-size: 1.6rem;
+    }
+
+    .container-fluid .listing.listing_window-mosaic.basic-windows.windows-4 .heading.main { 
+        font-size: 1.45rem;
+    }
+
+    /* Fixed width Windows */
+    .container .listing.listing_window-mosaic .heading.main { 
+        font-size: 1.8rem;
+    }
+
+    .container .listing.listing_window-mosaic.windows-3.big-window-first .item:nth-child(1) .heading.main,
+    .container .listing.listing_window-mosaic.windows-3.small-window-first .item:nth-child(3) .heading.main { 
+        font-size: 2.25rem;
+    }
+
+    .container .listing.listing_window-mosaic.basic-windows.windows-3 .heading.main { 
+        font-size: 1.35rem;
+    }
+
+    .container .listing.listing_window-mosaic.basic-windows.windows-4 .heading.main { 
+        font-size: 1.2rem;
+    }
+
+}

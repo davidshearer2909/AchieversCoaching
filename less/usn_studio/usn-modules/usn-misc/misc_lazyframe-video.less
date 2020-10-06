@@ -1,0 +1,184 @@
+/*  
+---------------------------------------------------
+Lazyframe Video
+Used for inline Youtube and Vimeo videos
+---------------------------------------------------  
+*/
+
+.lazyframe {
+    position: relative;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.image.lazyframe img { 
+    position:absolute; z-index:-1;
+    top:0; left:0; right:0; bottom:0;
+}
+
+.lazyframe__title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 15px 17px;
+    z-index: 3;
+}
+
+.lazyframe__title:after {
+    z-index: -1;
+}
+
+.lazyframe:hover {
+    cursor: pointer;
+}
+
+.lazyframe:before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: 100%;
+    transition:all 0.3s ease-in-out 0s;
+}
+
+.lazyframe[data-ratio="16:9"]:before {
+    padding-top: 56.25%;
+}
+
+.lazyframe[data-ratio="4:3"]:before {
+    padding-top: 75%;
+}
+
+.lazyframe[data-ratio="1:1"]:before {
+    padding-top: 100%;
+}
+
+.lazyframe iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+}
+
+.lazyframe[data-vendor="youtube"],
+.lazyframe[data-vendor="youtube_nocookie"] {
+    background-color:transparent;
+}
+
+.lazyframe[data-vendor="youtube"] .lazyframe__title,
+.lazyframe[data-vendor="youtube_nocookie"] .lazyframe__title {
+    display: none;
+}
+
+.lazyframe[data-vendor="youtube"]:before,
+.lazyframe[data-vendor="youtube_nocookie"]:before {
+    padding-top: 56.25%;
+}
+
+.lazyframe[data-vendor="youtube"][data-ratio="16:9"]:before,
+.lazyframe[data-vendor="youtube_nocookie"][data-ratio="16:9"]:before {
+    padding-top: 56.25%;
+}
+
+.lazyframe[data-vendor="youtube"][data-ratio="4:3"]:before,
+.lazyframe[data-vendor="youtube_nocookie"][data-ratio="4:3"]:before {
+    padding-top: 75%;
+}
+
+.lazyframe[data-vendor="youtube"][data-ratio="1:1"]:before,
+.lazyframe[data-vendor="youtube_nocookie"][data-ratio="1:1"]:before {
+    padding-top: 100%;
+}
+
+.lazyframe[data-vendor="youtube"]:after,
+.lazyframe[data-vendor="youtube_nocookie"]:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 68px;
+    height: 48px;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjU1LjcgNDQ2LjNjLTUzLjMuMy0xMDYuNi0uNC0xNTkuOC0zLjMtMTcuNC0xLTM0LjctMi41LTUwLjQtMTFDMzUgNDI2LjMgMjcgNDE4LjQgMjIgNDA3LjIgMTMuMiAzODguNiAxMC41IDM2OSA5IDM0OWMtMy40LTQxLjMtMy42LTgyLjYtMS44LTEyMy44IDEtMjIgMS42LTQ0IDYuOC02NS41IDItOC40IDUtMTYuNiA4LjgtMjQuNEMzMiAxMTcgNDggMTA4IDY3LjMgMTA0YzE2LjItMyAzMi44LTMgNDkuMy0zLjcgNTYtMi4zIDExMi0zLjUgMTY4LTMgNDMgLjYgODYuMiAxLjcgMTI5LjMgNCAxMy4yLjYgMjYuNi44IDM5LjMgNS41IDE3LjIgNi40IDMwIDE3LjIgMzcgMzQuNyA2LjYgMTYuOCA5LjIgMzQuMiAxMC42IDUyIDMuOCA0OC43IDQgOTcuMy43IDE0Ni0xIDE2LjMtMi4yIDMyLjctNi41IDQ4LjgtOS43IDM3LTMyLjggNTEuNS02Ni43IDUzLjgtMzYuMiAyLjUtNzIuNSAzLjgtMTA4LjggNC4zLTIxLjMuMi00Mi43IDAtNjQgMHpNMjAzLjIgMzQ0TDM0OCAyNjQuN2wtMTQ0LjgtNzkuM1YzNDR6IiBmaWxsPSIjIzFmMWYxZiIvPjxwYXRoIGQ9Ik0yMDMuMiAzNDRWMTg1LjVMMzQ4IDI2NC44IDIwMy4yIDM0NHoiIGZpbGw9IiNGRUZERkQiLz48L3N2Zz4=");
+    background-position: center center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    opacity: 0.8;
+    border: none;
+    z-index: 4;
+    transform: translate(-50%, -50%);
+    transition:all 0.3s ease-in-out 0s;
+}
+
+.lazyframe[data-vendor="youtube"]:hover:after,
+.lazyframe[data-vendor="youtube_nocookie"]:hover:after {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjU1LjcgNDQ2LjNjLTUzLjMuMy0xMDYuNi0uNC0xNTkuOC0zLjMtMTcuNC0xLTM0LjctMi41LTUwLjQtMTFDMzUgNDI2LjMgMjcgNDE4LjQgMjIgNDA3LjIgMTMuMiAzODguNiAxMC41IDM2OSA5IDM0OWMtMy40LTQxLjMtMy42LTgyLjYtMS44LTEyMy44IDEtMjIgMS42LTQ0IDYuOC02NS41IDItOC40IDUtMTYuNiA4LjgtMjQuNEMzMiAxMTcgNDggMTA4IDY3LjMgMTA0YzE2LjItMyAzMi44LTMgNDkuMy0zLjcgNTYtMi4zIDExMi0zLjUgMTY4LTMgNDMgLjYgODYuMiAxLjcgMTI5LjMgNCAxMy4yLjYgMjYuNi44IDM5LjMgNS41IDE3LjIgNi40IDMwIDE3LjIgMzcgMzQuNyA2LjYgMTYuOCA5LjIgMzQuMiAxMC42IDUyIDMuOCA0OC43IDQgOTcuMy43IDE0Ni0xIDE2LjMtMi4yIDMyLjctNi41IDQ4LjgtOS43IDM3LTMyLjggNTEuNS02Ni43IDUzLjgtMzYuMiAyLjUtNzIuNSAzLjgtMTA4LjggNC4zLTIxLjMuMi00Mi43IDAtNjQgMHpNMjAzLjIgMzQ0TDM0OCAyNjQuN2wtMTQ0LjgtNzkuM1YzNDR6IiBmaWxsPSIjREQyQzI4Ii8+PHBhdGggZD0iTTIwMy4yIDM0NFYxODUuNUwzNDggMjY0LjggMjAzLjIgMzQ0eiIgZmlsbD0iI0ZFRkRGRCIvPjwvc3ZnPg==");
+    opacity: 1;
+}
+
+.lazyframe[data-vendor="vimeo"] {
+    background-color:transparent;
+}
+
+.lazyframe[data-vendor="vimeo"] .lazyframe__title {
+    display: none;
+}
+
+.lazyframe[data-vendor="vimeo"]:before {
+    padding-top: 48.25%;
+}
+
+.lazyframe[data-vendor="vimeo"][data-ratio="16:9"]:before {
+    padding-top: 56.25%;
+}
+
+.lazyframe[data-vendor="vimeo"][data-ratio="4:3"]:before {
+    padding-top: 75%;
+}
+
+.lazyframe[data-vendor="vimeo"][data-ratio="1:1"]:before {
+    padding-top: 100%;
+}
+
+.lazyframe[data-vendor="vimeo"]:after {
+    content: '';
+	height: 40px;
+	width: 65px;
+	display: block;
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	z-index: 3;
+    background-color: fade(@true-black, 50%);
+	background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgYmFzZVByb2ZpbGU9InRpbnkiIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTcuNzY1IDE2Ljg5bDguNDctNC44OS04LjQ3LTQuODkiLz48L3N2Zz4=");
+	background-position: center center;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	border-radius: 5px;
+    transition:all 0.3s ease-in-out 0s;
+    
+    /* Centered play button */
+    content: '';
+    height: 40px;
+    width: 65px;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+    background-color: fade(@true-black, 50%);
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgYmFzZVByb2ZpbGU9InRpbnkiIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTcuNzY1IDE2Ljg5bDguNDctNC44OS04LjQ3LTQuODkiLz48L3N2Zz4=");
+    background-position: center center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border-radius: 5px;
+    transform: translate(-50%, -50%);
+}
+
+.lazyframe[data-vendor="vimeo"]:hover:after {
+    background-color: @vimeo-bg;
+}

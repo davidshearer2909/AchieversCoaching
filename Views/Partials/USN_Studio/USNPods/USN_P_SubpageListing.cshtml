@@ -1,0 +1,133 @@
+﻿@inherits UmbracoViewPage<USNStarterKit.USNModels.USNPodModel>
+
+@using USNStarterKit.USNModels;
+@using USNStarterKit.USNHelpers;
+
+@{
+    string viewPath = ViewData["viewPath"].ToString();
+    string itemClass = ViewData["itemClass"].ToString();
+    string backgroundColor = ViewData["backgroundColor"].ToString();
+    int globalSettingsId = Convert.ToInt32(ViewData["globalSettingsID"]);
+    USNAnimation animation = ViewData["animation"] == null ? new USNAnimation() : (USNAnimation)ViewData["animation"];
+
+    var model = Model.publishedContent == null ? Model.publishedElement : Model.publishedContent;
+    string itemTextAlignment = ThemeHelper.GetSimpleTextAlignmentClass(model.Value<string>("textAlignment"));
+    IEnumerable<IPublishedContent> pages = null;
+
+    <div class="item @itemClass @itemTextAlignment item_listing @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+        <div class="inner">
+            <div class="info">
+                @if (model.HasValue("secondaryHeading"))
+                {
+                    <p class="secondary-heading @(backgroundColor)-secondary-heading">@(model.Value<string>("secondaryHeading"))</p>
+                }
+                @if (model.HasValue("heading"))
+                {
+                    <p class="heading @(backgroundColor)-heading">@(model.Value<string>("heading"))</p>
+                }
+                @if (model.Value<USNMultiUrlPicker>("linkToListing").link.LinkType == USNLink.UrlPickerTypes.Content)
+                {
+                    Udi udi;
+                    bool udiCorrect = Udi.TryParse(model.Value<USNMultiUrlPicker>("linkToListing").link.LinkUdi, out udi);
+                    var page = Umbraco.Content(udi);
+
+                    var listMainPage = Umbraco.Content(model.Value<USNMultiUrlPicker>("linkToListing").link.LinkUdi);
+
+                    if (listMainPage.IsDocumentType(Usnpage.ModelTypeAlias))
+                    {
+                        pages = listMainPage != null ? listMainPage.Children.Where(x => x.IsDocumentType(Usnpage.ModelTypeAlias)) : null;
+
+                        pages = (pages != null && model.HasValue("pagesToDisplay") && model.Value<int>("pagesToDisplay") != 0) ? pages.Take(model.Value<int>("pagesToDisplay")).ToList() : pages;
+
+                        if (pages != null)
+                        {
+                            <div class="listing listing_short">
+                                @foreach (var item in pages)
+                                {
+                                    <div class="item item_text-only">
+                                        <a href="@item.Url">
+                                            <p class="heading">
+                                                @if (item.HasValue("subPageListingLinkText"))
+                                                {
+                                                    @(item.Value<string>("subPageListingLinkText"))
+                                                }
+                                                else
+                                                {
+                                                    @item.Name
+                                                }
+                                            </p>
+                                        </a>
+                                    </div>
+                                }
+
+                                @if (model.HasValue("linkToListing"))
+                                {
+                                    <p class="link">
+                                        <a class="btn btn-xs @(model.Value<USNMultiUrlPicker>("linkToListing").color.label)-bg @(model.Value<USNMultiUrlPicker>("linkToListing").color.label)-text @(model.Value<USNMultiUrlPicker>("linkToListing").color.label)-borders" href="@(model.Value<USNMultiUrlPicker>("linkToListing").link.LinkUrl)" @Html.Raw(model.Value<USNMultiUrlPicker>("linkToListing").link.LinkTarget) @Html.Raw(model.Value<USNMultiUrlPicker>("linkToListing").link.LinkTitle)>
+                                            @Html.Raw(model.Value<USNMultiUrlPicker>("linkToListing").icon) @(model.Value<USNMultiUrlPicker>("linkToListing").link.LinkText)@Html.Raw(model.Value<USNMultiUrlPicker>("linkToListing").link.LinkTargetIcon)
+                                        </a>
+                                    </p>
+                                }
+                            </div>
+                        }
+                    }
+                    else if (listMainPage.IsDocumentType(UsnblogLandingPage.ModelTypeAlias) || listMainPage.IsDocumentType(UsnblogCategoryPage.ModelTypeAlias))
+                    {
+                        string category = null;
+                        IPublishedContent blogLandingPage;
+
+                        if (listMainPage.IsDocumentType(UsnblogCategoryPage.ModelTypeAlias))
+                        {
+                            category = listMainPage.Id.ToString();
+                            blogLandingPage = listMainPage.AncestorOrSelf(UsnblogLandingPage.ModelTypeAlias);
+                        }
+                        else
+                        {
+                            blogLandingPage = listMainPage;
+                        }
+
+                        int pagesToDisplay = (model.HasValue("pagesToDisplay") && model.Value<int>("pagesToDisplay") != 0) ? model.Value<int>("pagesToDisplay") : -1;
+
+                        USNSearchResults searchResult = UmbracoContext.GetBlogListing(blogLandingPage.Id, null, null, category, 1, pagesToDisplay);
+
+                        if (searchResult != null && searchResult.SearchResults.Any())
+                        {
+                            <div class="listing listing_short">
+                                @foreach (var item in searchResult.SearchResults)
+                                {
+                                    <div class="item item_text-only">
+                                        <a href="@item.Url">
+                                            <p class="heading">
+                                                @if (item.HasValue("subPageListingLinkText"))
+                                                {
+                                                    @(item.Value<string>("subPageListingLinkText"))
+                                                }
+                                                else
+                                                {
+                                                    @item.Name
+                                                }
+                                            </p>
+                                        </a>
+                                        <div class="meta base-text">
+                                            <p class="date"><time>@(item.Value<DateTime>("postDate").ToString("dd MMM yyyy"))</time></p>
+                                        </div>
+                                    </div>
+                                }
+
+                                @if (model.HasValue("linkToListing"))
+                                {
+                                    <p class="link">
+                                        <a class="btn btn-xs @(model.Value<USNMultiUrlPicker>("linkToListing").color.label)-bg @(model.Value<USNMultiUrlPicker>("linkToListing").color.label)-text @(model.Value<USNMultiUrlPicker>("linkToListing").color.label)-borders" href="@(model.Value<USNMultiUrlPicker>("linkToListing").link.LinkUrl)" @Html.Raw(model.Value<USNMultiUrlPicker>("linkToListing").link.LinkTarget) @Html.Raw(model.Value<USNMultiUrlPicker>("linkToListing").link.LinkTitle)>
+                                            @Html.Raw(model.Value<USNMultiUrlPicker>("linkToListing").icon) @(model.Value<USNMultiUrlPicker>("linkToListing").link.LinkText)@Html.Raw(model.Value<USNMultiUrlPicker>("linkToListing").link.LinkTargetIcon)
+                                        </a>
+                                    </p>
+                                }
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+}

@@ -1,0 +1,18 @@
+﻿{
+    propertyEditors:[
+        {
+            alias: "USN.VerticalPosition",
+            name: "USN Vertical Position",
+            editor: {
+				valueType: "STRING",
+                view: "~/App_Plugins/USNVerticalPosition/views/verticalposition-editor.html"
+            }
+        }
+    ],
+	javascript: [
+		"~/App_Plugins/USNVerticalPosition/js/verticalposition-editor-controller.js"
+	],
+    css: [
+        "~/App_Plugins/USNVerticalPosition/css/verticalposition-style.css"
+    ]
+}

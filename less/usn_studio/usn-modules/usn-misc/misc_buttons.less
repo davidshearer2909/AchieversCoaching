@@ -1,0 +1,54 @@
+/*  
+---------------------------------------------------
+Buttons
+---------------------------------------------------  
+*/
+
+.btn, button.btn {
+    border-radius: 0;
+    font-weight: 700;
+    border-width:@base-border-width; border-style:solid;
+    outline:none!important;
+    box-shadow:none!important;
+}
+.btn, button.btn, button {
+    transition: all 0.3s ease-in-out 0s!important;
+}
+
+.btn, button.btn {
+    padding:7px 10px;
+}
+.btn.btn-lg, button.btn.btn-lg {
+    padding:10px 14px;
+}
+.btn.btn-xl, button.btn.btn-xl {
+    padding:12px 16px;
+}
+
+.basic-buttons .btn, .basic-buttons button.btn,
+.btn.btn-sm, button.btn.btn-sm,
+.btn.btn-xs, button.btn.btn-xs {
+    padding:2px 0;
+    font-weight: 700;
+    background:none!important;
+    border-width:0 0 @base-border-width 0;
+}
+
+@media (min-width:0) and (max-width:575px) {}
+
+@media (min-width:576px) {}
+
+@media (min-width:768px) {
+    .component.banner-component:first-of-type .btn {
+        padding: 10px @base-half-spacing;
+        font-size: 1.1rem;
+    }
+}
+
+@media (min-width:992px) {
+
+}
+
+@media (min-width:1200px) {
+
+}

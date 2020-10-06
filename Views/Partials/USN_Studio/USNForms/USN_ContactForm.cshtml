@@ -1,0 +1,143 @@
+﻿@inherits UmbracoViewPage<USNWebsite.USNModels.USNContactFormViewModel>
+
+@using USNStarterKit.USNHelpers;
+
+@{
+    UsnglobalSettings globalSettings = (UsnglobalSettings)Umbraco.Content(Model.GlobalSettingsID);
+
+    if (Model.ContactRecipientEmailAddress.HasValue())
+    {
+        <div class="newsletter form ajax-wrap">
+            <div class="inner @(Model.FormColor)-bg @(Model.FormColor)-text">
+                @using (Ajax.BeginForm("HandleContactSubmit", "USNContactFormSurface", new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "CFC_" + Model.UniqueID,
+                    LoadingElementId = "CAL_" + Model.UniqueID
+                }))
+                {
+                    var containerId = "CFC_" + Model.UniqueID;
+                    var errorId = "CE_" + Model.UniqueID;
+                    var ajaxLoadingId = "CAL_" + Model.UniqueID;
+                    var formId = "Form_" + Model.UniqueID;
+                    var submissionId = "S_" + Model.UniqueID;
+
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("GlobalSettingsID", Model.GlobalSettingsID)
+                    @Html.Hidden("UniqueID", Model.UniqueID)
+                    @Html.Hidden("PageName", Model.PageName)
+                    @Html.Hidden("FormSubscriberListID", Model.FormSubscriberListID)
+                    @Html.Hidden("ContactRecipientEmailAddress", Model.ContactRecipientEmailAddress)
+
+                    if (Model.FormHeading.HasValue() || Model.FormIntroduction.HasValue() || Model.FormSecondaryHeading.HasValue())
+                    {
+                        <div class="info short-margin-bottom">
+
+                            @if (Model.FormSecondaryHeading.HasValue())
+                            {
+                                <p class="secondary-heading @(Model.FormColor)-secondary-heading">@Model.FormSecondaryHeading</p>
+                            }
+
+                            @if (Model.FormHeading.HasValue())
+                            {
+                                @Html.Raw(String.Format("<{0} class=\"heading main {1}-heading\">{2}</{0}>", Model.FormHeading.HeadingTag, Model.FormColor, Model.FormHeading.Text))
+                            }
+
+                            @if (Model.FormIntroduction.HasValue())
+                            {
+                                <div class="text @(Model.FormColor)-text">
+                                    @Html.Raw(Model.FormIntroduction)
+                                </div>
+                            }
+                        </div>
+                    }
+
+                    <div id="@containerId" class="form-inner">
+                        <div class="alert alert-danger" id="@errorId" style="display:none">
+                        </div>
+                        <div id="@formId">
+                            <fieldset>
+                                <!-- ROW -->
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-xs-12">
+                                        <label for="FirstName" class="control-label">
+                                            @Umbraco.GetDictionaryValue("USN Form First Name Label") <em class="req">*</em>
+                                        </label>
+                                        @Html.TextBoxFor(x => Model.FirstName, new { @class = "form-control", aria_label = Umbraco.GetDictionaryValue("USN Form First Name Label"), placeholder = Umbraco.GetDictionaryValue("USN Form First Name Label") })
+                                        @Html.ValidationMessageFor(x => Model.FirstName, Umbraco.GetDictionaryValue("USN Form First Name Validation"))
+                                    </div>
+                                    <div class="form-group col-md-6 col-xs-12">
+                                        <label for="LastName" class="control-label">
+                                            @Umbraco.GetDictionaryValue("USN Form Last Name Label") <em class="req">*</em>
+                                        </label>
+                                        @Html.TextBoxFor(x => Model.LastName, new { @class = "form-control", aria_label = Umbraco.GetDictionaryValue("USN Form Last Name Label"), placeholder = Umbraco.GetDictionaryValue("USN Form Last Name Label") })
+                                        @Html.ValidationMessageFor(x => Model.LastName, Umbraco.GetDictionaryValue("USN Form Last Name Validation"))
+                                    </div>
+                                </div>
+                                <!--// ROW -->
+                                <!-- ROW -->
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-xs-12">
+                                        <label for="Email" class="control-label">
+                                            @Umbraco.GetDictionaryValue("USN Form Email Address Label") <em class="req">*</em>
+                                        </label>
+                                        @Html.TextBoxFor(x => Model.Email, new { autocapitalize = "off", @class = "form-control", aria_label = Umbraco.GetDictionaryValue("USN Form Email Address Label"), placeholder = Umbraco.GetDictionaryValue("USN Form Email Address Label") })
+                                        @Html.ValidationMessageFor(x => Model.Email, Umbraco.GetDictionaryValue("USN Form Email Address Validation"))
+                                    </div>
+                                    <div class="form-group col-md-6 col-xs-12">
+                                        <label for="Telephone" class="control-label">
+                                            @Umbraco.GetDictionaryValue("USN Form Telephone Label")
+                                        </label>
+                                        @Html.TextBoxFor(x => Model.Telephone, new { @type = "tel", @class = "form-control", aria_label = Umbraco.GetDictionaryValue("USN Form Telephone Label"), placeholder = Umbraco.GetDictionaryValue("USN Form Telephone Label") })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Message" class="control-label">
+                                        @Umbraco.GetDictionaryValue("USN Form Message Label")
+                                    </label>
+                                    @Html.TextAreaFor(model => Model.Message, new { rows = 5, @class = "form-control", aria_label = Umbraco.GetDictionaryValue("USN Form Message Label"), placeholder = Umbraco.GetDictionaryValue("USN Form Message Label") })
+                                </div>
+
+                                @if (globalSettings.EmailMarketingPlatform.HasValue() && globalSettings.NewsletterApikey.HasValue() && (globalSettings.DefaultNewsletterSubscriberListID.HasValue() || Model.FormSubscriberListID.HasValue()))
+                                {
+                                    <div class="checkbox">
+                                        <label for="NewsletterSignup">@Html.CheckBoxFor(x => Model.NewsletterSignup) @Umbraco.GetDictionaryValue("USN Form Newsletter Signup Label")</label>
+                                    </div>
+                                }
+
+                                @if (globalSettings.GoogleReCaptchasiteKey.HasValue() && globalSettings.GoogleReCaptchasecretKey.HasValue())
+                                {
+                                    <div class="g-recaptcha" data-sitekey="@globalSettings.GoogleReCaptchasiteKey" data-size="@Model.CaptchaDataSize"></div>
+                                }
+
+                            </fieldset>
+                            <fieldset class="buttons">
+                                <button role="button" class="btn @(Model.FormButtonColor)-btn-bg @(Model.FormButtonColor)-btn-text @(Model.FormButtonColor)-btn-borders" type="submit">
+                                    <span>@(Model.FormButtonText.HasValue() ? Model.FormButtonText : @Umbraco.GetDictionaryValue("USN Form Submit Button"))</span>
+                                </button>
+                            </fieldset>
+
+                            <div class="ajax-loading" id="@ajaxLoadingId" style="display:none">
+                                <div class="loading">
+                                    <span class="message">@Umbraco.GetDictionaryValue("USN Contact Form Sending Message")</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="@submissionId" style="display:none">
+                            <div class="alert alert-success"><div class="info">@Html.Raw(Model.FormSubmissionMessage)</div></div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            <p>@Html.Raw(Umbraco.GetDictionaryValue("USN Contact Form Email Missing Error"))</p>
+        </div>
+    }
+}
+

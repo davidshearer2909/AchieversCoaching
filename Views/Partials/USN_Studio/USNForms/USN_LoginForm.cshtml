@@ -1,0 +1,40 @@
+﻿@inherits UmbracoViewPage<USNWebsite.USNModels.USNLoginFormViewModel>
+
+@using (Html.BeginUmbracoForm("HandleLoginSubmit", "USNLoginFormSurface"))
+{
+    if (TempData["LoginFailure"] != null)
+    {
+        <div class="alert alert-danger">
+            <div class="info">
+                <p>@TempData["LoginFailure"]</p>
+            </div>
+        </div>
+    }
+
+    @Html.AntiForgeryToken()
+    <div class="login">
+        <fieldset>
+            <div class="form-group">
+                <label for="Username" class="control-label">
+                    @Umbraco.GetDictionaryValue("USN Login Form Username Label") <em class="req">*</em>
+                </label>
+                @Html.TextBoxFor(x => Model.Username, new { autocapitalize = "off", @class = "form-control", aria_label = Umbraco.GetDictionaryValue("USN Login Form Username Label"), placeholder = Umbraco.GetDictionaryValue("USN Login Form Username Label") })
+                @Html.ValidationMessageFor(x => Model.Username, Umbraco.GetDictionaryValue("USN Login Form Username Validation"))
+            </div>
+
+            <div class="form-group">
+                <label for="Password" class="control-label">
+                    @Umbraco.GetDictionaryValue("USN Login Form Password Label") <em class="req">*</em>
+                </label>
+                @Html.PasswordFor(x => Model.Password, new { @class = "form-control", aria_label = Umbraco.GetDictionaryValue("USN Login Form Password Label"), placeholder = Umbraco.GetDictionaryValue("USN Login Form Password Label") })
+                @Html.ValidationMessageFor(x => Model.Password, Umbraco.GetDictionaryValue("USN Login Form Password Validation"))
+            </div>
+            @Html.HiddenFor(x => Model.ReturnUrl)
+        </fieldset>
+        <fieldset>
+            <button role="button" class="btn base-btn-bg base-btn-text base-btn-borders" type="submit">
+                <span>@Umbraco.GetDictionaryValue("USN Login Form Button Text")</span>
+            </button>
+        </fieldset>
+    </div>
+}

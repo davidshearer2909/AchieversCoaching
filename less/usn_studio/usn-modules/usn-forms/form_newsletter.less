@@ -1,0 +1,42 @@
+/*  
+---------------------------------------------------
+Newsletter Form
+---------------------------------------------------  
+*/
+
+.form.newsletter-form { }
+
+.item_form-single_field .form fieldset,
+.item_form-single_field .form fieldset .form-group { 
+    margin:0;
+}
+
+footer#site-footer .item_form-single_field .form fieldset .form-group .form-control { 
+    border:0 none!important;
+    color:@footer-link;
+    background-color:@footer-borders
+}
+
+.item_form-single_field .form .form-inner { 
+    position:relative;
+}
+
+.item_form-single_field .form fieldset.buttons { 
+    position:absolute; top:0; bottom:0; right:0;
+}
+
+.item_form-single_field .form label { 
+    display:none;
+}
+
+.item_form-single_field .form fieldset.buttons .btn { 
+    height:40px;
+}
+
+@media (min-width:992px) {
+
+    .item_form-single_field .form fieldset.buttons .btn { 
+        height:50px;
+    }
+
+}

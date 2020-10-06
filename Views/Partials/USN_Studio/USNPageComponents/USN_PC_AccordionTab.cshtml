@@ -1,0 +1,110 @@
+﻿@inherits UmbracoViewPage<Usn_Pc_AccordionTab_AN>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    string viewPath = ViewData["viewPath"].ToString();
+    string pageLayout = ViewData["pageLayout"].ToString();
+    int itemCount = 1;
+    string backgroundImageStyle = ThemeHelper.GetBackgroundImageStyle(Model.BackgroundImageOptions, Model.BackgroundImage);
+    string backGroundColor = Model.BackgroundColor.label + "-bg";
+    USNAnimation animation = ThemeHelper.GetAnimationSettings(Model.Animate,Model.AnimationDelay,Model.AnimationStyle);
+
+    <section class="content component @backGroundColor @Model.CustomComponentClasses" id="@Html.Raw("pos_" + Model.Id)" @Html.Raw(backgroundImageStyle)>
+
+        @if (pageLayout == "pageLayoutFull")
+        {
+            if(Model.ComponentWidth == "componentWidthCenter")
+            {
+                @:<div class="container"><div class="row justify-content-center"><div class="content-col center-col col-lg-6 col-12 col">
+            }
+            else if(Model.ComponentWidth == "componentWidthFull")
+            {
+                @:<div class="container-fluid">
+            }
+            else
+            {
+                @:<div class="container">
+            }
+        }
+
+        @Html.Partial(viewPath + "/USNMiscPageElements/USN_ComponentIntro", @Model as IUsn_Cmp_IntroOutro, new ViewDataDictionary { { "animation", animation }, { "backgroundColor", Model.BackgroundColor.label } })
+
+        @if (Model.AccordionTabs != null && Model.AccordionTabs.Any())
+        {
+
+                if (Model.RepeaterStyle == "layoutAccordion")
+                {
+                    <div class="repeatable accordion @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+                        @foreach (Usn_Nc_AccordionTabItem item in Model.AccordionTabs)
+                        {
+                            <p class="tab">
+                                <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapse-@Model.Id-@itemCount" aria-expanded="false" aria-controls="collapse-@Model.Id-@itemCount">
+                                    @item.ItemHeading
+                                </a>
+                            </p>
+                            <div id="collapse-@Model.Id-@itemCount" class="info repeatable-content collapse">
+                                @Html.Raw(item.RepeaterText)
+                            </div>
+
+                            itemCount += 1;
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="repeatable tabbed @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+                        <!-- Tabs -->
+                        <nav class="tabs">
+                            <ul class="nav" id="nav-tab" role="tablist">
+                                @foreach (Usn_Nc_AccordionTabItem item in Model.AccordionTabs)
+                                {
+                                    <li class="tab">
+                                        <a class="nav-item nav-link @(itemCount == 1 ? "active" : "")" id="nav-tab-@Model.Id-@itemCount" data-toggle="tab" href="#nav-@Model.Id-@itemCount" role="tab" aria-controls="nav-@Model.Id-@itemCount" aria-selected="true">
+                                            @item.ItemHeading
+                                        </a>
+                                    </li>
+
+                                    itemCount += 1;
+                                }
+                            </ul>
+                        </nav>
+                        <!--// Tabs -->
+                        <!-- Tab content -->
+                        <div id="nav-tabContent" class="repeatable-content tab-content">
+                            @{
+                                itemCount = 1;
+
+                                foreach (Usn_Nc_AccordionTabItem item in Model.AccordionTabs)
+                                {
+                                    <div class="info tab-pane fade @(itemCount == 1 ? "show active" : "")" id="nav-@Model.Id-@itemCount" role="tabpanel" aria-labelledby="nav-tab-@Model.Id-@itemCount">
+                                        @Html.Raw(item.RepeaterText)
+                                    </div>
+
+                                    itemCount += 1;
+                                }
+                            }
+                        </div>
+                        <!--// Tab content -->
+                    </div>
+                }
+      
+        }
+
+        @Html.Partial(viewPath + "/USNMiscPageElements/USN_ComponentOutro", @Model as IUsn_Cmp_IntroOutro, new ViewDataDictionary { { "animation", animation }, { "backgroundColor", Model.BackgroundColor.label } })
+
+        @if (pageLayout == "pageLayoutFull")
+        {
+            if(Model.ComponentWidth == "componentWidthCenter")
+            {
+                @:</div></div></div>
+            }
+            else
+            {
+                @:</div>
+            }
+        }
+
+    </section>
+}

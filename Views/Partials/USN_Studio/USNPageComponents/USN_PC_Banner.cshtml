@@ -1,0 +1,22 @@
+﻿@inherits UmbracoViewPage<Usn_Pc_Banner_AN>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    string viewPath = ViewData["viewPath"].ToString();
+
+    if (Model.Banners != null)
+    {
+        USNCarouselSettings carouselSettings = ThemeHelper.GetCarouselSettings("itemsRow_1", true, Model.AutoRotateSpeed, Model.ShowDots, Model.ShowArrows);
+        
+        <section class="content component banner-component @Model.CustomComponentClasses" id="pos_@Model.Id">
+            <div class="slides" @Html.Raw(carouselSettings.SlickAttributes)>
+                @foreach (Usn_Nc_Banner banner in Model.Banners)
+                {
+                    @Html.Partial(viewPath + "/USNMiscPageElements/USN_Banner", banner)
+                }
+            </div>
+        </section>
+    }
+}

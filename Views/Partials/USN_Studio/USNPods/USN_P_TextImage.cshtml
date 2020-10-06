@@ -1,0 +1,73 @@
+﻿@inherits UmbracoViewPage<USNStarterKit.USNModels.USNPodModel>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    string itemClass = ViewData["itemClass"].ToString();
+    string backgroundColor = ViewData["backgroundColor"].ToString();
+    string backgroundColorValue = ViewData["backgroundColorValue"].ToString();
+    USNAnimation animation = ViewData["animation"] == null ? new USNAnimation() : (USNAnimation)ViewData["animation"];
+    string viewPath = ViewData["viewPath"].ToString();
+
+    var model = Model.publishedContent == null ? Model.publishedElement : Model.publishedContent;
+
+    string overlayImageClass = model.Value<string>("textPosition") == "textPositionOverlay" ? model.Value<USNColor>("overlayBackgroundColor").label + "-bg gradient-bg" : String.Empty;
+    backgroundColor = model.Value<string>("textPosition") == "textPositionOverlay" ? model.Value<USNColor>("overlayBackgroundColor").label : backgroundColor;
+    string itemTextAlignment = ThemeHelper.GetSimpleTextAlignmentClass(model.Value<string>("textAlignment"));
+    USNImageSettings imageSettings = ThemeHelper.GetImageSettings(model.Value<string>("imageStyle"),model.Value<bool>("boxPad"),backgroundColorValue);
+    string itemStyleClass = ThemeHelper.GetListItemTextPositionClass(model.Value<string>("textPosition"));
+
+    <div class="item @itemClass @itemStyleClass @itemTextAlignment @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+        <div class="inner @overlayImageClass @imageSettings.CircleClass">
+            @if (model.HasValue("podButton"))
+            {
+                @:<a href="@(model.Value<USNMultiUrlPicker>("podButton").link.LinkUrl)" @Html.Raw(model.Value<USNMultiUrlPicker>("podButton").link.LinkTarget) @Html.Raw(model.Value<USNMultiUrlPicker>("podButton").link.LinkTitle)>
+            }
+            @if (model.HasValue("podImage") && model.Value<string>("textPosition") != "textPositionAbove")
+            {
+                <div class="image @overlayImageClass @imageSettings.CircleClass">
+                     @Html.Partial(viewPath + "/USNMiscPageElements/USN_Image", model.Value<IPublishedContent>("podImage"), new ViewDataDictionary { { "imageSettings", imageSettings }, { "altText", model.Value<string>("podImageAltText") } })
+                </div>
+            }
+            @if (model.HasValue("podHeading") || model.HasValue("podSecondaryHeading") || model.HasValue("podText") || model.HasValue("podButton"))
+            {
+                <div class="info info_align-bottom">
+                    @if (model.HasValue("podSecondaryHeading"))
+                    {
+                        <p class="secondary-heading @(backgroundColor)-secondary-heading">@(model.Value<string>("podSecondaryHeading"))</p>
+                    }
+                    @if (model.HasValue("podHeading"))
+                    {
+                        <p class="heading @(backgroundColor)-heading">@(model.Value<string>("podHeading"))</p>
+                    }
+                    @if (model.HasValue("podText"))
+                    {
+                        <div class="text @(backgroundColor)-text">
+                            @Html.Raw(model.Value<HtmlString>("podText"))
+                        </div>
+                    }
+
+                    @if (model.HasValue("podButton"))
+                    {
+                        <p class="link">
+                            <span class="btn btn-sm @(model.Value<USNMultiUrlPicker>("podButton").color.label)-bg @(model.Value<USNMultiUrlPicker>("podButton").color.label)-text @(model.Value<USNMultiUrlPicker>("podButton").color.label)-borders">
+                                @Html.Raw(model.Value<USNMultiUrlPicker>("podButton").icon) @(model.Value<USNMultiUrlPicker>("podButton").link.LinkText)@Html.Raw(model.Value<USNMultiUrlPicker>("podButton").link.LinkTargetIcon)
+                            </span>
+                        </p>
+                    }
+                </div>
+            }
+            @if (model.HasValue("podImage") && model.Value<string>("textPosition") == "textPositionAbove")
+            {
+                  <div class="image @overlayImageClass @imageSettings.CircleClass">
+                      @Html.Partial(viewPath + "/USNMiscPageElements/USN_Image", model.Value<IPublishedContent>("podImage"), new ViewDataDictionary { { "imageSettings", imageSettings }, { "altText", model.Value<string>("podImageAltText") } })
+                  </div>
+            }
+            @if (model.HasValue("podButton"))
+            {
+                @:</a>
+            }
+        </div>
+    </div>
+}

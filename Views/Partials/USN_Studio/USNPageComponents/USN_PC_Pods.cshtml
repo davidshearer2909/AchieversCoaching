@@ -1,0 +1,96 @@
+﻿@inherits UmbracoViewPage<Usn_Pc_Pods_AN>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    string viewPath = ViewData["viewPath"].ToString();
+    string pageLayout = ViewData["pageLayout"].ToString();
+    int globalSettingsId = Convert.ToInt32(ViewData["globalSettingsID"]);
+
+    string backgroundImageStyle = ThemeHelper.GetBackgroundImageStyle(Model.BackgroundImageOptions, Model.BackgroundImage);
+    string backgroundColor = Model.BackgroundColor.label;
+    string backgroundColorValue = Model.BackgroundColor.value;
+    USNAnimation animation = ThemeHelper.GetAnimationSettings(Model.Animate,Model.AnimationDelay,Model.AnimationStyle);
+
+    <section class="content component pods-component @(backgroundColor)-bg @Model.CustomComponentClasses" id="@Html.Raw("pos_" + Model.Id)" @Html.Raw(backgroundImageStyle)>
+        
+        @if (pageLayout == "pageLayoutFull")
+        {
+            if(Model.ComponentWidth == "componentWidthCenter")
+            {
+                @:<div class="container"><div class="row justify-content-center"><div class="content-col center-col col-lg-6 col-12 col">
+            }
+            else if(Model.ComponentWidth == "componentWidthFull")
+            {
+                @:<div class="container-fluid">
+            }
+            else
+            {
+                @:<div class="container">
+            }
+
+        }
+
+        @Html.Partial(viewPath + "/USNMiscPageElements/USN_ComponentIntro", @Model as IUsn_Cmp_IntroOutro, new ViewDataDictionary { { "animation", animation }, { "backgroundColor", Model.BackgroundColor.label } })
+
+        @if (Model.Pods != null && Model.Pods.Any())
+        {
+            USNCarouselSettings carouselSettings = ThemeHelper.GetCarouselSettings(Model.ItemsPerRow, Model.EnableCarousel, Model.AutoRotateSpeed, Model.ShowDots, Model.ShowArrows);
+
+            <div class="component-main row listing listing_basic-grid listing-pods @carouselSettings.CarouselRowClass"  @Html.Raw(carouselSettings.SlickAttributes)>
+            @foreach (IPublishedElement item in Model.Pods)
+            {
+                string pageName = Model.Parent.Parent.Name;
+                var newItem = new USNPodModel { publishedContent = null, publishedElement = item, pageName = pageName };
+
+                switch (item.ContentType.Alias)
+                {
+                    case Usn_Nc_CodeBlock.ModelTypeAlias:
+                        @Html.Partial(viewPath + "/USNPods/USN_P_CodeBlock", newItem, new ViewDataDictionary { { "animation", animation }, { "itemClass", carouselSettings.ItemsClass } })
+                        break;
+                    case Usn_Nc_ImagePod.ModelTypeAlias:
+                        @Html.Partial(viewPath + "/USNPods/USN_P_Image", newItem, new ViewDataDictionary { { "animation", animation }, { "itemClass", carouselSettings.ItemsClass }, { "componentId", Model.Id }, { "backgroundColorValue", backgroundColorValue },{ "viewPath", viewPath } })
+                        break;
+                    case Usn_Nc_Quote.ModelTypeAlias:
+                        @Html.Partial(viewPath + "/USNPods/USN_P_Quote", newItem, new ViewDataDictionary { { "animation", animation }, { "itemClass", carouselSettings.ItemsClass }, { "backgroundColor", backgroundColor } })
+                        break;
+                    case Usn_Nc_TextImagePod.ModelTypeAlias:
+                        @Html.Partial(viewPath + "/USNPods/USN_P_TextImage", newItem, new ViewDataDictionary { { "animation", animation }, { "itemClass", carouselSettings.ItemsClass }, { "backgroundColor", backgroundColor }, { "backgroundColorValue", backgroundColorValue }, { "viewPath", viewPath } })
+                        break;
+                    case Usn_Nc_RelatedContent.ModelTypeAlias:
+                        @Html.Partial(viewPath + "/USNPods/USN_P_RelatedContent", newItem, new ViewDataDictionary { { "animation", animation }, { "itemClass", carouselSettings.ItemsClass }, { "backgroundColor", backgroundColor },{ "backgroundColorValue", backgroundColorValue }, { "viewPath", viewPath } })
+                        break;
+                    case Usn_Nc_ReusablePods.ModelTypeAlias:
+                        @Html.Partial(viewPath + "/USNPods/USN_P_ReusablePods", newItem, new ViewDataDictionary { { "animation", animation }, { "itemClass", carouselSettings.ItemsClass },  { "backgroundColor", backgroundColor },{ "backgroundColorValue", backgroundColorValue }, { "viewPath", viewPath },  { "componentId", Model.Id }, { "globalSettingsID", globalSettingsId }, { "pageName", pageName } })
+                        break;
+                    case Usn_Nc_SubpageListing.ModelTypeAlias:
+                        @Html.Partial(viewPath + "/USNPods/USN_P_SubpageListing", newItem, new ViewDataDictionary { { "animation", animation }, { "itemClass", carouselSettings.ItemsClass },  { "backgroundColor", backgroundColor }, { "viewPath", viewPath }, { "globalSettingsID", globalSettingsId } })
+                        break;
+                    case Usn_Nc_VideoPod.ModelTypeAlias:
+                        @Html.Partial(viewPath + "/USNPods/USN_P_Video", newItem, new ViewDataDictionary { { "animation", animation }, { "itemClass", carouselSettings.ItemsClass }, { "componentId", Model.Id }, { "backgroundColorValue", backgroundColorValue } })
+                        break;
+                    case Usn_Nc_Form.ModelTypeAlias:
+                        @Html.Partial(viewPath + "/USNPods/USN_P_Form", newItem, new ViewDataDictionary { { "animation", animation }, { "itemClass", carouselSettings.ItemsClass },  { "componentId", Model.Id }, { "globalSettingsID", globalSettingsId }, { "viewPath", viewPath } })
+                        break;
+                }
+            }
+            </div>
+        }
+
+        @Html.Partial(viewPath + "/USNMiscPageElements/USN_ComponentOutro", @Model as IUsn_Cmp_IntroOutro, new ViewDataDictionary { { "animation", animation }, { "backgroundColor", Model.BackgroundColor.label } })
+        
+        @if (pageLayout == "pageLayoutFull")
+        {
+            if(Model.ComponentWidth == "componentWidthCenter")
+            {
+                @:</div></div></div>
+            }
+            else
+            {
+                @:</div>
+            }
+        }
+
+    </section>
+}

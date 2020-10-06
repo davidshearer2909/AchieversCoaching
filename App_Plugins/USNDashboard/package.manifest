@@ -1,0 +1,8 @@
+﻿{
+  "javascript": [
+    "~/App_Plugins/USNDashboard/js/license-dashboard.controller.js"
+  ],
+  "css": [
+    "~/App_Plugins/USNDashboard/css/license-style.css"
+  ]
+}

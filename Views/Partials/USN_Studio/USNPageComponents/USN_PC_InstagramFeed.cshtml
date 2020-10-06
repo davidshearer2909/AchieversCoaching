@@ -1,0 +1,83 @@
+﻿@inherits UmbracoViewPage<Usn_Pc_InstagramFeed_AN>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    string viewPath = ViewData["viewPath"].ToString();
+    string pageLayout = ViewData["pageLayout"].ToString();
+    string backgroundImageStyle = ThemeHelper.GetBackgroundImageStyle(Model.BackgroundImageOptions, Model.BackgroundImage);
+    string backGroundColor = Model.BackgroundColor.label + "-bg";
+    USNAnimation animation = ThemeHelper.GetAnimationSettings(Model.Animate,Model.AnimationDelay,Model.AnimationStyle);
+
+    string feedSourceScript = String.Empty;
+    bool displayFeed = false;
+
+    if(Model.FeedType == "username" && Model.Username.HasValue())
+    {
+        displayFeed = true;
+        int itemsToDisplay = Model.ItemsToDisplayUsername > 0 && Model.ItemsToDisplayUsername < 13 ? Model.ItemsToDisplayUsername : 12;
+        string itemsPerRow = Model.ItemsPerRow.HasValue() ? Model.ItemsPerRow[9].ToString() : "4";
+        feedSourceScript = String.Format("'username': '{0}', 'container': document.getElementById('instagram-feed-{1}'), 'items': {2}, 'items_per_row': {3}, 'display_gallery' : true", Model.Username.ToLower(),Model.Id,itemsToDisplay,itemsPerRow);
+    }
+    else if(Model.FeedType == "hashtag" && Model.Hashtag.HasValue())
+    {
+        displayFeed = true;
+        int itemsToDisplay = Model.ItemsToDisplayTag > 0 && Model.ItemsToDisplayTag < 73 ? Model.ItemsToDisplayTag : 72;
+        string itemsPerRow = Model.ItemsPerRow.HasValue() ? Model.ItemsPerRow[9].ToString() : "4";
+        feedSourceScript = String.Format("'tag': '{0}', 'container': document.getElementById('instagram-feed-{1}'), 'items': {2}, 'items_per_row': {3}, 'display_gallery' : true", Model.Hashtag.ToLower(),Model.Id,itemsToDisplay,itemsPerRow);
+    }
+
+    <section class="content component instagram-component @backGroundColor @Model.CustomComponentClasses" id="@Html.Raw("pos_" + Model.Id)" @Html.Raw(backgroundImageStyle)>
+        
+        @if (pageLayout == "pageLayoutFull")
+        {
+            if(Model.ComponentWidth == "componentWidthCenter")
+            {
+                @:<div class="container"><div class="row justify-content-center"><div class="content-col center-col col-lg-6 col-12 col">
+            }
+            else if(Model.ComponentWidth == "componentWidthFull")
+            {
+                @:<div class="container-fluid">
+            }
+            else
+            {
+                @:<div class="container">
+            }
+        }
+
+        @Html.Partial(viewPath + "/USNMiscPageElements/USN_ComponentIntro", @Model as IUsn_Cmp_IntroOutro, new ViewDataDictionary { { "animation", animation }, { "backgroundColor", Model.BackgroundColor.label } })
+
+        @if (displayFeed)
+        {
+        <script>
+            window.addEventListener('DOMContentLoaded', function() {
+            (function () {
+                new InstagramFeed({
+                    @Html.Raw(feedSourceScript)
+                });
+                })();
+            });
+        </script>
+
+        <div id="instagram-feed-@Model.Id"
+                class="component-main row listing listing_basic-grid">
+        </div>
+        }
+
+        @Html.Partial(viewPath + "/USNMiscPageElements/USN_ComponentOutro", @Model as IUsn_Cmp_IntroOutro, new ViewDataDictionary { { "animation", animation }, { "backgroundColor", Model.BackgroundColor.label } })
+
+        @if (pageLayout == "pageLayoutFull")
+        {
+            if (Model.ComponentWidth == "componentWidthCenter")
+            {
+            @:</div></div></div>
+            }
+            else
+            {
+                @:</div>
+            }
+        }
+
+    </section>
+}

@@ -1,0 +1,51 @@
+﻿@inherits UmbracoViewPage<Usn_Pc_SplitComponent_AN>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    int globalSettingsId = Convert.ToInt32(ViewData["globalSettingsID"]);
+    string splitSide = ViewData["splitSide"].ToString();
+    string viewPath = ViewData["viewPath"].ToString();
+    string colWidthDesktop = splitSide == "First" ? "col-lg-" + Model.DesktopColumnWidthFirst : "col-lg-" + Model.DesktopColumnWidthSecond;
+    string colWidthTablet = splitSide == "First" ? "col-md-" + Model.TabletColumnWidthFirst : "col-md-" + Model.TabletColumnWidthSecond;
+    string itemDesktopOrder = ThemeHelper.GetSplitDesktopTabletOrderClass(splitSide, Model.DesktopTabletOrder);
+    string itemMobileOrder = ThemeHelper.GetSplitMobileOrderClass(splitSide, Model.MobileOrder);
+    string verticalAlignment = splitSide == "First" ? (Model.VerticalPositionFirst.HasValue() ? Model.VerticalPositionFirst.ToString() : String.Empty) : (Model.VerticalPositionSecond.HasValue() ? Model.VerticalPositionSecond.ToString() : String.Empty);
+    string verticalAlignmentClass = ThemeHelper.GetVerticalAlignmentClass(verticalAlignment);
+
+    string formContainerBackgroundColor = splitSide == "First" ? Model.SignupContainerBackgroundColorFirst.label : Model.SignupContainerBackgroundColorSecond.label;
+    string formButtonColor = splitSide == "First" ? Model.SignupButtonColorFirst.label : Model.SignupButtonColorSecond.label;
+    USNHeading formHeading = splitSide == "First" ? Model.SignupHeadingFirst : Model.SignupHeadingSecond;
+    string formSecondaryHeading = splitSide == "First" ? Model.SignupSecondaryHeadingFirst : Model.SignupSecondaryHeadingSecond;
+    IHtmlString formIntroduction = splitSide == "First" ? Model.SignupIntroductionFirst : Model.SignupIntroductionSecond;
+    string formButtonText = splitSide == "First" ? Model.SignupButtonTextFirst : Model.SignupButtonTextSecond;
+    IHtmlString formSubmissionMessage = splitSide == "First" ? Model.SignupSubmissionMessageFirst : Model.SignupSubmissionMessageSecond;
+    string formSubscriberListID = splitSide == "First" ? Model.SignupSubscriberListIdfirst : Model.SignupSubscriberListIdsecond;
+    bool formHideFields = splitSide == "First" ? Model.HideFieldsFirst : Model.HideFieldsSecond;
+    string pageName = Model.Parent.Parent.Name;
+    USNAnimation animation = splitSide == "First" ? ThemeHelper.GetAnimationSettings(Model.AnimateFirst,Model.AnimationDelayFirst,Model.AnimationStyleFirst) : ThemeHelper.GetAnimationSettings(Model.AnimateSecond,Model.AnimationDelaySecond,Model.AnimationStyleSecond);
+
+    string newsletterClass = formHideFields ? "item_form-single_field" : "item_form";
+
+    <div class="item item_block item_form-block item_newsletter-form-block @newsletterClass @verticalAlignmentClass @colWidthDesktop @colWidthTablet @itemDesktopOrder @itemMobileOrder col-12 @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+
+        @Html.Action("Index", "USNNewsletterSignupSurface", new
+        {
+            NodeID = Model.Id,
+            GlobalSettingsID = globalSettingsId,
+            ViewPath = viewPath,
+            DataSize = "normal",
+            FormColor = formContainerBackgroundColor,
+            FormButtonColor = formButtonColor,
+            FormHeading = formHeading,
+            FormSecondaryHeading = formSecondaryHeading,
+            FormIntroduction = formIntroduction,
+            FormButtonText = formButtonText,
+            FormSubmissionMessage = formSubmissionMessage,
+            FormSubscriberListID = formSubscriberListID,
+            FormHideFields = formHideFields
+        })
+
+    </div>
+}

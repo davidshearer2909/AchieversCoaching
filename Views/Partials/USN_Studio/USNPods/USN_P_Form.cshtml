@@ -1,0 +1,73 @@
+﻿@inherits UmbracoViewPage<USNStarterKit.USNModels.USNPodModel>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    string itemClass = ViewData["itemClass"].ToString();
+    int globalSettingsId = Convert.ToInt32(ViewData["globalSettingsID"]);
+    int componentId = Convert.ToInt32(ViewData["componentId"]);
+    string viewPath = ViewData["viewPath"].ToString();
+    string podType = ViewData["podType"] != null ? ViewData["podType"].ToString() : String.Empty;
+    USNAnimation animation = ViewData["animation"] == null ? new USNAnimation() : (USNAnimation)ViewData["animation"];
+
+    var model = Model.publishedContent == null ? Model.publishedElement : Model.publishedContent;
+    string formColor = podType == "footer" ? "footer" : model.Value<USNColor>("formContainerBackgroundColor").label;
+    string newsletterClass = (model.Value<string>("formType") == "signupForm" && model.Value<bool>("hideFields")) ? "item_form-single_field" : String.Empty;
+
+    <div class="item @itemClass item_form @Html.Raw(newsletterClass) @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+        <div class="inner">
+            @switch (model.Value<string>("formType"))
+            {
+                case "contactForm":
+                    @Html.Action("Index", "USNContactFormSurface", new
+                    {
+                        GlobalSettingsID = globalSettingsId,
+                        ViewPath = viewPath,
+                        DataSize = "compact",
+                        FormColor = formColor,
+                        FormButtonColor = model.Value<USNColor>("formButtonColor").label,
+                        FormHeading = model.Value<USNHeading>("formHeading"),
+                        FormSecondaryHeading = model.Value<string>("formSecondaryHeading"),
+                        FormIntroduction = model.Value<HtmlString>("formIntroduction"),
+                        FormButtonText = model.Value<string>("formButtonText"),
+                        FormSubmissionMessage = model.Value<HtmlString>("formSubmissionMessage"),
+                        FormSubscriberListID = model.Value<string>("formSubscriberListID"),
+                        ContactRecipientEmailAddress = StringCipher.Encrypt(model.Value<string>("contactRecipientEmailAddress")),
+                        PageName = Model.pageName
+                    });
+                    break;
+                case "signupForm":
+                    @Html.Action("Index", "USNNewsletterSignupSurface", new
+                    {
+                        GlobalSettingsID = globalSettingsId,
+                        ViewPath = viewPath,
+                        DataSize = "compact",
+                        FormColor = formColor,
+                        FormButtonColor = model.Value<USNColor>("formButtonColor").label,
+                        FormHeading = model.Value<USNHeading>("formHeading"),
+                        FormSecondaryHeading = model.Value<string>("formSecondaryHeading"),
+                        FormIntroduction = model.Value<HtmlString>("formIntroduction"),
+                        FormButtonText = model.Value<string>("formButtonText"),
+                        FormSubmissionMessage = model.Value<HtmlString>("formSubmissionMessage"),
+                        FormSubscriberListID = model.Value<string>("formSubscriberListID"),
+                        FormHideFields = model.Value<bool>("hideFields")
+                    })
+                    break;
+                case "umbracoForm":
+                    <div class="umbraco-forms form">
+                        <div class="inner @(model.Value<USNColor>("formContainerBackgroundColor").label)-bg @(model.Value<USNColor>("formContainerBackgroundColor").label)-heading @(model.Value<USNColor>("formContainerBackgroundColor").label)-text btn-bg_@(model.Value<USNColor>("formButtonColor").label)-btn-bg btn-text_@(model.Value<USNColor>("formButtonColor").label)-btn-text btn-borders_@(model.Value<USNColor>("formButtonColor").label)-btn-borders">
+                            @if (model.HasValue("umbracoForm"))
+                            {
+                                var formGuid = model.Value("umbracoForm");
+
+                                @Umbraco.RenderMacro("renderUmbracoForm", new { FormGuid = formGuid, FormTheme = "uSkinned", ExcludeScripts = "0" })
+                            }
+                        </div>
+                    </div>
+                    break;
+            }
+        </div>
+    </div>
+
+}

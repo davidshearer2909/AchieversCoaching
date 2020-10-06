@@ -1,0 +1,78 @@
+﻿@inherits UmbracoViewPage<Usn_Pc_SplitComponent_AN>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    string splitSide = ViewData["splitSide"].ToString();
+    string colWidthDesktop = splitSide == "First" ? "col-lg-" + Model.DesktopColumnWidthFirst : "col-lg-" + Model.DesktopColumnWidthSecond;
+    string colWidthTablet = splitSide == "First" ? "col-md-" + Model.TabletColumnWidthFirst : "col-md-" + Model.TabletColumnWidthSecond;
+    string itemDesktopOrder = ThemeHelper.GetSplitDesktopTabletOrderClass(splitSide, Model.DesktopTabletOrder);
+    string itemMobileOrder = ThemeHelper.GetSplitMobileOrderClass(splitSide, Model.MobileOrder);
+    string verticalAlignment = splitSide == "First" ? (Model.VerticalPositionFirst.HasValue() ? Model.VerticalPositionFirst.ToString() : String.Empty) : (Model.VerticalPositionSecond.HasValue() ? Model.VerticalPositionSecond.ToString() : String.Empty);
+    string verticalAlignmentClass = ThemeHelper.GetVerticalAlignmentClass(verticalAlignment);
+
+    int itemCount = 1;
+
+    IEnumerable<Usn_Nc_AccordionTabItem> tabItems = splitSide == "First" ? Model.TabItemsFirst : Model.TabItemsSecond;
+    USNHeading heading = splitSide == "First" ? Model.TabHeadingFirst : Model.TabHeadingSecond;
+    string secondaryHeading = splitSide == "First" ? Model.TabSecondaryHeadingFirst : Model.TabSecondaryHeadingSecond;
+    USNAnimation animation = splitSide == "First" ? ThemeHelper.GetAnimationSettings(Model.AnimateFirst,Model.AnimationDelayFirst,Model.AnimationStyleFirst) : ThemeHelper.GetAnimationSettings(Model.AnimateSecond,Model.AnimationDelaySecond,Model.AnimationStyleSecond);
+
+    <div class="item item_block item_repeatable-block @verticalAlignmentClass @colWidthDesktop @colWidthTablet @itemDesktopOrder @itemMobileOrder col-12 @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+
+        @if (heading.HasValue() || secondaryHeading.HasValue())
+        {
+            <div class="component-introduction @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+
+                @if (secondaryHeading.HasValue())
+                {
+                    <p class="secondary-heading @(Model.BackgroundColor.label)-secondary-heading @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">@secondaryHeading</p>
+                }
+                @if (heading.HasValue())
+                {
+                    @Html.Raw(String.Format("<{0} class=\"heading main {1}-heading\">{2}</{0}>", heading.HeadingTag, Model.BackgroundColor.label, heading.Text))
+                }
+
+            </div>
+        }
+
+        @if (tabItems != null && tabItems.Any())
+        {
+            <div class="repeatable tabbed">
+                <!-- Tabs -->
+                <nav class="tabs">
+                    <ul class="nav" id="nav-tab" role="tablist">
+                        @foreach (Usn_Nc_AccordionTabItem item in tabItems)
+                        {
+                            <li class="tab">
+                                <a class="nav-item nav-link @(itemCount == 1 ? "active" : "")" id="nav-tab-@Model.Id-@splitSide-@itemCount" data-toggle="tab" href="#nav-@Model.Id-@splitSide-@itemCount" role="tab" aria-controls="nav-@Model.Id-@splitSide-@itemCount" aria-selected="true">
+                                    @item.ItemHeading
+                                </a>
+                            </li>
+
+                            itemCount += 1;
+                        }
+                    </ul>
+                </nav>
+                <!--// Tabs -->
+                <!-- Tab content -->
+                <div id="nav-tabContent" class="repeatable-content tab-content">
+                    @{
+                        itemCount = 1;
+
+                        foreach (Usn_Nc_AccordionTabItem item in tabItems)
+                        {
+                            <div class="info tab-pane fade @(itemCount == 1 ? "show active" : "")" id="nav-@Model.Id-@splitSide-@itemCount" role="tabpanel" aria-labelledby="nav-tab-@Model.Id-@splitSide-@itemCount">
+                                @Html.Raw(item.RepeaterText)
+                            </div>
+
+                            itemCount += 1;
+                        }
+                    }
+                </div>
+                <!--// Tab content -->
+            </div>
+        }
+    </div>
+}

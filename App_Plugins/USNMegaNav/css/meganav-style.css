@@ -1,0 +1,200 @@
+﻿.hidden {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+
+.usn-picker {
+    padding-top: 20px;
+}
+
+.usn-picker__icon-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 20px;    
+    margin-left: -5px;
+    margin-right: -5px;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+    .usn-picker__icon-list i {
+        font-size: 30px !important;
+    }
+
+    .usn-picker__icon-list li {
+        display: flex;
+        flex-direction: column;
+        float: left;
+        padding:0 5px 10px 5px;
+        width: 16.6666667%;
+        height: 75px;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+        .usn-picker__icon-list li a {
+            font-size: 30px;
+            display: block;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #eaeaea;
+            color: #000;
+            transition: all .2s ease-in-out;
+        }
+
+            .usn-picker__icon-list li a:hover {
+                text-decoration: none;
+                background: #2152a3;
+                color: #fff;
+            }
+
+.nested-content__item .bgpicker {
+    max-width: 95% !important;
+}
+.umb-editor-wrapper .usn-meganav .umb-node-preview-add { 
+    max-width:100%!important;
+}
+
+.usn-links-meganav { 
+    display: flex!important;
+    width:100%;
+    margin-bottom:5px;
+    box-sizing: border-box!important;
+}
+
+.usn-links-meganav i.list-view-falink__sort-handle { 
+    padding:7px 8px 5px 0;
+}
+.usn-links-meganav i,
+.usn-links-meganav div { 
+    display: flex!important;
+    box-sizing: border-box!important;
+    text-align:left;
+}
+.usn-links-meganav .usn-color > a,
+.usn-links-meganav .usn-icon > a,
+.usn-links-meganav .usn-link > a { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1b264f;
+    font-weight: 700;
+    padding: 5px;
+    box-sizing: border-box!important;
+    text-align:left;
+    border: 1px dashed #bbbabf;
+    margin:0 5px 0 0;
+}
+.usn-links-meganav .usn-color > a:hover,
+.usn-links-meganav .usn-icon > a:hover,
+.usn-links-meganav .usn-link > a:hover {
+    color: #2152a3;
+    border-color: #2152a3;
+    text-decoration: none;
+}
+.usn-links-meganav .usn-color .usn-remove-color,
+.usn-links-meganav .usn-icon .usn-remove-icon,
+.usn-links-meganav .usn-link .umb-node-preview { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1b264f;
+    font-weight: 700;
+    padding: 5px;
+    box-sizing: border-box;
+    text-align:left;
+    border: 1px dashed #e7e7e7;
+    margin:0 5px 0 0;
+}
+
+.usn-links-meganav .ui-sortable-handle { 
+    width: 35px;
+    padding-top: 6px;
+    cursor: move;
+}
+.usn-links-meganav .usn-color { 
+    width: 180px;
+    display: flex;
+}
+.usn-links-meganav .usn-color > a { 
+    width:100%; text-align:center;
+    text-decoration:none!important;
+}
+.usn-links-meganav .usn-color .usn-remove-color { 
+    display: flex;
+    width:100%;
+}
+.usn-links-meganav .usn-color span { 
+    text-indent: -9999px;
+    display: block;
+    width:20px;
+    height:20px;
+    margin-right:4px;
+    box-shadow: 0 1px 2px rgba(53, 68, 177, 0.1);
+    border-radius: 3px;
+}
+.usn-links-meganav .usn-icon  {
+    width: 180px; 
+    display: flex;
+}
+.usn-links-meganav .usn-icon .usn-remove-icon { 
+    display: flex;
+    width:100%;
+    text-align:left;
+}
+.usn-links-meganav .usn-icon > a { 
+    width:100%; text-align:center;
+    text-decoration:none!important;
+}
+.usn-links-meganav .usn-icon .usn-remove-icon i {
+    font-size:20px;
+    margin-right:4px;
+}
+.usn-links-meganav .usn-link { 
+    width:100%;
+}
+.usn-links-meganav .usn-link .umb-editor-wrapper .umb-node-preview, 
+.usn-links-meganav .usn-link .umb-node-preview { 
+    height:32px; max-width:100%;
+}
+.usn-links-meganav .usn-link .umb-node-preview__icon { 
+    position:relative; top:0; 
+    margin-right:5px; font-size:18px;
+}
+.usn-links-meganav .usn-link .umb-node-preview__name { 
+    margin:0; font-size:14px;
+}
+.usn-links-meganav .usn-link .umb-node-preview__description { 
+    padding:2px 0 0 5px; opacity:0.7;
+}
+.usn-links-meganav .usn-link .umb-node-preview__content { 
+    margin:0;
+}
+.usn-links-meganav .usn-link .umb-node-preview--sortable { 
+    cursor:auto;
+}
+.usn-links-meganav .usn-link a { 
+    width:100%;
+}
+.usn-links-meganav .usn-link .umb-node-preview__description { 
+    display:none;
+}
+.usn-links-meganav .usn-link .umb-node-preview { 
+    width:100%;
+}
+.usn-links-meganav .usn-link .umb-node-preview__actions { 
+    float:right;
+}
+.usn-links-meganav .usn-delete { 
+    width: 35px;
+    margin:0;
+    padding-top: 6px;
+}
+.usn-links-meganav .usn-delete > a { 
+    width:100%; text-align:center;
+    text-decoration:none!important;
+}

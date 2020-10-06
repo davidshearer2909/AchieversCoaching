@@ -1,0 +1,63 @@
+﻿@inherits UmbracoViewPage<Usn_Pc_Gallery_AN>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    string viewPath = ViewData["viewPath"].ToString();
+    string pageLayout = ViewData["pageLayout"].ToString();
+    string backgroundImageStyle = ThemeHelper.GetBackgroundImageStyle(Model.BackgroundImageOptions, Model.BackgroundImage);
+    string backGroundColor = Model.BackgroundColor.label + "-bg";
+    string backgroundColorValue = Model.BackgroundColor.value;
+    USNAnimation animation = ThemeHelper.GetAnimationSettings(Model.Animate,Model.AnimationDelay,Model.AnimationStyle);
+
+    <section class="content component gallery-component @backGroundColor @Model.CustomComponentClasses" id="@Html.Raw("pos_" + Model.Id)" @Html.Raw(backgroundImageStyle)>
+
+        @if (pageLayout == "pageLayoutFull")
+        {
+            if(Model.ComponentWidth == "componentWidthCenter")
+            {
+                @:<div class="container"><div class="row justify-content-center"><div class="content-col center-col col-lg-6 col-12 col">
+            }
+            else if(Model.ComponentWidth == "componentWidthFull")
+            {
+                @:<div class="container-fluid">
+            }
+            else
+            {
+                @:<div class="container">
+            }
+
+        }
+
+        @Html.Partial(viewPath + "/USNMiscPageElements/USN_ComponentIntro", @Model as IUsn_Cmp_IntroOutro, new ViewDataDictionary { { "animation", animation }, { "backgroundColor", Model.BackgroundColor.label } })
+
+        @if (Model.ImageVideo != null && Model.ImageVideo.Any())
+        {
+            USNCarouselSettings carouselSettings = ThemeHelper.GetCarouselSettings(Model.ItemsPerRow, Model.EnableCarousel, Model.AutoRotateSpeed, Model.ShowDots, Model.ShowArrows);
+
+            USNImageSettings imageSettings = ThemeHelper.GetImageSettings(Model.ImageStyle,Model.BoxPad,backgroundColorValue);
+
+            <div class="component-main row @carouselSettings.CarouselRowClass listing listing_basic-grid listing_gallery" @Html.Raw(carouselSettings.SlickAttributes)>
+
+                @Html.Partial(viewPath + "/USNPageComponents/USN_Gallery", Model.ImageVideo, new ViewDataDictionary { {"carouselSettings",carouselSettings }, { "imageSettings", imageSettings }, { "animation", animation },{ "galleryType", "Gallery" }, { "modelId", Model.Id }, { "viewPath", viewPath } })
+
+            </div>
+        }
+
+        @Html.Partial(viewPath + "/USNMiscPageElements/USN_ComponentOutro", @Model as IUsn_Cmp_IntroOutro, new ViewDataDictionary { { "animation", animation }, { "backgroundColor", Model.BackgroundColor.label } })
+
+        @if (pageLayout == "pageLayoutFull")
+        {
+            if (Model.ComponentWidth == "componentWidthCenter")
+            {
+                @:</div></div></div>
+            }
+            else
+            {
+                @:</div>
+            }
+        }
+
+    </section>
+}

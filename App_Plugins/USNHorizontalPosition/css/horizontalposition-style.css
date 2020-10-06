@@ -1,0 +1,35 @@
+﻿
+
+/* Horizontal position */
+
+.usn-cms.horizontal-position { 
+    margin:0!important; padding:0!important;
+}
+
+.usn-cms.horizontal-position .usn-item.item.smallItem.position-item {
+    width: 33px;
+    height: 33px;
+    float: left;
+    box-sizing: border-box;
+}
+
+.usn-cms.horizontal-position .usn-item.item.smallItem.position-item svg {
+    opacity: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    transition: opacity 0.3s ease-in-out 0s;
+}
+
+.usn-cms.horizontal-position .usn-item.item.smallItem.position-item:nth-child(1) svg {
+    transform: translate(-50%,-50%) rotate(0);
+}
+
+.usn-cms.horizontal-position .usn-item.item.smallItem.position-item:nth-child(2) svg {
+    transform: translate(-50%,-50%) rotate(90deg);
+}
+
+.usn-cms.horizontal-position .usn-item.item.smallItem.position-item:nth-child(3) svg {
+    transform: translate(-50%,-50%) rotate(180deg);
+}

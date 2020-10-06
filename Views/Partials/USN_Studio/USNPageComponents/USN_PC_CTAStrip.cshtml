@@ -1,0 +1,85 @@
+﻿@inherits UmbracoViewPage<Usn_Pc_Ctastrip_AN>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    string pageLayout = ViewData["pageLayout"].ToString();
+    string backgroundImageStyle = ThemeHelper.GetBackgroundImageStyle(Model.BackgroundImageOptions, Model.BackgroundImage);
+    string backGroundColor = Model.BackgroundColor.label + "-bg";
+    USNAnimation animation = ThemeHelper.GetAnimationSettings(Model.Animate,Model.AnimationDelay,Model.AnimationStyle);
+    string textAlignmentClass = ThemeHelper.GetSimpleTextAlignmentClass(Model.TextAlignment);
+
+    if (Model.Heading.HasValue() || Model.SecondaryHeading.HasValue() | Model.Text.HasValue() || Model.Buttons.HasValue())
+    {
+        <section class="content component cta-component @backGroundColor @Model.CustomComponentClasses" id="@Html.Raw("pos_" + Model.Id)" @Html.Raw(backgroundImageStyle)>
+
+            @if (pageLayout == "pageLayoutFull")
+            {
+                if (Model.ComponentWidth == "componentWidthCenter")
+                {
+                    @:<div class="container"><div class="row justify-content-center"><div class="content-col center-col col-lg-6 col-12 col">
+                }
+                else if (Model.ComponentWidth == "componentWidthFull")
+                {
+                    @:<div class="container-fluid">
+                }
+                else
+                {
+                    @:<div class="container">
+                }
+
+            }
+
+            <!-- ROW -->
+            <div class="row justify-content-between align-items-center @textAlignmentClass">
+
+                <div class="info">
+
+                    @if (Model.SecondaryHeading.HasValue())
+                    {
+                        <p class="secondary-heading @(Model.BackgroundColor.label)-secondary-heading @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">@Model.SecondaryHeading</p>
+                    }
+
+                    @if (Model.Heading.HasValue())
+                    {
+                        @Html.Raw(String.Format("<{0} class=\"heading main {1}-heading {2}\" data-os-animation=\"{3}\" data-os-animation-delay=\"{4}\">{5}</{0}>", Model.Heading.HeadingTag, Model.BackgroundColor.label, animation.AnimationClass, animation.AnimationStyle, animation.AnimationDelay, Model.Heading.Text))
+                    }
+
+                    @if (Model.Text.HasValue())
+                    {
+                        <div class="text @(Model.BackgroundColor.label)-text @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+                            @Html.Raw(Model.Text)
+                        </div>
+                    }
+
+                </div>
+
+                @if (Model.Buttons.HasValue())
+                {
+                    <p class="link @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+                        @foreach (var button in Model.Buttons)
+                        {
+                            <a class="btn @(button.color.label)-bg @(button.color.label)-text @(button.color.label)-borders" href="@button.link.LinkUrl" @Html.Raw(button.link.LinkTarget) @Html.Raw(button.link.LinkTitle)>@Html.Raw(button.icon)@button.link.LinkText@Html.Raw(button.link.LinkTargetIcon)</a>
+                        }
+                    </p>
+                }
+
+            </div>
+            <!--// ROW -->
+
+            @if (pageLayout == "pageLayoutFull")
+            {
+                if (Model.ComponentWidth == "componentWidthCenter")
+                {
+                    @:</div></div></div>
+                }
+                else
+                {
+                    @:</div>
+                }
+            }
+
+        </section>
+    }
+}

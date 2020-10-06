@@ -1,0 +1,70 @@
+﻿@inherits UmbracoViewPage<USNStarterKit.USNModels.USNPodModel>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    string viewPath = ViewData["viewPath"].ToString();
+    string pageName = ViewData["pageName"].ToString();
+    string itemsClass = ViewData["itemClass"].ToString();
+    string backgroundColor = ViewData["backgroundColor"].ToString();
+    string backgroundColorValue = ViewData["backgroundColorValue"].ToString();
+    string componentID = ViewData["componentId"].ToString();
+    USNAnimation animation = ViewData["animation"] == null ? new USNAnimation() : (USNAnimation)ViewData["animation"];
+
+    int globalSettingsId = Convert.ToInt32(ViewData["globalSettingsID"]);
+    string podType = ViewData["podType"] != null ? ViewData["podType"].ToString() : String.Empty;
+    string leftOffsetDesktop = ViewData["leftOffsetDesktop"] != null ? ViewData["leftOffsetDesktop"].ToString() : String.Empty;
+    string leftOffsetTablet = ViewData["leftOffsetTablet"] != null ? ViewData["leftOffsetTablet"].ToString() : String.Empty;
+    string colWidthDesktop = ViewData["colWidthDesktop"] != null ? ViewData["colWidthDesktop"].ToString() : String.Empty;
+    string colWidthTablet = ViewData["colWidthTablet"] != null ? ViewData["colWidthTablet"].ToString() : String.Empty;
+
+    var model = Model.publishedContent == null ? Model.publishedElement : Model.publishedContent;
+
+    if (model.HasValue("pods") && model.Value<IEnumerable<IPublishedContent>>("pods").Any())
+    {
+        foreach (IPublishedContent item in model.Value<IEnumerable<IPublishedContent>>("pods"))
+        {
+            var newItem = new USNPodModel { publishedContent = item, publishedElement = null, pageName = pageName };
+
+            if (item.ContentType.Alias != Usn_Swp_RelatedContentPod.ModelTypeAlias && podType == "footer")
+            {
+                @:<div class="footer-item @leftOffsetDesktop @leftOffsetTablet @colWidthDesktop @colWidthTablet col-12 col">     
+            }
+
+            switch (item.ContentType.Alias)
+            {
+                case Usn_Swp_CodePod.ModelTypeAlias:
+                    @Html.Partial(viewPath + "/USNPods/USN_P_CodeBlock", newItem, new ViewDataDictionary { { "animation", animation }, { "itemClass", itemsClass } })
+                    break;
+                case Usn_Swp_ImagePod.ModelTypeAlias:
+                    @Html.Partial(viewPath + "/USNPods/USN_P_Image", newItem, new ViewDataDictionary { { "animation", animation }, { "itemClass", itemsClass }, { "componentId", componentID }, { "backgroundColorValue", backgroundColorValue },{ "viewPath", viewPath } })
+                    break;
+                case Usn_Swp_QuotePod.ModelTypeAlias:
+                    @Html.Partial(viewPath + "/USNPods/USN_P_Quote", newItem, new ViewDataDictionary { { "animation", animation }, { "itemClass", itemsClass }, { "backgroundColor", backgroundColor } })
+                    break;
+                case Usn_Swp_SubpageListingPod.ModelTypeAlias:
+                    @Html.Partial(viewPath + "/USNPods/USN_P_SubpageListing", newItem, new ViewDataDictionary { { "animation", animation }, { "itemClass", itemsClass }, { "backgroundColor", backgroundColor }, { "globalSettingsID", globalSettingsId }, { "viewPath", viewPath } })
+                    break;
+                case Usn_Swp_TextImagePod.ModelTypeAlias:
+                    @Html.Partial(viewPath + "/USNPods/USN_P_TextImage", newItem, new ViewDataDictionary { { "animation", animation }, { "itemClass", itemsClass }, { "backgroundColor", backgroundColor }, { "backgroundColorValue", backgroundColorValue }, { "viewPath", viewPath } })
+                    break;
+                case Usn_Swp_RelatedContentPod.ModelTypeAlias:
+                    @Html.Partial(viewPath + "/USNPods/USN_P_RelatedContent", newItem, new ViewDataDictionary { { "animation", animation }, { "itemClass", itemsClass }, { "backgroundColor", backgroundColor }, { "backgroundColorValue", backgroundColorValue }, { "podType", podType },{ "leftOffsetDesktop", leftOffsetDesktop },{ "leftOffsetTablet", leftOffsetTablet }, { "colWidthDesktop" , colWidthDesktop }, { "colWidthTablet", colWidthTablet }, { "viewPath", viewPath }  })
+                    break;
+                case Usn_Swp_VideoPod.ModelTypeAlias:
+                    @Html.Partial(viewPath + "/USNPods/USN_P_Video", newItem, new ViewDataDictionary { { "animation", animation }, { "itemClass", itemsClass }, { "componentId", componentID }, { "backgroundColorValue", backgroundColorValue } })
+                    break;
+                case Usn_Swp_FormPod.ModelTypeAlias:
+                    @Html.Partial(viewPath + "/USNPods/USN_P_Form", newItem, new ViewDataDictionary { { "animation", animation }, { "itemClass", itemsClass }, { "componentId", item.Id }, { "globalSettingsID", globalSettingsId }, { "viewPath", viewPath },{ "podType", podType } })
+                    break;
+            }
+
+            if (item.ContentType.Alias != Usn_Swp_RelatedContentPod.ModelTypeAlias && podType == "footer")
+            {
+                @:</div>
+            }
+        }
+    }
+
+}

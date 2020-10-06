@@ -1,0 +1,14 @@
+﻿{
+    propertyEditors: [      
+        {
+			alias: 'USN.AnimateOptions',
+			name: 'USN Animate Options',
+			editor:{
+				valueType: "STRING",
+				view: '~/App_Plugins/USNAnimateOptions/views/animateoptions-editor.html',
+				hideLabel: false
+			}
+        }
+    ]
+
+}

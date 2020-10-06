@@ -1,0 +1,79 @@
+/*  
+---------------------------------------------------
+Body
+---------------------------------------------------  
+*/
+
+body { 
+    position:relative;
+
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+    -webkit-animation-delay: 0;
+    animation-delay: 0;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
+
+body.no-header {
+    padding: 0;
+}
+
+#site { 
+    position:relative; z-index:2; 
+    padding: 0;
+}
+
+@media (min-width:0) and (max-width:@small-breakpoint) {
+    body:not(.no-header) #site {
+        padding-top: @small-header;
+    }
+    .content-col { 
+        margin-bottom:@base-spacing;
+    }
+    .content-col:only-child { 
+        margin:0;
+    }
+}
+
+@media (min-width:@large-breakpoint) {
+    body:not(.no-header) #site {
+        padding-top: @large-header;
+    }
+
+    body.max-width #site {
+        max-width: @site-max-width;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width:1350px) {
+    .container {
+        max-width: 1350px;
+    }
+}
+
+a,
+a::before, a::after { 
+    transition:all 0.3s ease-in-out 0s;
+}
+
+/*  
+---------------------------------------------------
+Content Columns
+---------------------------------------------------  
+*/
+
+@media (min-width:0) and (max-width:@small-breakpoint) {
+    .heading-col { 
+        padding-bottom:@base-half-spacing;
+    }
+}
+
+@media (min-width:@large-breakpoint) {
+    .heading-col { 
+        padding-bottom:@base-spacing;
+    }
+}

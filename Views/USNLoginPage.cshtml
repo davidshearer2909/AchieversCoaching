@@ -1,0 +1,109 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<USNWebsite.USNModels.USNBaseViewModel>
+
+@using USNStarterKit.USNModels;
+@using USNStarterKit.USNHelpers;
+
+@{
+    //Starter kit compatibility: 1.0
+
+    Layout = "USNMaster.cshtml";
+
+    if (!String.IsNullOrEmpty(Request.QueryString["signout"]))
+    {
+        FormsAuthentication.SignOut();
+        Context.Response.Redirect(Model.Content.Url, true);
+    }
+
+    Usnstyle websiteStyle = (Usnstyle)Model.WebsiteStyle;
+    USNPageLayoutSettings pageLayoutSettings = ThemeHelper.GetPageLayoutSettings(Model.Content.Value<string>("pageLayout"));
+
+}
+
+@section BodyTag
+{
+     @Html.Partial(Model.ViewPath + "/USNMiscPageElements/USN_BodyTag", Model, new ViewDataDictionary { { "pageLayout", pageLayoutSettings.PageLayout } })
+}
+
+@if (pageLayoutSettings.PageLayout != "pageLayoutFull")
+{
+    @:<section class="content base-bg"><div class="container">@Html.Partial(Model.ViewPath + "/USNMiscPageElements/USN_StandardPageTitle", Model)<div class="row justify-content-between">
+
+    <!-- Content column -->
+    <div class="@pageLayoutSettings.FirstDivColumnClass">
+
+        @Html.Partial(Model.ViewPath + "/USNMiscPageElements/USN_MainImage", Model, new ViewDataDictionary { {"websiteStyle",websiteStyle }, {"viewPath", Model.ViewPath } })
+
+        @Html.Raw(Model.Content.Value<IHtmlString>("bodyText"))
+
+        <!-- FORM -->
+        @Html.Action("Index", "USNLoginFormSurface", new { ViewPath = Model.ViewPath })
+        <!--// FORM -->
+
+    </div>
+}
+
+@if (pageLayoutSettings.PageLayout == "pageLayoutLeft" || pageLayoutSettings.PageLayout == "pageLayoutRight" || pageLayoutSettings.PageLayout == "pageLayoutCenterNavLeft" || pageLayoutSettings.PageLayout == "pageLayoutCenterNavRight")
+{
+    <!-- Second column -->
+    <div class="@pageLayoutSettings.SecondDivColumnClass">
+        @if (pageLayoutSettings.PageLayout == "pageLayoutLeft" || pageLayoutSettings.PageLayout == "pageLayoutRight" || pageLayoutSettings.PageLayout == "pageLayoutCenterNavLeft")
+        {
+            @Html.Partial(Model.ViewPath + "/USNNavigation/USN_SubNavigation", Model)
+        }
+        @if (pageLayoutSettings.PageLayout == "pageLayoutLeft" || pageLayoutSettings.PageLayout == "pageLayoutRight" || pageLayoutSettings.PageLayout == "pageLayoutCenterNavRight")
+        {
+            @Html.Partial(Model.ViewPath + "/USNPods/USN_SitewidePods", Model)
+        }
+    </div>
+    <!--// Second column -->
+}
+
+@if (pageLayoutSettings.PageLayout == "pageLayoutCenterNavLeft" || pageLayoutSettings.PageLayout == "pageLayoutCenterNavRight")
+{
+    <!-- Third column -->
+    <div class="@pageLayoutSettings.ThirdDivColumnClass">
+        @if (pageLayoutSettings.PageLayout == "pageLayoutCenterNavRight")
+        {
+            @Html.Partial(Model.ViewPath + "/USNNavigation/USN_SubNavigation", Model)
+        }
+        @if (pageLayoutSettings.PageLayout == "pageLayoutCenterNavLeft")
+        {
+            @Html.Partial(Model.ViewPath + "/USNPods/USN_SitewidePods", Model)
+        }
+    </div>
+    <!--// Third column -->
+}
+
+@if (pageLayoutSettings.PageLayout != "pageLayoutFull")
+{
+    @:</div></div></section>
+}
+
+@if (pageLayoutSettings.PageLayout == "pageLayoutFull")
+{
+    <section class="content base-bg">
+        <div class="container">
+            @Html.Partial(Model.ViewPath + "/USNMiscPageElements/USN_StandardPageTitle", Model)
+            <div class="row justify-content-between">
+
+                <!-- Content column -->
+                <div class="content-col col">
+
+                    <!-- FORM -->
+                    @Html.Action("Index", "USNLoginFormSurface", new { ViewPath = Model.ViewPath })
+                    <!--// FORM -->
+
+                </div>
+                <!--// Content column -->
+
+            </div>
+        </div>
+    </section>
+}
+
+@if (pageLayoutSettings.PageLayout == "pageLayoutFull" || pageLayoutSettings.PageLayout == "pageLayoutWide")
+{
+    @Html.Partial(Model.ViewPath + "/USNPods/USN_SitewidePods", Model)
+}
+
+

@@ -1,0 +1,94 @@
+/*  
+---------------------------------------------------
+Shop
+---------------------------------------------------  
+*/
+
+@import 'shop_snipcart.less';
+@import 'shop_ecwid.less';
+
+
+/*  
+---------------------------------------------------
+Mini Shopping Cart in header
+---------------------------------------------------  
+*/
+
+header#site-header nav.shopping-cart {
+    position: absolute;
+    top: 0;
+    right: @small-header;
+    z-index: 200;
+    width: @small-header;
+    height: @small-header;
+}
+
+header#site-header nav.shopping-cart::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: @base-border-width;
+    height: 100%;
+    background-color: @header-borders;
+}
+
+header#site-header nav.shopping-cart a {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    width: @small-header;
+    height: @small-header;
+    text-align: center;
+}
+
+header#site-header nav.shopping-cart i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 30px;
+    color: @base-heading;
+    transform: translate(-50%, -50%);
+}
+
+header#site-header nav.shopping-cart span.amount {
+    position: absolute;
+    top: 25px;
+    right: 15px;
+    width: 20px;
+    height: 20px;
+    padding: 1px 0 0;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 50%;
+    color: @base-highlight-text;
+    opacity: 1;
+    background-color: @base-highlight;
+    transition: opacity 0.3s ease-in-out 0s, transform 0.3s ease-in-out 0s, top 0.3s ease-in-out 0s, background-color 0.3s ease-in-out 0.3s;
+}
+
+header#site-header nav.shopping-cart.snipcart-summary-empty span.amount {
+    top: 23px;
+    opacity: 0;
+    background-color:@form-success;
+    transform: scale(2.5);
+}
+
+@media (min-width:@large-breakpoint) {
+    header#site-header nav.shopping-cart {
+        top:auto;
+        bottom: 0;
+        right: @nav-main-height;
+        width: @nav-main-height;
+        height: @nav-main-height;
+    }
+    header#site-header nav.shopping-cart a { 
+        width: @nav-main-height;
+        height: @nav-main-height;
+    }
+    header#site-header nav.shopping-cart span.amount {
+        top: 10px; right:6px;
+    }
+}

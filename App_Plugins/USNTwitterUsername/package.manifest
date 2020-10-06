@@ -1,0 +1,16 @@
+﻿{
+	propertyEditors:[
+        {
+            alias: "USN.TwitterUsername",
+            name: "USN Twitter Username",
+			icon: "icon-bird",
+			group: "social media",
+            editor: {
+                view: "~/App_Plugins/USNTwitterUsername/views/twitterusername-editor.html"
+            }
+        }
+    ],
+    css: [
+        "~/App_Plugins/USNTwitterUsername/css/twitterusername-style.css"
+    ]
+}

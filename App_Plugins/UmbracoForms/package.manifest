@@ -1,0 +1,13 @@
+{
+"propertyEditors": [
+{
+"alias": "UmbracoForms.FormPicker",
+"name": "Form Picker",
+"group": "Pickers",
+"icon": "icon-umb-contour",
+"editor": {
+"view": "~/App_Plugins/UmbracoForms/Backoffice/PropertyEditors/formpicker.html"
+}
+}
+]
+}

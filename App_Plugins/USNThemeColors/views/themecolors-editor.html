@@ -1,0 +1,795 @@
+﻿<div ng-controller="USN.ThemeColors.Controller">
+
+    <section class="usn-cms-colour-manager">
+
+        <div class="usn-colour_accordion ">
+
+            <!-- General Colors -->
+
+            <div class="usn-accordion-tab" ng-class="{'color-closed' : generalTabStyle, 'color-open' : !generalTabStyle}">
+                <a ng-click="generalTabStyle = !generalTabStyle">
+                    <span class="accordion-name">General</span>
+                </a>
+            </div>
+
+            <div class="usn-accordion-content" ng-class="{'color-closed' : generalTabStyle, 'color-open' : !generalTabStyle}">
+
+                <div class="colour-block" style="background-color:#edecec;">
+
+                    <!-- Colour list -->
+                    <div class="usn-col usn-colour-list usn-colour-list-wide">
+
+                        <div class="usn-introduction">
+                            <p class="heading">Body</p>
+                        </div>
+
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Background</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.bodyBackground" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        
+                    </div>
+                    <!--// Colour list -->
+
+                    <!-- Colour list -->
+                    <div class="usn-col usn-colour-list usn-colour-list-wide">
+
+                        <hr>
+                        <div class="usn-introduction">
+                            <p class="heading">Header</p>
+                        </div>
+
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Background</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.headerBackground" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Text</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.headerText" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Borders</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.headerBorder" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Highlight</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.headerHighlight" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        
+                    </div>
+                    <!--// Colour list -->
+
+                    <!-- Colour list -->
+                    <div class="usn-col usn-colour-list usn-colour-list-wide">
+
+                        <hr>
+                        <div class="usn-introduction">
+                            <p class="heading">Main Navigation</p>
+                        </div>
+
+                        <!-- Item -->
+                        <div class="usn-colour-item header-item-start">
+                            <label>Link</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.mainNavigationLink" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Link hover</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.mainNavigationLinkHover" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Link active</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.mainNavigationLinkActive" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Dropdown background</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.mainNavDropdown" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Dropdown link</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.mainNavDropdownLink" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Dropdown link hover</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.mainNavDropdownLinkHover" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Dropdown link active</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.mainNavDropdownLinkActive" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        
+                    </div>
+                    <!--// Colour list -->
+
+                    <!-- Colour list -->
+                    <div class="usn-col usn-colour-list usn-colour-list-wide">
+
+                        <hr>
+                        <div class="usn-introduction">
+                            <p class="heading">Secondary Navigation</p>
+                        </div>
+
+                        <!-- Item -->
+                        <div class="usn-colour-item header-item-start">
+                            <label>Link</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.secondaryNavLink" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Link hover</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.secondaryNavLinkHover" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        
+                    </div>
+                    <!--// Colour list -->
+
+                    <!-- Colour list -->
+                    <div class="usn-col usn-colour-list usn-colour-list-wide">
+
+                        <hr>
+                        <div class="usn-introduction">
+                            <p class="heading">Footer</p>
+                        </div>
+
+                        <!-- Item -->
+                        <div class="usn-colour-item footer-item-start">
+                            <label>Background</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.footerBackground" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Heading</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.footerHeading" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Text</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.footerText" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Link</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.footerLink" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Link hover</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.footerLinkHover" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Borders</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.footerBorder" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Highlight</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.footerHighlight" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+
+                    </div>
+                    <!--// Colour list -->
+
+                </div>
+
+            </div>
+
+            <!--// End General Colors -->
+            <!-- Content Colors -->
+
+            <div class="usn-accordion-tab" ng-class="{'color-closed' : contentTabStyle, 'color-open' : !contentTabStyle}">
+                <a ng-click="contentTabStyle = !contentTabStyle">
+                    <span clas="accordion-name">Content</span>
+                    <span class="colour-name"><span style="background-color:{{model.value.contentBackground}};"></span>{{model.value.contentBackground}}</span>
+                </a>
+            </div>
+
+            <div class="usn-accordion-content" ng-class="{'color-closed' : contentTabStyle, 'color-open' : !contentTabStyle}">
+
+                <div class="colour-block" style="background-color:#edecec;">
+
+                    <div class="usn-col usn-colour-list">
+
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Background</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.contentBackground" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Heading</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.contentHeading" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Secondary Heading</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.contentSecondaryHeading" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Text</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.contentText" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Link</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.contentLink" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Link hover</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.contentLinkHover" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Border</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.contentBorder" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Highlight background</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.contentHighlightBackground" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Highlight text</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.contentHighlightText" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+
+                    </div>
+
+                    <div class="usn-col usn-colour-demo">
+
+                        <div class="usn-colour_body" style="background-color:{{model.value.bodyBackground}};">
+
+                            <div class="usn-colour_content" style="background-color: {{model.value.contentBackground}};">
+
+                                <p class="usn-colour_secondary-heading" style="color: {{model.value.contentSecondaryHeading}};">Secondary Heading</p>
+                                <p class="usn-colour_heading" style="color: {{model.value.contentHeading}};">Headings here</p>
+                                <div class="usn-colour_text" style="color: {{model.value.contentText}};">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus consequat neque consectetur, <a class="usn-colour_link" href="" style="color: {{model.value.contentLink}};" ng-style="contentLinkHoverStyle" ng-mouseenter="contentLinkHoverStyle={color:model.value.contentLinkHover}" ng-mouseleave="contentLinkHoverStyle={color:model.value.contentLink}">feugiat risus</a> hendrerit, dapibus magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. <span class="label" style="background-color:{{model.value.contentHighlightBackground}}; color:{{model.value.contentHighlightText}};">Vivamus consequat</span> neque consectetur.</p>
+                                    <p class="quote-mark">
+                                        <svg width="20pt" height="20pt" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                            <g>
+                                                <path fill="{{model.value.contentHighlightBackground}}" d="m97.5 47.398h-21.301v-4.3008c0-9 7.3008-16.398 16.398-16.398l0.003906-20.301c-20.199 0-36.699 16.5-36.699 36.699v50.5h41.602z" />
+                                                <path fill="{{model.value.contentHighlightBackground}}" d="m44.102 93.602v-46.203h-21.301v-4.3008c0-9 7.3008-16.398 16.398-16.398v-20.301c-20.199 0-36.699 16.5-36.699 36.703v50.5z" />
+                                            </g>
+                                        </svg>
+                                    </p>
+                                    <p><em>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</em></p>
+                                </div>
+                                <table class="usn-colour_table" width="100%" style="background-color: {{model.value.contentBackground}}; color: {{model.value.contentText}}; border-color:{{model.value.contentBorder}};">
+                                    <tbody>
+                                        <tr>
+                                            <td>Lorem ipsum dolor</td>
+                                            <td>Vivamus consequat</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!--// End Content Colors -->
+            <!-- Button Colors -->
+
+            <div class="usn-accordion-tab" ng-class="{'color-closed' : buttonTabStyle, 'color-open' : !buttonTabStyle}">
+                <a ng-click="buttonTabStyle = !buttonTabStyle">
+                    <span clas="accordion-name">Button</span>
+                    <span class="colour-name"><span style="background-color:{{model.value.buttonBackground}};"></span>{{model.value.buttonBackground}}</span>
+                </a>
+            </div>
+
+            <div class="usn-accordion-content" ng-class="{'color-closed' : buttonTabStyle, 'color-open' : !buttonTabStyle}">
+
+                <div class="colour-block" style="background-color:#edecec;">
+
+                    <div class="usn-col usn-colour-list">
+
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Background</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.buttonBackground" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Text</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.buttonText" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Border</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.buttonBorder" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Background hover</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.buttonBackgroundHover" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Text hover</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.buttonTextHover" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+                        <!-- Item -->
+                        <div class="usn-colour-item">
+                            <label>Border hover</label>
+                            <div class="colour-swatch">
+                                <input colorpicker=colorpicker class="usncolorpicker" ng-model="model.value.buttonBorderHover" />
+                            </div>
+                        </div>
+                        <!--// Item -->
+
+
+                    </div>
+
+                    <div class="usn-col usn-colour-demo">
+
+                        <div class="usn-colour_body">
+
+                            <div class="usn-colour_content" style="text-align:center!important;">
+                                <div class="usn-colour_button usn-big-button" style="color: {{model.value.buttonText}}; background-color: {{model.value.buttonBackground}}; border-color: {{model.value.buttonBorder}};" ng-style="buttonHoverStyle" ng-mouseenter="buttonHoverStyle={'color':model.value.buttonTextHover,'background-color':model.value.buttonBackgroundHover,'border-color':model.value.buttonBorderHover}" ng-mouseleave="buttonHoverStyle={'color':model.value.buttonText,'background-color':model.value.buttonBackground,'border-color':model.value.buttonBorder}">I am a button</div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!--// End Button Colors -->
+
+        </div>
+
+    </section>
+
+
+    <!-- Repeating Content Colors -->
+
+    <section class="usn-cms-colour-manager">
+
+        <div class="usn-introduction">
+            <p class="heading">Additional Content Options</p>
+            <p class="text">Build up the full colour palette of your theme by choosing any number of background, headings, text and link colour combinations. Add as many combinations as you wish.</p>
+        </div>
+
+        <div class="usn-colour_accordion">
+
+            <div ui-sortable=ui-sortable ng-model="model.value.contentItems">
+
+                <div ng-repeat="item in model.value.contentItems">
+
+                    <div class="usn-accordion-tab" ng-class="{'color-closed' : item.tabStyle, 'color-open' : !item.tabStyle}">
+                        <a ng-click="item.tabStyle = !item.tabStyle">
+                            <span clas="accordion-name">c{{$index+1}}</span>
+                            <span class="colour-name"><span style="background-color:{{item.background}}; color:#000000;"></span>{{item.background}}</span>
+                        </a>
+
+                        <div class="usn-accordion-controls">
+                            <div class="usn-move">
+
+                                <?xml version="1.0" encoding="UTF-8" ?>
+                                <svg width="100pt" height="100pt" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m48.438 0.78125c-0.3125 0-0.66406 0.17578-0.97656 0.48828l-12.109 16.211c-0.625 0.625-0.35156 1.2695 0.58594 1.2695h7.8125v25h-25v-7.8125c0-0.9375-0.64453-1.2109-1.2695-0.58594l-16.211 12.109c-0.625 0.625-0.625 1.3281 0 1.9531l16.211 12.109c0.625 0.625 1.2695 0.35156 1.2695-0.58594v-7.8125h25v25h-7.8125c-0.9375 0-1.2109 0.64453-0.58594 1.2695l12.109 16.211c0.625 0.625 1.3281 0.625 1.9531 0l12.109-16.211c0.625-0.625 0.35156-1.2695-0.58594-1.2695h-7.8125v-25h25v7.8125c0 0.9375 0.64453 1.2109 1.2695 0.58594l16.211-12.109c0.625-0.625 0.625-1.3281 0-1.9531l-16.211-12.109c-0.625-0.625-1.2695-0.35156-1.2695 0.58594v7.8125h-25v-25h7.8125c0.9375 0 1.2109-0.64453 0.58594-1.2695l-12.109-16.211c-0.3125-0.3125-0.66406-0.48828-0.97656-0.48828z" />
+                                </svg>
+
+                                <span>Move</span>
+                            </div>
+                            <div class="usn-delete" ng-click="removeContentItem($index)">
+
+                                <?xml version="1.0" encoding="UTF-8" ?>
+                                <svg width="100pt" height="100pt" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                    <g>
+                                        <path d="m69.5 27.906-1.8516 50.008c-0.03125 0.85938-0.78516 1.5859-1.6484 1.5859h-32c-0.85938 0-1.6172-0.73047-1.6484-1.5859l-1.8516-50.008c-0.054688-1.3789-1.2109-2.457-2.5938-2.4062-1.3789 0.054688-2.457 1.2109-2.4062 2.5938l1.8555 50.008c0.12891 3.5391 3.0938 6.3984 6.6445 6.3984h32c3.5508 0 6.5156-2.8516 6.6445-6.3984l1.8555-50.008c0.050781-1.3828-1.0273-2.5391-2.4062-2.5938-1.3828-0.050781-2.5391 1.0273-2.5938 2.4062z" />
+                                        <path d="m48 38v34c0 1.1055 0.89453 2 2 2s2-0.89453 2-2v-34c0-1.1055-0.89453-2-2-2s-2 0.89453-2 2z" />
+                                        <path d="m37 38.059 1 34c0.035156 1.1055 0.95312 1.9727 2.0586 1.9414 1.1055-0.035156 1.9727-0.95312 1.9414-2.0586l-1-34c-0.035156-1.1055-0.95312-1.9727-2.0586-1.9414-1.1055 0.035156-1.9727 0.95312-1.9414 2.0586z" />
+                                        <path d="m59 37.941-1 34c-0.03125 1.1055 0.83594 2.0234 1.9414 2.0586 1.1055 0.03125 2.0234-0.83594 2.0586-1.9414l1-34c0.03125-1.1055-0.83594-2.0234-1.9414-2.0586-1.1055-0.03125-2.0234 0.83594-2.0586 1.9414z" />
+                                        <path d="m25 29h50c1.3789 0 2.5-1.1211 2.5-2.5s-1.1211-2.5-2.5-2.5h-50c-1.3789 0-2.5 1.1211-2.5 2.5s1.1211 2.5 2.5 2.5z" />
+                                        <path d="m42.402 25.688 1.043-3.6445c0.22266-0.78125 1.2344-1.543 2.0469-1.543h9.0156c0.8125 0 1.8242 0.76172 2.0469 1.543l1.043 3.6445 4.8047-1.375-1.0391-3.6445c-0.83594-2.9258-3.8086-5.168-6.8555-5.168h-9.0156c-3.0469 0-6.0195 2.2422-6.8555 5.168l-1.0391 3.6445z" />
+                                    </g>
+                                </svg>
+
+                                <span>Delete</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="usn-accordion-content" ng-class="{'color-closed' : item.tabStyle, 'color-open' : !item.tabStyle}">
+
+                        <div class="colour-block" style="background-color:{{model.value.bodyBackground}};">
+
+                            <div class="usn-col usn-colour-list">
+
+                                <!-- Item -->
+                                <div class="usn-colour-item">
+                                    <label>Background</label>
+                                    <div class="colour-swatch">
+                                        <input colorpicker=colorpicker class="usncolorpicker" ng-model="item.background" />
+                                    </div>
+                                </div>
+                                <!--// Item -->
+                                <!-- Item -->
+                                <div class="usn-colour-item">
+                                    <label>Heading</label>
+                                    <div class="colour-swatch">
+                                        <input colorpicker=colorpicker class="usncolorpicker" ng-model="item.heading" />
+                                    </div>
+                                </div>
+                                <!--// Item -->
+                                <!-- Item -->
+                                <div class="usn-colour-item">
+                                    <label>Secondary Heading</label>
+                                    <div class="colour-swatch">
+                                        <input colorpicker=colorpicker class="usncolorpicker" ng-model="item.secondaryHeading" />
+                                    </div>
+                                </div>
+                                <!--// Item -->
+                                <!-- Item -->
+                                <div class="usn-colour-item">
+                                    <label>Text</label>
+                                    <div class="colour-swatch">
+                                        <input colorpicker=colorpicker class="usncolorpicker" ng-model="item.text" />
+                                    </div>
+                                </div>
+                                <!--// Item -->
+                                <!-- Item -->
+                                <div class="usn-colour-item">
+                                    <label>Link</label>
+                                    <div class="colour-swatch">
+                                        <input colorpicker=colorpicker class="usncolorpicker" ng-model="item.link" />
+                                    </div>
+                                </div>
+                                <!--// Item -->
+                                <!-- Item -->
+                                <div class="usn-colour-item">
+                                    <label>Link hover</label>
+                                    <div class="colour-swatch">
+                                        <input colorpicker=colorpicker class="usncolorpicker" ng-model="item.linkHover" />
+                                    </div>
+                                </div>
+                                <!--// Item -->
+                                <!-- Item -->
+                                <div class="usn-colour-item">
+                                    <label>Border</label>
+                                    <div class="colour-swatch">
+                                        <input colorpicker=colorpicker class="usncolorpicker" ng-model="item.border" />
+                                    </div>
+                                </div>
+                                <!--// Item -->
+                                <!-- Item -->
+                                <div class="usn-colour-item">
+                                    <label>Highlight background</label>
+                                    <div class="colour-swatch">
+                                        <input colorpicker=colorpicker class="usncolorpicker" ng-model="item.highlightBackground" />
+                                    </div>
+                                </div>
+                                <!--// Item -->
+                                <!-- Item -->
+                                <div class="usn-colour-item">
+                                    <label>Highlight text</label>
+                                    <div class="colour-swatch">
+                                        <input colorpicker=colorpicker class="usncolorpicker" ng-model="item.highlightText" />
+                                    </div>
+                                </div>
+                                <!--// Item -->
+
+                            </div>
+
+                            <div class="usn-col usn-colour-demo">
+
+                                <div class="usn-colour_body" style="background-color:{{model.value.bodyBackground}};">
+
+                                    <div class="usn-colour_content" style="background-color: {{item.background}}">
+
+                                        <p class="usn-colour_secondary-heading" style="color: {{item.secondaryHeading}}">Secondary Heading</p>
+                                        <p class="usn-colour_heading" style="color: {{item.heading}}">Headings here</p>
+                                        <div class="usn-colour_text" style="color: {{item.text}}">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus consequat neque consectetur, <a class="usn-colour_link" href="" style="color: {{item.link}}" ng-style="linkHoverStyle" ng-mouseenter="linkHoverStyle={color:item.linkHover}" ng-mouseleave="linkHoverStyle={color:item.link}">feugiat risus</a> hendrerit, dapibus magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. <span class="label" style="background-color:{{item.highlightBackground}}; color:{{item.highlightText}};">Vivamus consequat</span> neque consectetur.</p>
+                                            <p class="quote-mark">
+                                                <svg width="20pt" height="20pt" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                                    <g>
+                                                        <path fill="{{item.highlightBackground}}" d="m97.5 47.398h-21.301v-4.3008c0-9 7.3008-16.398 16.398-16.398l0.003906-20.301c-20.199 0-36.699 16.5-36.699 36.699v50.5h41.602z" />
+                                                        <path fill="{{item.highlightBackground}}" d="m44.102 93.602v-46.203h-21.301v-4.3008c0-9 7.3008-16.398 16.398-16.398v-20.301c-20.199 0-36.699 16.5-36.699 36.703v50.5z" />
+                                                    </g>
+                                                </svg>
+                                            </p>
+                                            <p><em>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</em></p>
+                                        </div>
+                                        <table class="usn-colour_table" width="100%" style="background-color: {{item.background}}; color: {{item.text}}; border-color:{{item.border}}">
+                                            <tbody>
+                                                <tr>
+                                                    <td>Lorem ipsum dolor</td>
+                                                    <td>Vivamus consequat</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <button type="button" class="usn-add-colour" ng-click="addContentItem()"></button>
+
+    </section>
+
+    <!--// End Repeating Content Colors -->
+    <!-- Repeating Button Colors -->
+
+    <section class="usn-cms-colour-manager">
+
+        <div class="usn-introduction">
+            <p class="heading">Additional Button Options</p>
+            <p class="text">Build up a full range of button color combinations to be used for call to actions through out your website. Add as many combinations as you wish.</p>
+        </div>
+
+        <div class="usn-colour_accordion">
+
+            <div ui-sortable="sortableOptions" ng-model="model.value.buttonItems">
+
+                <div ng-repeat="item in model.value.buttonItems">
+
+                    <div class="usn-accordion-tab" ng-class="{'color-closed' : item.tabStyle, 'color-open' : !item.tabStyle}">
+                        <a ng-click="item.tabStyle = !item.tabStyle">
+                            <span clas="accordion-name">c{{$index+1}}-btn</span>
+                            <span class="colour-name"><span style="background-color:{{item.background}}; color:{{item.text}};"></span>{{item.background}}</span>
+                        </a>
+
+                        <div class="usn-accordion-controls">
+                            <div class="usn-move">
+
+                                <?xml version="1.0" encoding="UTF-8" ?>
+                                <svg width="100pt" height="100pt" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m48.438 0.78125c-0.3125 0-0.66406 0.17578-0.97656 0.48828l-12.109 16.211c-0.625 0.625-0.35156 1.2695 0.58594 1.2695h7.8125v25h-25v-7.8125c0-0.9375-0.64453-1.2109-1.2695-0.58594l-16.211 12.109c-0.625 0.625-0.625 1.3281 0 1.9531l16.211 12.109c0.625 0.625 1.2695 0.35156 1.2695-0.58594v-7.8125h25v25h-7.8125c-0.9375 0-1.2109 0.64453-0.58594 1.2695l12.109 16.211c0.625 0.625 1.3281 0.625 1.9531 0l12.109-16.211c0.625-0.625 0.35156-1.2695-0.58594-1.2695h-7.8125v-25h25v7.8125c0 0.9375 0.64453 1.2109 1.2695 0.58594l16.211-12.109c0.625-0.625 0.625-1.3281 0-1.9531l-16.211-12.109c-0.625-0.625-1.2695-0.35156-1.2695 0.58594v7.8125h-25v-25h7.8125c0.9375 0 1.2109-0.64453 0.58594-1.2695l-12.109-16.211c-0.3125-0.3125-0.66406-0.48828-0.97656-0.48828z" />
+                                </svg>
+
+
+                                <span>Move</span>
+                            </div>
+                            <div class="usn-delete" ng-click="removeButtonItem($index)">
+
+                                <?xml version="1.0" encoding="UTF-8" ?>
+                                <svg width="100pt" height="100pt" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                    <g>
+                                        <path d="m69.5 27.906-1.8516 50.008c-0.03125 0.85938-0.78516 1.5859-1.6484 1.5859h-32c-0.85938 0-1.6172-0.73047-1.6484-1.5859l-1.8516-50.008c-0.054688-1.3789-1.2109-2.457-2.5938-2.4062-1.3789 0.054688-2.457 1.2109-2.4062 2.5938l1.8555 50.008c0.12891 3.5391 3.0938 6.3984 6.6445 6.3984h32c3.5508 0 6.5156-2.8516 6.6445-6.3984l1.8555-50.008c0.050781-1.3828-1.0273-2.5391-2.4062-2.5938-1.3828-0.050781-2.5391 1.0273-2.5938 2.4062z" />
+                                        <path d="m48 38v34c0 1.1055 0.89453 2 2 2s2-0.89453 2-2v-34c0-1.1055-0.89453-2-2-2s-2 0.89453-2 2z" />
+                                        <path d="m37 38.059 1 34c0.035156 1.1055 0.95312 1.9727 2.0586 1.9414 1.1055-0.035156 1.9727-0.95312 1.9414-2.0586l-1-34c-0.035156-1.1055-0.95312-1.9727-2.0586-1.9414-1.1055 0.035156-1.9727 0.95312-1.9414 2.0586z" />
+                                        <path d="m59 37.941-1 34c-0.03125 1.1055 0.83594 2.0234 1.9414 2.0586 1.1055 0.03125 2.0234-0.83594 2.0586-1.9414l1-34c0.03125-1.1055-0.83594-2.0234-1.9414-2.0586-1.1055-0.03125-2.0234 0.83594-2.0586 1.9414z" />
+                                        <path d="m25 29h50c1.3789 0 2.5-1.1211 2.5-2.5s-1.1211-2.5-2.5-2.5h-50c-1.3789 0-2.5 1.1211-2.5 2.5s1.1211 2.5 2.5 2.5z" />
+                                        <path d="m42.402 25.688 1.043-3.6445c0.22266-0.78125 1.2344-1.543 2.0469-1.543h9.0156c0.8125 0 1.8242 0.76172 2.0469 1.543l1.043 3.6445 4.8047-1.375-1.0391-3.6445c-0.83594-2.9258-3.8086-5.168-6.8555-5.168h-9.0156c-3.0469 0-6.0195 2.2422-6.8555 5.168l-1.0391 3.6445z" />
+                                    </g>
+                                </svg>
+
+
+                                <span>Delete</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="usn-accordion-content" ng-class="{'color-closed' : item.tabStyle, 'color-open' : !item.tabStyle}">
+
+                        <div class="colour-block" style="background-color:#edecec;">
+
+                            <div class="usn-col usn-colour-list">
+
+                                <!-- Item -->
+                                <div class="usn-colour-item">
+                                    <label>Background</label>
+                                    <div class="colour-swatch">
+                                        <input colorpicker=colorpicker class="usncolorpicker" ng-model="item.background" />
+                                    </div>
+                                </div>
+                                <!--// Item -->
+                                <!-- Item -->
+                                <div class="usn-colour-item">
+                                    <label>Text</label>
+                                    <div class="colour-swatch">
+                                        <input colorpicker=colorpicker class="usncolorpicker" ng-model="item.text" />
+                                    </div>
+                                </div>
+                                <!--// Item -->
+                                <!-- Item -->
+                                <div class="usn-colour-item">
+                                    <label>Border</label>
+                                    <div class="colour-swatch">
+                                        <input colorpicker=colorpicker class="usncolorpicker" ng-model="item.border" />
+                                    </div>
+                                </div>
+                                <!--// Item -->
+                                <!-- Item -->
+                                <div class="usn-colour-item">
+                                    <label>Background hover</label>
+                                    <div class="colour-swatch">
+                                        <input colorpicker=colorpicker class="usncolorpicker" ng-model="item.backgroundHover" />
+                                    </div>
+                                </div>
+                                <!--// Item -->
+                                <!-- Item -->
+                                <div class="usn-colour-item">
+                                    <label>Text hover</label>
+                                    <div class="colour-swatch">
+                                        <input colorpicker=colorpicker class="usncolorpicker" ng-model="item.textHover" />
+                                    </div>
+                                </div>
+                                <!--// Item -->
+                                <!-- Item -->
+                                <div class="usn-colour-item">
+                                    <label>Border hover</label>
+                                    <div class="colour-swatch">
+                                        <input colorpicker=colorpicker class="usncolorpicker" ng-model="item.borderHover" />
+                                    </div>
+                                </div>
+                                <!--// Item -->
+
+                            </div>
+
+                            <div class="usn-col usn-colour-demo">
+
+                                <div class="usn-colour_body">
+
+                                    <div class="usn-colour_content" style="text-align:center!important;">
+                                        <div class="usn-colour_button usn-big-button" style="color: {{item.text}}; background-color: {{item.background}}; border-color: {{item.border}};" ng-style="buttonHoverStyle" ng-mouseenter="buttonHoverStyle={'color':item.textHover,'background-color':item.backgroundHover,'border-color':item.borderHover}" ng-mouseleave="buttonHoverStyle={'color':item.text,'background-color':item.background,'border-color':item.border}">I am a button</div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <button type="button" class="usn-add-colour" ng-click="addButtonItem()"></button>
+
+    </section>
+
+    <!--// End Repeating Button Colors -->
+  
+</div>

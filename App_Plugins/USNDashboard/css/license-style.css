@@ -1,0 +1,261 @@
+﻿.usn-cms-licenses *,
+.usn-cms-licenses ::after,
+.usn-cms-licenses ::before {
+    box-sizing: border-box;
+}
+
+.usn-cms-licenses {
+    font-family: 'Lato', sans-serif;
+}
+
+.usn-cms-licenses .container-fluid {}
+
+.usn-cms-licenses .row {
+    margin: 0 -15px;
+}
+
+.usn-cms-licenses .col-xs-12 {
+    width: 100%;
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+@media (min-width:992px) {
+    .usn-cms-licenses .col-md-6 {
+        float: left;
+        width: 50%;
+    }
+    .usn-cms-licenses .col-md-4 {
+        float: left;
+        width: 33.3333333%;
+    }
+}
+
+@media (min-width:1100px) and (max-width:1199px) {
+    .usn-cms-licenses .col-md-4 {
+        float: none;
+        width: 100%;
+    }
+}
+
+.usn-cms-licenses .heading { 
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.usn-cms-licenses .heading.main { 
+    position:relative;
+    background: #fff;
+    padding-left: 60px;
+    z-index: 100;
+    border-bottom: 1px solid #e9e9eb;
+    width: 100%;
+    box-sizing: border-box;
+    height: 70px;
+}
+.usn-cms-licenses .heading.main .icon { 
+    position:absolute; top:50%; left:20px;
+    display:inline-block;
+    margin:0 10px 0 0;
+    background:url('/images/usn_icon.png') no-repeat center;
+    background-size:30px 30px;
+    width:30px; height:30px;
+    border-radius:50%;
+
+    transform:translateY(-50%);
+}
+
+.usn-wrapper {
+    padding: 20px;
+    overflow: auto;
+}
+
+.usn-wrapper.umb-editor-container { 
+    bottom:0;
+}
+
+@media (min-width:768px) { 
+
+    .usn-wrapper {
+        padding: 20px 60px;
+    }
+
+}
+
+.usn-cms-licenses .item hr {
+    margin: 8px 0;
+    border-color: rgba(65, 54, 89, 0.05);
+}
+
+.usn-cms-licenses ul.list {
+    list-style: none;
+    margin-left: 0;
+    margin-bottom: 0;
+}
+
+.usn-cms-licenses ul.list li {
+    padding: 5px;
+    border-width: 0 0 1px;
+    border-style: solid;
+    border-color: rgba(65, 54, 89, 0.1);
+}
+
+.usn-cms-licenses ul.list li:last-child {
+    border: 0 none;
+}
+
+.usn-cms-licenses .form-group.upload-field input[type=file] {
+    width: 100%;
+    padding: 0;
+    vertical-align: top;
+    height: 30px;
+    line-height: 15px;
+    font-size:13px;
+}
+
+.usn-cms-licenses .umb-button { 
+    margin:15px 0 0!important;
+}
+
+.usn-cms-licenses .alert {
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+
+.usn-cms-loading-wrap {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 5px;
+}
+
+.usn-cms-loading-wrap .usn-cms-loading {
+    margin: 0;
+    position: relative;
+    text-align: center;
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+.usn-cms-loading-wrap .usn-cms-loading .usn-cms-message {
+    display: table-cell;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+}
+
+@-webkit-keyframes pulse {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+
+    50% {
+        -webkit-transform: scale3d(1.2, 1.2, 1.2);
+        transform: scale3d(1.2, 1.2, 1.2);
+    }
+
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+
+    50% {
+        -webkit-transform: scale3d(1.2, 1.2, 1.2);
+        transform: scale3d(1.2, 1.2, 1.2);
+    }
+
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+.usn-cms-loading-wrap .usn-cms-loading .usn-cms-message .usn-icon {
+    display:block; margin:0 auto;
+    width:35px; height:35px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('/images/usn_icon.png');
+    background-size:35px 35px;
+    border-radius:50%;
+
+    
+    -webkit-animation-name: pulse;
+    animation-name: pulse;
+    -webkit-animation-duration: 1.25s;
+    animation-duration: 1.25s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+}
+
+.usn-cms-loading-wrap .usn-cms-loading .usn-cms-message .usn-text { 
+    display:block; padding-top:10px;
+    font-size:13px;
+}
+
+.usn-cms-licenses .alert.alert-warning {
+    color: #303033;
+    background: rgba(240, 172, 0, 0.1);
+    border-color: rgba(240, 172, 0, 0.2);
+}
+
+.usn-cms-licenses .alert.alert-danger {
+    color: #303033;
+    background: rgba(240, 46, 40, 0.1);
+    border-color: rgba(240, 46, 40, 0.2);
+}
+
+.usn-cms-licenses .alert :first-child,
+.usn-cms-licenses .item :first-child {
+    margin-top: 0;
+}
+
+.usn-cms-licenses .alert :last-child,
+.usn-cms-licenses .item :last-child {
+    margin-bottom: 0;
+}
+
+.usn-cms-licenses .item {
+    position: relative;
+    display: block;
+    margin-bottom:30px;
+    border-radius: 5px;
+    min-height: 90px;
+}
+
+.usn-cms-licenses .item.domains { 
+    margin-bottom:15px;
+}
+
+.usn-cms-licenses .item .umb-box { 
+    margin:0; padding:0;
+}
+
+.usn-cms-licenses .item.message {
+    min-height: auto;
+}
+
+.usn-cms-licenses .item .heading:first-child {
+    margin-top: 0;
+}
+
+.usn-cms-licenses p+.item {
+    margin-top: 20px;
+}

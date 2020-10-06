@@ -1,0 +1,4 @@
+﻿<div ng-controller="USN.TrueFalseShowHide.Controller" class="usn-cms">
+    <switch name="enabled" ng-model="enabled" id="{{model.alias}}"></switch>
+    <span class="switcher-status" ng-class="{ active: enabled }">{{model.textRight}}</span>
+</div>

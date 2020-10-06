@@ -1,0 +1,62 @@
+﻿@inherits UmbracoViewPage<Usn_Pc_SplitComponent_AN>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    string splitSide = ViewData["splitSide"].ToString();
+    string colWidthDesktop = splitSide == "First" ? "col-lg-" + Model.DesktopColumnWidthFirst : "col-lg-" + Model.DesktopColumnWidthSecond;
+    string colWidthTablet = splitSide == "First" ? "col-md-" + Model.TabletColumnWidthFirst : "col-md-" + Model.TabletColumnWidthSecond;
+    string itemDesktopOrder = ThemeHelper.GetSplitDesktopTabletOrderClass(splitSide, Model.DesktopTabletOrder);
+    string itemMobileOrder = ThemeHelper.GetSplitMobileOrderClass(splitSide, Model.MobileOrder);
+    string verticalAlignment = splitSide == "First" ? (Model.VerticalPositionFirst.HasValue() ? Model.VerticalPositionFirst.ToString() : String.Empty) : (Model.VerticalPositionSecond.HasValue() ? Model.VerticalPositionSecond.ToString() : String.Empty);
+    string verticalAlignmentClass = ThemeHelper.GetVerticalAlignmentClass(verticalAlignment);
+    USNHeading heading = splitSide == "First" ? Model.AccordionHeadingFirst : Model.AccordionHeadingSecond;
+    string secondaryHeading = splitSide == "First" ? Model.AccordionSecondaryHeadingFirst : Model.AccordionSecondaryHeadingSecond;
+    USNAnimation animation = splitSide == "First" ? ThemeHelper.GetAnimationSettings(Model.AnimateFirst,Model.AnimationDelayFirst,Model.AnimationStyleFirst) : ThemeHelper.GetAnimationSettings(Model.AnimateSecond,Model.AnimationDelaySecond,Model.AnimationStyleSecond);
+
+    int itemCount = 1;
+
+    IEnumerable<Usn_Nc_AccordionTabItem> accordionItems = splitSide == "First" ? Model.AccordionItemsFirst : Model.AccordionItemsSecond;
+
+    <div class="item item_block item_repeatable-block @verticalAlignmentClass @colWidthDesktop @colWidthTablet @itemDesktopOrder @itemMobileOrder col-12 @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+
+        @if (heading.HasValue() || secondaryHeading.HasValue())
+        {
+            <div class="component-introduction @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+
+                @if (secondaryHeading.HasValue())
+                {
+                    <p class="secondary-heading @(Model.BackgroundColor.label)-secondary-heading @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">@secondaryHeading</p>
+                }
+                @if (heading.HasValue())
+                {
+                    @Html.Raw(String.Format("<{0} class=\"heading main {1}-heading\">{2}</{0}>", heading.HeadingTag, Model.BackgroundColor.label, heading.Text))
+                }
+
+            </div>
+        }
+
+        @if (accordionItems != null && accordionItems.Any())
+        {
+            <div class="repeatable accordion">
+
+                @foreach (Usn_Nc_AccordionTabItem item in accordionItems)
+                {
+                    <p class="tab">
+                        <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapse-@Model.Id-@splitSide-@itemCount" aria-expanded="false" aria-controls="collapse-@Model.Id-@splitSide-@itemCount">
+                            @item.ItemHeading
+                        </a>
+                    </p>
+                    <div id="collapse-@Model.Id-@splitSide-@itemCount" class="info repeatable-content collapse">
+                        @Html.Raw(item.RepeaterText)
+                    </div>
+
+                    itemCount += 1;
+                }
+
+            </div>
+        }
+
+    </div>
+}

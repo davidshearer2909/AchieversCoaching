@@ -1,0 +1,26 @@
+﻿@inherits UmbracoViewPage<USNWebsite.USNModels.USNBaseViewModel>
+
+@{
+    UsnglobalSettings globalSettings = (UsnglobalSettings)Model.GlobalSettings;
+    IEnumerable<IPublishedContent> components = null;
+
+    if (Model.Content.Value<bool>("overrideDefaultBottomComponents"))
+    {
+        components = Model.Content.HasValue("bottomComponents") ? Model.Content.Value<IEnumerable<IPublishedContent>>("bottomComponents") : null;
+    }
+    else if (globalSettings.HasValue("defaultBottomComponents"))
+    {
+        components = globalSettings.Value<IEnumerable<IPublishedContent>>("defaultBottomComponents");
+    }
+
+    if (components != null)
+    {
+        foreach (IPublishedContent component in components)
+        {
+            if (component != null)
+            {
+                @Html.Partial(Model.ViewPath + "/USNPageComponents/USN_ComponentSwitch", component, new ViewDataDictionary { { "viewPath", Model.ViewPath }, { "pageLayout", "pageLayoutFull" }, { "globalSettingsID", Model.GlobalSettings.Id } })
+            }
+        }
+    }
+}

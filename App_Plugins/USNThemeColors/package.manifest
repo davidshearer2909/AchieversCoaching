@@ -1,0 +1,21 @@
+﻿{
+    propertyEditors:[
+        {
+            alias: "USN.ThemeColors",
+            name: "USN Theme Colors",
+            editor: {
+                view: "~/App_Plugins/USNThemeColors/views/themecolors-editor.html",
+				valueType: "JSON",
+				hideLabel: true
+            }
+        }
+    ],
+	javascript: [
+		"~/App_Plugins/USNThemeColors/js/themecolors-editor-controller.js",
+		"~/App_Plugins/USNThemeColors/js/spectrum.js"
+	],
+	css: [
+        "~/App_Plugins/USNThemeColors/css/themecolors-style.css",
+		"~/App_Plugins/USNThemeColors/css/spectrum.css"
+    ]
+}

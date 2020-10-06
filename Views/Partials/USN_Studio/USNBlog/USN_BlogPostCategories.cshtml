@@ -1,0 +1,26 @@
+﻿@inherits UmbracoViewPage<IPublishedContent>
+
+@{
+    if (Model.HasValue("postCategories"))
+    {
+        IEnumerable<IPublishedContent> categories = Model.Value<IEnumerable<IPublishedContent>>("postCategories");
+
+        if (categories.Any())
+        {
+            <div class="categories base-text">
+                <ul>
+                    @foreach (var catNode in categories)
+                    {
+                        if (catNode != null)
+                        {
+                            <li>
+                                <a href="@catNode.Url" title="@catNode.Name" rel="NOINDEX, FOLLOW">@catNode.Name</a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        }
+    }
+
+}

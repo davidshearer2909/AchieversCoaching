@@ -1,0 +1,330 @@
+/*  
+---------------------------------------------------
+Main Navigation
+---------------------------------------------------  
+*/
+
+nav.main { 
+    position: relative; z-index:2;
+}
+
+nav.main ul {
+    font-weight: 600;
+}
+
+nav.main ul li {
+    position: relative;
+}
+
+nav.main ul ul {
+    font-size:0.9rem;
+}
+
+nav.main ul li span {
+    position: relative;
+    display: block;
+}
+
+html.touch nav.main ul li span {
+    pointer-events: none;
+}
+
+nav.main ul li span::before {
+    content: "";
+    position: absolute;
+    transition: all 0.15s ease-in-out 0s;
+}
+
+html.no-touch nav.main ul li:not(.active):hover>span::before,
+nav.main ul li:not(.active):focus>span::before,
+nav.main ul li:not(.active):active>span::before,
+nav.main ul li:not(.active).open-child>span::before {
+    background-color: @main-navigation-dropdown;
+}
+
+nav.main ul li:not(.active):focus-within>span::before {
+    background-color: @main-navigation-dropdown;
+}
+
+nav.main ul li.active>span::before {
+    background-color: @main-navigation-link-active;
+}
+
+nav.main ul li.has-child>span::after {
+    display: inline-block;
+    font-family: "Ionicons";
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    text-rendering: auto;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* */
+    content: "\f280";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 60px;
+    padding-top: 20px;
+    text-align: center;
+    color:@main-navigation-link;
+    transition: all 0.3s ease-in-out 0s;
+}
+
+html.touch nav.main ul li span::after {
+    pointer-events: all;
+    z-index: 10;
+}
+
+html.no-touch nav.main ul li:not(.active):hover>span::after,
+nav.main ul li:not(.active):focus>span::after,
+nav.main ul li:not(.active):active>span::after,
+nav.main ul li:not(.active).open-child>span::after {
+    color:@main-navigation-link-hover;
+}
+
+nav.main ul li:not(.active):focus-within>span::after {
+    color:@main-navigation-link-hover;
+}
+
+nav.main ul li.active.has-child>span::after { 
+    color: @main-navigation-link-active;
+}
+
+nav.main ul li span a {
+    display: block;
+    text-decoration: none;
+    color: @main-navigation-link;
+    pointer-events: all;
+    transition: all 0.3s ease-in-out 0s;
+}
+
+nav.main ul>li>span>a:hover {
+    color: @main-navigation-link-hover;
+}
+
+nav.main ul li.has-child span a {
+    padding-right: 60px;
+}
+
+nav.main ul>li.active>span>a {
+    color: @main-navigation-link-active;
+}
+
+@media (min-width:0) and (max-width:@small-breakpoint) {
+    nav.main>ul { 
+        border-width:0 0 @base-border-width; border-style:solid; 
+        border-color:@header-borders;
+    }
+    nav.main ul li { 
+        border-width:@base-border-width 0 0; border-style:solid; 
+        border-color:@header-borders;
+        background-color:@header-bg;
+    }
+    nav.main ul li span::before {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+    }
+    html.no-touch nav.main ul li:hover>span::before,
+    nav.main ul li:focus>span::before,
+    nav.main ul li:active>span::before,
+    nav.main ul li.active>span::before,
+    nav.main ul li.open-child_mobile>span::before {
+        width: 3px;
+    }
+    nav.main ul li:focus-within>span::before {
+        width: 3px;
+    }
+    nav.main ul li.has-child.open-child_mobile>span::after { 
+        content: "\f286";
+        background-color:@header-borders;
+    }
+    nav.main ul li.has-child>span::after { 
+        font-size:20px;
+        border-width:0 0 0 @base-border-width; border-style:solid; 
+        border-color:@header-borders;
+    }
+    nav.main ul li span a {
+        padding: @base-half-spacing;
+    }
+    nav.main ul ul { 
+        display: none;
+    }
+    nav.main ul ul {
+        padding-left:3px; 
+        background-color:@header-borders;
+    }
+    nav.main ul>li.open-child_mobile>ul { 
+        display:block;
+    }
+}
+
+@media (min-width:@large-breakpoint) {
+    nav.main {
+        position: relative;
+        height: @nav-main-height;
+    }
+    nav.main>ul>li>span::before {
+        right: @base-half-spacing;
+        bottom: 30px;
+        left: @base-half-spacing;
+        height: 0;
+    }
+    nav.main>ul>li.has-child>span::before {
+        right: @base-spacing;
+    }
+    html.no-touch nav.main ul>li:hover>span::before,
+    nav.main ul>li:focus>span::before,
+    nav.main ul>li:active>span::before,
+    nav.main ul>li.active>span::before,
+    nav.main ul>li.open-child>span::before {
+        height: @base-border-width;
+    }
+    nav.main ul>li.active>span::before { 
+        height: @base-border-width;
+    }
+    nav.main ul>li:focus-within>span::before {
+        height: @base-border-width;
+    }
+    nav.main>ul {
+        display: flex;
+        display: -ms-flexbox;
+        flex-direction: row;
+        -ms-flex-direction: row;
+    }
+    nav.main>ul>li {
+        height: @nav-main-height;
+        box-sizing: border-box;
+    }
+    nav.main>ul>li>span>a {
+        padding: 33px @base-half-spacing 0;
+        height: @nav-main-height;
+    }
+    nav.main>ul ul>li>span>a {
+        padding: 10px @base-half-spacing;
+    }
+    nav.main ul li.has-child>span::after {
+        width: 30px;
+        padding-top:36px;
+    }
+    html.no-touch nav.main ul li.has-child>span::after {
+        z-index: -1;
+    }
+    nav.main ul li.has-child span a {
+        padding-right: 30px!important;
+    }
+}
+
+
+/*  
+---------------------------------------------------
+MAIN NAV - dropdowns
+---------------------------------------------------  
+*/
+
+@media (min-width: @large-breakpoint) {
+    nav.main ul>li>ul {
+        position: absolute;
+        top: (@nav-main-height - 7px);
+        left: -999em;
+        z-index: 99;
+        width: @nav-main-dropdown-width;
+        background-color: @main-navigation-dropdown;
+        box-shadow: 2px 2px 4px fade(@true-black, 10%);
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out 0s, top 0.3s ease-in-out 0s;
+    }
+    html.no-touch nav.main ul>li:hover>ul,
+    html.touch nav.main ul>li.open-child>ul {
+        top: @nav-main-height;
+        left: 0;
+        opacity: 1;
+    }
+    nav.main ul>li:focus-within>ul {
+        top: @nav-main-height;
+        left: 0;
+        opacity: 1;
+    }
+    
+    nav.main ul ul li span::before {
+        top:0; bottom:0; left:0;
+        width:0; height:100%!important;
+
+    }
+    html.no-touch nav.main ul ul li:hover>span::before,
+    nav.main ul ul li:focus>span::before,
+    nav.main ul ul ul li:active>span::before,
+    nav.main ul ul li.active>span::before,
+    nav.main ul ul li.open-child>span::before {
+        display:none;
+        width: 3px;
+    }
+    nav.main ul ul li:focus-within>span::before {
+        width: 3px;
+    }
+
+    nav.main ul ul li.has-child>span::after {
+        content: "\f284";
+        padding-top: 12px;
+        color: @main-navigation-dropdown-link;
+    }
+    html.no-touch nav.main ul ul li:not(.active):hover>span::after,
+    nav.main ul ul li:not(.active):focus>span::after,
+    nav.main ul ul li:not(.active):active>span::after,
+    nav.main ul ul li:not(.active).open-child>span::after {
+        color: @main-navigation-dropdown-link-hover;
+    }
+    nav.main ul ul li:not(.active):focus-within>span::after {
+        color: @main-navigation-dropdown-link-hover;
+    }
+    nav.main ul ul li.active.has-child>span::after { 
+        color: @main-navigation-dropdown-link-active;
+    }
+
+    nav.main ul ul li span a {
+        color: @main-navigation-dropdown-link;
+    }
+    html.no-touch nav.main ul ul>li>span a:hover,
+    nav.main ul ul>li>span a:focus,
+    nav.main ul ul>li>span a:active {
+        color: @main-navigation-dropdown-link-hover;
+    }
+    nav.main ul ul>li.active>span a {
+        color: @main-navigation-dropdown-link-active;
+    }
+    nav.main ul ul>li>ul {
+        top: -7px;
+        z-index: 100;
+        background-color: lighten(@main-navigation-dropdown, 1.5%);
+    }
+    html.no-touch nav.main ul ul>li:hover>ul,
+    html.touch nav.main ul ul>li.open-child>ul {
+        top: 0;
+        left: @nav-main-dropdown-width;
+        opacity: 1;
+    }
+    nav.main ul ul>li:focus-within>ul {
+        top: 0;
+        left: @nav-main-dropdown-width;
+        opacity: 1;
+    }
+
+    /* Multi column navigation */
+    nav.main ul>li>ul.multi-col {
+        width: @nav-main-dropdown-width_wide;
+    }
+    nav.main ul>li>ul.multi-col>li {
+        width: @nav-main-dropdown-width;
+        float: left;
+    }
+    nav.main ul>li>ul.multi-col>li:nth-child(odd) {
+        clear: both;
+    }
+}

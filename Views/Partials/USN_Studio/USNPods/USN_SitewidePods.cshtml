@@ -1,0 +1,82 @@
+﻿@inherits UmbracoViewPage<USNWebsite.USNModels.USNBaseViewModel>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+@using System.Web.Script.Serialization;
+
+@{
+    UsnglobalSettings globalSettings = (UsnglobalSettings)Model.GlobalSettings;
+    Usnstyle websiteStyle = (Usnstyle)Model.WebsiteStyle;
+    var colorPickerViewModel = new USNColorPicker();
+    colorPickerViewModel = new JavaScriptSerializer().Deserialize<USNColorPicker>(websiteStyle.StyleColors.ToString());
+    string backgroundColorValue = colorPickerViewModel.contentBackground.Substring(1);
+
+    IEnumerable<IPublishedContent> pods = null;
+    string pageLayout = Model.Content.HasValue("pageLayout") ? Model.Content.Value<string>("pageLayout") : "pageLayoutFull";
+    string itemClass = "swp-item";
+
+    if (Model.Content.Value<bool>("overrideDefaultPods"))
+    {
+        pods = Model.Content.HasValue("pagePods") ? Model.Content.Value<IEnumerable<IPublishedContent>>("pagePods") : null;
+    }
+    else if (globalSettings.HasValue("defaultPods"))
+    {
+        pods = globalSettings.Value<IEnumerable<IPublishedContent>>("defaultPods");
+    }
+
+    if (pods != null && pods.Any())
+    {
+        <!-- Pods -->
+        <div class="swp">
+
+            @if (pageLayout == "pageLayoutFull" || pageLayout == "pageLayoutWide")
+            {
+                itemClass = itemClass + " items-3 col-12";
+
+                @:<section class="content component pods-component swp-wide base-bg"><div class="container"><div class="component-main row listing listing-pods">
+            }
+
+            @foreach (IPublishedElement item in pods)
+            {
+                string pageName = Model.Content.Name;
+                var newItem = new USNPodModel { publishedContent = null, publishedElement = item, pageName = pageName };
+
+                switch (item.ContentType.Alias)
+                {
+                    case Usn_Swp_CodePod.ModelTypeAlias:
+                        @Html.Partial(Model.ViewPath + "/USNPods/USN_P_CodeBlock", newItem, new ViewDataDictionary { { "itemClass", itemClass } })
+                        break;
+                    case Usn_Swp_ImagePod.ModelTypeAlias:
+                        @Html.Partial(Model.ViewPath + "/USNPods/USN_P_Image", newItem, new ViewDataDictionary { { "itemClass", itemClass }, { "componentId", Model.Content.Id }, { "backgroundColorValue", backgroundColorValue },{ "viewPath",  Model.ViewPath } })
+                        break;
+                    case Usn_Swp_QuotePod.ModelTypeAlias:
+                        @Html.Partial(Model.ViewPath + "/USNPods/USN_P_Quote", newItem, new ViewDataDictionary { { "itemClass", itemClass }, { "backgroundColor", "base" } })
+                        break;
+                    case Usn_Swp_TextImagePod.ModelTypeAlias:
+                        @Html.Partial(Model.ViewPath + "/USNPods/USN_P_TextImage", newItem, new ViewDataDictionary { { "itemClass", itemClass }, { "backgroundColor", "base" }, { "backgroundColorValue", backgroundColorValue }, { "viewPath", Model.ViewPath } })
+                        break;
+                    case Usn_Swp_RelatedContentPod.ModelTypeAlias:
+                        @Html.Partial(Model.ViewPath + "/USNPods/USN_P_RelatedContent", newItem, new ViewDataDictionary { { "itemClass", itemClass }, { "backgroundColor", "base" }, { "backgroundColorValue", backgroundColorValue }, { "viewPath", Model.ViewPath } })
+                        break;
+                    case Usn_Swp_SubpageListingPod.ModelTypeAlias:
+                        @Html.Partial(Model.ViewPath + "/USNPods/USN_P_SubpageListing", newItem, new ViewDataDictionary { { "itemClass", itemClass }, { "backgroundColor", "base" }, { "viewPath", Model.ViewPath }, { "globalSettingsID", Model.GlobalSettings.Id } })
+                        break;
+                    case Usn_Swp_VideoPod.ModelTypeAlias:
+                        @Html.Partial(Model.ViewPath + "/USNPods/USN_P_Video", newItem, new ViewDataDictionary { { "itemClass", itemClass }, { "componentId", Model.Content.Id }, { "backgroundColorValue", backgroundColorValue } })
+                        break;
+                    case Usn_Swp_FormPod.ModelTypeAlias:
+                        @Html.Partial(Model.ViewPath + "/USNPods/USN_P_Form", newItem, new ViewDataDictionary { { "itemClass", itemClass }, { "componentId", Model.Content.Id }, { "globalSettingsID", Model.GlobalSettings.Id }, { "viewPath", Model.ViewPath } })
+                        break;
+
+                }
+            }
+
+            @if (pageLayout == "pageLayoutFull" || pageLayout == "pageLayoutWide")
+            {
+                @:</div></div></section>
+            }
+
+        </div>
+        <!--// Pods -->
+    }
+}

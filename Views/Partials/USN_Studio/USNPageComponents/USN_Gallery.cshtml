@@ -1,0 +1,298 @@
+﻿@inherits UmbracoViewPage<IEnumerable<IPublishedElement>>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    int modelId = Convert.ToInt32(ViewData["modelId"]);
+    string viewPath = ViewData["viewPath"].ToString();
+    USNCarouselSettings carouselSettings = (USNCarouselSettings)ViewData["carouselSettings"];
+    USNImageSettings imageSettings = (USNImageSettings)ViewData["imageSettings"];
+    USNAnimation animation = (USNAnimation)ViewData["animation"];
+    string galleryType = ViewData["galleryType"].ToString();
+    string itemsClass = galleryType == "Gallery" ? carouselSettings.ItemsClass : String.Empty;
+    string animationClass = galleryType == "Gallery" ? animation.AnimationClass : String.Empty;
+    bool boxPad = Convert.ToBoolean(ViewData["boxPad"]);
+    string backgroundColorValue = ViewData["backgroundColorValue"] == null ? "ffffff" : ViewData["backgroundColorValue"].ToString();
+
+    foreach (IPublishedElement galleryItem in Model)
+    {
+        string lightWindow = String.Empty;
+        string title = String.Empty;
+        string footer = String.Empty;
+        string videoCircleClass = imageSettings.CircleClass;
+
+        if (galleryItem.ContentType.Alias == Usn_Nc_GalleryMediaFolder.ModelTypeAlias)
+        {
+            Usn_Nc_GalleryMediaFolder galleryMediaFolder = (Usn_Nc_GalleryMediaFolder)galleryItem;
+
+            var mediaFolder = galleryMediaFolder.MediaFolder;
+
+            @OutputMediaFolder(mediaFolder, itemsClass, imageSettings, animationClass, animation, galleryMediaFolder.DisableLightWindow, modelId, boxPad, backgroundColorValue, viewPath);
+        }
+        else if (galleryItem.ContentType.Alias == Usn_Nc_GalleryImage.ModelTypeAlias)
+        {
+            Usn_Nc_GalleryImage galleryImage = (Usn_Nc_GalleryImage)galleryItem;
+
+            if (!galleryImage.DisableLightWindow)
+            {
+                lightWindow = " data-toggle=\"lightbox\" data-type=\"image\" data-gallery=\"galleryname-" + modelId + "\"";
+
+                if (galleryImage.LightWindowTitle.HasValue())
+                {
+                    title = "data-title=\"" + galleryImage.LightWindowTitle + "\"";
+                }
+
+                if (galleryImage.LightWindowFooter.HasValue())
+                {
+                    footer = "data-footer=\"" + galleryImage.LightWindowFooter + "\"";
+                }
+            }
+
+            if (galleryImage.Image != null)
+            {
+
+                string linkUrl = String.Empty;
+                string linkTarget = String.Empty;
+                string linkTitle = String.Empty;
+
+                if (galleryImage.DisableLightWindow && galleryImage.ImageLink.HasValue())
+                {
+                    if (galleryImage.ImageLink.HasValue())
+                    {
+                        linkUrl = galleryImage.ImageLink.link.LinkUrl;
+                        linkTarget = galleryImage.ImageLink.link.LinkTarget;
+                        linkTitle = galleryImage.ImageLink.link.LinkTitle;
+                    }
+                }
+                else if (!galleryImage.DisableLightWindow)
+                {
+                    linkUrl = galleryImage.Image.Url;
+                }
+
+                <div class="item @imageSettings.CircleClass @itemsClass @animationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+                    <div class="image @imageSettings.CircleClass">
+                        @if (linkUrl != String.Empty)
+                        {
+                            @:<a href="@linkUrl" @Html.Raw(title) @Html.Raw(footer) target="@linkTarget" @Html.Raw(lightWindow) @Html.Raw(linkTitle)>
+                        }
+
+                        @Html.Partial(viewPath + "/USNMiscPageElements/USN_Image", galleryImage.Image, new ViewDataDictionary { { "imageSettings", imageSettings }, { "altText", galleryImage.ThumbnailImageAltText } })
+
+                        @if (linkUrl != String.Empty)
+                        {
+                            @:</a>
+                        }
+                        @if (galleryImage.ImageCaption.HasValue())
+                        {
+                            <div class="caption">@galleryImage.ImageCaption</div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+
+        else
+        {
+            Usn_Nc_GalleryVideo galleryVideo = (Usn_Nc_GalleryVideo)galleryItem;
+
+            if (galleryVideo.VideoSource.HasValue() && (galleryVideo.VideoSource == "youtube" || galleryVideo.VideoSource == "vimeo") && galleryVideo.Video3rdParty.HasValue())
+            {
+                USNVideo video = VideoHelper.GetVideo(galleryVideo.Video3rdParty);
+
+                string smallImage = String.Empty;
+                string displayImage = String.Empty;
+
+                if (boxPad)
+                {
+                    smallImage = galleryVideo.GalleryImageThumbnail != null ? galleryVideo.GalleryImageThumbnail.Url + "?width=" + imageSettings.WidthSmall + "&height=" + imageSettings.HeightSmall + "&mode=boxpad&bgcolor=" + backgroundColorValue : video.VideoImage + "?width=" + imageSettings.WidthSmall + "&height=" + imageSettings.HeightSmall + "&mode=boxpad&bgcolor=" + backgroundColorValue;
+                    displayImage = galleryVideo.GalleryImageThumbnail != null ? galleryVideo.GalleryImageThumbnail.Url + "?width=" + (imageSettings.Width) + "&height=" + (imageSettings.Height) + "&mode=boxpad&bgcolor=" + backgroundColorValue : video.VideoImage  + "?width=" + (imageSettings.Width) + "&height=" + (imageSettings.Height) + "&mode=boxpad&bgcolor=" + backgroundColorValue;
+                }
+                else
+                {
+                    smallImage = galleryVideo.GalleryImageThumbnail != null ? galleryVideo.GalleryImageThumbnail.GetCropUrl(cropAlias: imageSettings.CropAlias, width: imageSettings.WidthSmall, height: imageSettings.HeightSmall) : video.VideoImage;
+                    displayImage = galleryVideo.GalleryImageThumbnail != null ? galleryVideo.GalleryImageThumbnail.GetCropUrl(cropAlias: imageSettings.CropAlias) : video.VideoImage;
+                }
+
+                videoCircleClass = galleryVideo.DisableLightWindow ? String.Empty : videoCircleClass;
+
+                <div class="item @itemsClass @videoCircleClass @animationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+                    @if (galleryVideo.DisableLightWindow && video.VideoID != String.Empty)
+                    {
+                        <div class="image lazyframe lazyframe-video" data-vendor="@galleryVideo.VideoSource" data-src="@video.VideoURLModified" data-ratio="16:9">
+                            <img class="lazyload" src="@smallImage" data-src="@displayImage" alt="@galleryVideo.ThumbnailImageAltText">
+                             @if (galleryVideo.VideoCaption.HasValue())
+                            {
+                                <div class="caption">@galleryVideo.VideoCaption</div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        if (galleryVideo.LightWindowTitle.HasValue())
+                        {
+                            title = "data-title=\"" + galleryVideo.LightWindowTitle + "\"";
+                        }
+
+                        if (galleryVideo.LightWindowFooter.HasValue())
+                        {
+                            footer = "data-footer=\"" + galleryVideo.LightWindowFooter + "\"";
+                        }
+
+                        <a href="@video.VideoURLModified" @Html.Raw(title) @Html.Raw(footer) data-toggle="lightbox" @Html.Raw(video.VideoDataRemote) data-gallery="galleryname-@modelId" data-width="1350">
+
+                            <div class="image @videoCircleClass video">
+                                <img class="@videoCircleClass lazyload" src="@smallImage" data-src="@displayImage" alt="@galleryVideo.ThumbnailImageAltText">
+                                <div class="overlayicon">
+                                    <i class="icon usn_ion-md-play"></i>
+                                </div>
+                                @if (galleryVideo.VideoCaption.HasValue())
+                                {
+                                    <div class="caption">@galleryVideo.VideoCaption</div>
+                                }
+                            </div>
+                        </a>
+                    }
+                   
+                </div>
+
+            }
+
+            else if (galleryVideo.VideoSource.HasValue() && galleryVideo.VideoSource == "mp4" && galleryVideo.VideoMp4.HasValue())
+            {
+                string smallImage = String.Empty;
+                string displayImage = String.Empty;
+
+                if (!galleryVideo.DisableLightWindow)
+                {
+                    if(boxPad)
+                    {
+                        smallImage = galleryVideo.GalleryImageThumbnail != null ? galleryVideo.GalleryImageThumbnail.Url + "?width=" + imageSettings.WidthSmall + "&height=" + imageSettings.HeightSmall + "&mode=boxpad&bgcolor=" + backgroundColorValue : "/images/clear.gif?width=" + imageSettings.WidthSmall + "&height=" + imageSettings.HeightSmall;
+                        displayImage = galleryVideo.GalleryImageThumbnail != null ? galleryVideo.GalleryImageThumbnail.Url + "?width=" + (imageSettings.Width) + "&height=" + (imageSettings.Height) + "&mode=boxpad&bgcolor=" + backgroundColorValue : "/images/clear.gif?width=" + imageSettings.Width + "&height=" + imageSettings.Height;
+                    }
+                    else
+                    { 
+                        smallImage = galleryVideo.GalleryImageThumbnail != null ? galleryVideo.GalleryImageThumbnail.GetCropUrl(cropAlias: imageSettings.CropAlias, width: imageSettings.WidthSmall, height: imageSettings.HeightSmall) : "/images/clear.gif?width=" + imageSettings.WidthSmall + "&height=" + imageSettings.HeightSmall;
+                        displayImage = galleryVideo.GalleryImageThumbnail != null ? galleryVideo.GalleryImageThumbnail.GetCropUrl(cropAlias: imageSettings.CropAlias) : "/images/clear.gif?width=" + imageSettings.Width + "&height=" + imageSettings.Height;
+                    }
+                }
+                else
+                {
+                    videoCircleClass = String.Empty;
+                }
+
+                <div class="item @itemsClass @videoCircleClass @animationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+                    @if (galleryVideo.DisableLightWindow)
+                    {
+                        <div class="image @videoCircleClass video embed-responsive embed-responsive-16by9">
+                            <video class="embed-responsive-item" controls>
+                                <source src="@galleryVideo.VideoMp4.Url" type="video/mp4">
+                            </video>
+                            @if (galleryVideo.VideoCaption.HasValue())
+                            {
+                                <div class="caption">@galleryVideo.VideoCaption</div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        if (galleryVideo.LightWindowTitle.HasValue())
+                        {
+                            title = "data-title=\"" + galleryVideo.LightWindowTitle + "\"";
+                        }
+
+                        if (galleryVideo.LightWindowFooter.HasValue())
+                        {
+                            footer = "data-footer=\"" + galleryVideo.LightWindowFooter + "\"";
+                        }
+
+                        <a href="@galleryVideo.VideoMp4.Url" data-type="video" @Html.Raw(title) @Html.Raw(footer) data-toggle="lightbox" data-gallery="galleryname-@modelId" data-width="1350" data-height="750">
+
+                            <div class="image @videoCircleClass video">
+                                <img class="@videoCircleClass lazyload" src="@smallImage" data-src="@displayImage" alt="@galleryVideo.ThumbnailImageAltText">
+                                <div class="overlayicon">
+                                    <i class="icon usn_ion-md-play"></i>
+                                </div>
+                                @if (galleryVideo.VideoCaption.HasValue())
+                                {
+                                    <div class="caption">@galleryVideo.VideoCaption</div>
+                                }
+                            </div>
+                        </a>
+                    }
+                    
+                </div>
+            }
+        }
+    }
+}
+
+@helper OutputMediaFolder(IPublishedContent folder, string itemsClass, USNImageSettings imageSettings, string animationClass, USNAnimation animation, bool disableLightWindow, int modelId, bool boxPad, string backgroundColorValue, string viewPath)
+{
+    if (folder.Children.Any())
+    {
+        foreach (var item in folder.Children)
+        {
+            if (item.ContentType.Alias == "Image")
+            {
+                string[] imageExtensions = { "png", "gif", "jpg", "jpeg" };
+
+                if (imageExtensions.Any(x => item.Value<string>("umbracoExtension") == x))
+                {
+                    <div class="item @imageSettings.CircleClass @itemsClass @animationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+                        <div class="image @imageSettings.CircleClass">
+                            @if (!disableLightWindow)
+                            {
+                                @:<a href="@item.Url" data-toggle="lightbox" data-type="image" data-gallery="galleryname-@modelId">
+                            }
+
+                            @Html.Partial(viewPath + "/USNMiscPageElements/USN_Image", item, new ViewDataDictionary { { "imageSettings", imageSettings }, { "altText", item.Name } })
+
+                            @if (!disableLightWindow)
+                            {
+                                @:</a>
+                            }
+
+                        </div>
+                    </div>
+                }
+            }
+            else if (item.ContentType.Alias == "File")
+            {
+                string[] videoExtensions = { "mp4" };
+                string videoCircleClass = disableLightWindow ? String.Empty : imageSettings.CircleClass;
+
+                if (videoExtensions.Any(x => item.Value<string>("umbracoExtension") == x))
+                {
+                    <div class="item @itemsClass @videoCircleClass @animationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+                        @if (disableLightWindow)
+                        {
+                            <div class="image @videoCircleClass video embed-responsive embed-responsive-16by9">
+                                <video class="embed-responsive-item" controls>
+                                    <source src="@item.Url" type="video/mp4">
+                                </video>
+                            </div>
+                        }
+                        else
+                        {
+
+                            <a href="@item.Url" data-type="video" data-toggle="lightbox" data-gallery="galleryname-@modelId" data-width="1350" data-height="750">
+
+                                <div class="image @videoCircleClass video">
+                                    <img class="@videoCircleClass lazyload" src="/images/clear.gif?width=@imageSettings.WidthSmall&height=@imageSettings.HeightSmall" data-src="/images/clear.gif?width=@imageSettings.Width&height=@imageSettings.Height">
+                                    <div class="overlayicon">
+                                        <i class="icon usn_ion-md-play"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    </div>
+                }
+            }
+            else if (item.ContentType.Alias == "Folder")
+            {
+                @OutputMediaFolder(item, itemsClass, imageSettings, animationClass, animation, disableLightWindow, modelId, boxPad, backgroundColorValue, viewPath);
+            }
+        }
+    }
+}

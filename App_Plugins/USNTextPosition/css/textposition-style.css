@@ -1,0 +1,102 @@
+﻿/* Backgrounds */
+.text-position {
+    width: 100%;
+    height: 100%;
+}
+
+    .text-position::before {
+        margin-bottom: 5px;
+    }
+
+.usn-cms.text-position .background-style,
+.usn-cms.text-position .position {
+    width: 100%;
+    display: block;
+    clear: both;
+    margin-bottom: 10px;
+}
+
+@media (min-width: 420px) {
+    .usn-cms.text-position .background-style,
+    .usn-cms.text-position .position {
+        width: 50%;
+        float: left;
+        clear: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .usn-cms.text-position .background-style {
+        max-width: 415px;
+    }
+}
+/* BACKGROUND STYLE */
+.usn-cms.text-position .background-style .item.smallItem {
+    width: 100%;
+    height: 33px;
+    float: left;
+    display: block;
+    box-sizing: border-box;
+}
+
+    .usn-cms.text-position .background-style .item.smallItem:nth-child(2n+1) {
+        clear: both;
+    }
+
+@media (min-width: 420px) {
+    .usn-cms.text-position .background-style .item.smallItem {
+        width: 200px;
+    }
+}
+/* BACKGROUND POSITIONS */
+.usn-cms.text-position .position .usn-item.item.smallItem.position-item {
+    width: 33px;
+    height: 33px;
+    float: left;
+    box-sizing: border-box;
+}
+
+    .usn-cms.text-position .position .usn-item.item.smallItem.position-item:nth-child(3n+1) {
+        clear: both;
+    }
+
+    .usn-cms.text-position .position .usn-item.item.smallItem.position-item svg {
+        opacity: 1;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: opacity 0.3s ease-in-out 0s;
+    }
+
+    .usn-cms.text-position .position .usn-item.item.smallItem.position-item:nth-child(1) svg {
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    .usn-cms.text-position .position .usn-item.item.smallItem.position-item:nth-child(2) svg {
+        transform: translate(-50%, -50%) rotate(90deg);
+    }
+
+    .usn-cms.text-position .position .usn-item.item.smallItem.position-item:nth-child(3) svg {
+        transform: translate(-50%, -50%) rotate(135deg);
+    }
+
+    .usn-cms.text-position .position .usn-item.item.smallItem.position-item:nth-child(4) svg {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    .usn-cms.text-position .position .usn-item.item.smallItem.position-item:nth-child(6) svg {
+        transform: translate(-50%, -50%) rotate(180deg);
+    }
+
+    .usn-cms.text-position .position .usn-item.item.smallItem.position-item:nth-child(7) svg {
+        transform: translate(-50%, -50%) rotate(-45deg);
+    }
+
+    .usn-cms.text-position .position .usn-item.item.smallItem.position-item:nth-child(8) svg {
+        transform: translate(-50%, -50%) rotate(-90deg);
+    }
+
+    .usn-cms.text-position .position .usn-item.item.smallItem.position-item:nth-child(9) svg {
+        transform: translate(-50%, -50%) rotate(-135deg);
+    }

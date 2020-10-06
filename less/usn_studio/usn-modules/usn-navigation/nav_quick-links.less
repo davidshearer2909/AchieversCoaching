@@ -1,0 +1,95 @@
+/*	
+--------------------------------------------------
+Quick links navigation
+-------------------------------------------------- 
+*/
+
+.quick-links ul li {
+    position:relative;
+    margin-bottom: 5px;
+    flex-basis: 100%;
+}
+
+.quick-links ul li a {
+    display: block;
+    padding-left: 15px;
+}
+
+.quick-links ul li a::after {
+    content: "";
+    position: absolute;
+    top: 11px;
+    left: 0;
+    display: block;
+    width: 5px;
+    height: @base-border-width;
+}
+
+html.no-touch .quick-links ul li a:hover {
+    padding-left: 18px;
+}
+
+html.no-touch .quick-links ul li a:hover::after {
+    width: 8px;
+}
+
+
+/*	
+--------------------------------------------------
+Footer Quick Links
+-------------------------------------------------- 
+*/
+
+footer#site-footer .heading + .quick-links { 
+    margin-top:15px;
+}
+
+html.no-touch footer#site-footer .quick-links ul li a:hover,
+footer#site-footer .quick-links ul li a:active,
+footer#site-footer .quick-links ul li a:focus { 
+    color:@footer-link-hover;
+}
+
+footer#site-footer .quick-links ul li a::after {
+    background-color: @footer-text;
+    opacity:0.3;
+}
+
+html.no-touch footer#site-footer .quick-links ul li a:hover::after {
+    opacity:1;
+}
+
+footer#site-footer .quick-links ul { 
+    display:flex;
+    flex-wrap: wrap;
+}
+
+@media (min-width:0) and (max-width:767px) {
+    footer#site-footer .quick-links ul li  { 
+        flex-basis: 50%;
+        flex:0 0 50%;
+    }
+}
+
+@media (min-width:768px) and (max-width:991px) { 
+
+    footer#site-footer .footer-item:not(.col-md-1):not(.col-md-2):not(.col-md-3) .quick-links ul li  { 
+        flex-basis: 50%;
+        flex:0 0 50%;
+    }
+
+}
+
+@media (min-width:992px) and (max-width:1199px) {
+    footer#site-footer .footer-item:not(.col-lg-1):not(.col-lg-2):not(.col-lg-3) .quick-links ul li  { 
+        flex-basis: 100%;
+        flex:0 0 100%;
+    }
+}
+
+@media (min-width:1200px) {
+    footer#site-footer .footer-item:not(.col-lg-1):not(.col-lg-2):not(.col-lg-3) .quick-links ul li  { 
+        flex-basis: 50%;
+        flex:0 0 50%;
+    }
+}

@@ -1,0 +1,74 @@
+/*  
+--------------------------------------------------
+Notification
+-------------------------------------------------- 
+*/
+
+.usn-notification {
+    position: fixed;
+    bottom: -100%;
+    z-index: 1000;
+    opacity: 0;
+    box-shadow: 0 0 15px 0 transparent;
+    transition: bottom 1s ease-in-out 0.2s, opacity 0.75s ease-in-out 0.1s, box-shadow 1s ease-in-out 0.2s;
+}
+
+.usn-notification .inner {
+    padding:@base-half-spacing;
+}
+  
+.usn-notification.open {
+    bottom: 0;
+    opacity: 1;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05);
+}
+  
+.usn-notification .heading {
+    margin: 0;
+}
+  
+.usn-notification .heading + .text {
+    margin-top: 5px;
+}
+
+.usn-notification .link { 
+    margin-top:@base-half-spacing;
+    margin-bottom:0;
+}
+  
+@media (min-width: 0) and (max-width:767px) {
+  
+    .usn-notification {
+        left:0; right:0;
+    }
+
+}
+
+@media (min-width: 768px) {
+    .usn-notification {
+        max-width: 460px;
+    }
+
+    .usn-notification.position-left {
+        left: 0;
+    }
+    body.max-width .usn-notification.position-left {
+        left: @base-spacing;
+    }
+    .usn-notification.position-center {
+        left: 50%; 
+        transform:translateX(-50%);
+    }
+    .usn-notification.position-right {
+        right: 0;
+    }
+    body.max-width .usn-notification.position-right {
+        right: @base-spacing;
+    }
+
+}
+@media (min-width:992px) { 
+    .usn-notification .inner {
+        padding:@base-spacing;
+    }
+}

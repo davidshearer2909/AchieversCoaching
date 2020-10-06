@@ -1,0 +1,47 @@
+﻿@inherits UmbracoViewPage<USNWebsite.USNModels.USNBaseViewModel>
+
+@{ 
+    if (!Model.Content.Value<bool>("hideWebsiteHeaderSection"))
+    {
+    <header id="site-header">
+        <div class="container">
+
+            <div class="row">
+
+                @Html.Partial(Model.ViewPath + "/USNWebsiteHeadSection/USN_WebsiteLogo", Model)
+
+                <!-- Expand -->
+                <a class="expand">
+                    <span></span>
+                    <em>@Umbraco.GetDictionaryValue("USN Menu")</em>
+                </a>
+                <!--// Expand -->
+                
+                <!-- Navigation -->
+                <div class="navigation">
+
+                    <!-- Reveal -->
+                    <div class="reveal">
+
+                        <!-- Main navigation -->
+                        @Html.Partial(Model.ViewPath + "/USNNavigation/USN_MainNavigation", Model)
+                        <!--// Main navigation -->
+                        <!-- CTA Links -->
+                        @Html.Partial(Model.ViewPath + "/USNNavigation/USN_CTANavigation", Model)
+                        <!--// CTA Links -->
+                        <!-- Secondary navigation -->
+                        @Html.Partial(Model.ViewPath + "/USNNavigation/USN_SecondaryNavigation", Model)
+                        <!--// Secondary navigation -->
+
+                    </div>
+                    <!--// Reveal -->
+
+                </div>
+                <!--// Navigation -->
+
+            </div>
+
+        </div>
+    </header>
+    }
+}

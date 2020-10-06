@@ -1,0 +1,40 @@
+﻿@inherits UmbracoViewPage<IUsn_Cmp_PageContent>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+@using System.Web.Script.Serialization;
+@{
+    if (Model.MainImage != null)
+    {
+        string bgColor = String.Empty;
+        string viewPath = ViewData["viewPath"].ToString();
+
+        if (Model.BoxPad)
+        {
+            Usnstyle websiteStyle = (Usnstyle)ViewData["websiteStyle"];
+
+            var colorPickerViewModel = new USNColorPicker();
+            colorPickerViewModel = new JavaScriptSerializer().Deserialize<USNColorPicker>(websiteStyle.StyleColors.ToString());
+
+            bgColor = colorPickerViewModel.contentBackground.Substring(1);
+        }
+
+        USNImageSettings imageSettings = ThemeHelper.GetImageSettings(Model.ImageStyle, Model.BoxPad, bgColor);
+
+        <!-- IMAGE -->
+        <section class="content component image-component base-bg">
+            <div class="image @imageSettings.CircleClass">
+
+                @Html.Partial(viewPath + "/USNMiscPageElements/USN_Image", Model.MainImage, new ViewDataDictionary { { "imageSettings", imageSettings }, { "altText", Model.MainImageAltText } })
+
+                @if (Model.MainImageCaption.HasValue())
+                {
+                    <div class="caption">
+                        @Model.MainImageCaption
+                    </div>
+                }
+            </div>
+        </section>
+        <!--// IMAGE -->
+    }
+}

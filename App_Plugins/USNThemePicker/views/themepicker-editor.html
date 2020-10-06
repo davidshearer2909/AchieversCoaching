@@ -1,0 +1,5 @@
+﻿<div ng-controller="USN.ThemePicker.Controller">
+    <select name="themePickerList" ng-model="model.value" ng-options="theme for theme in themes" ng-show="themes.length > 1"></select>
+    <span ng-show="themes.length == 1">{{model.value}}</span>
+    <span ng-show="themes.length == 0" style="color: red">There are no available themes. Please check the following file exists: ~/config/usntheme.config</span>
+</div>

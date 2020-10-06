@@ -1,0 +1,29 @@
+﻿@inherits UmbracoViewPage<USNStarterKit.USNModels.USNPodModel>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    string itemClass = ViewData["itemClass"].ToString();
+    string backgroundColor = ViewData["backgroundColor"].ToString();
+    USNAnimation animation = ViewData["animation"] == null ? new USNAnimation() : (USNAnimation)ViewData["animation"];
+
+    var model = Model.publishedContent == null ? Model.publishedElement : Model.publishedContent;
+
+    string textAlignmentClass = ThemeHelper.GetSimpleTextAlignmentClass(model.Value<string>("textAlignment"));
+
+    <div class="item @itemClass @textAlignmentClass item_blockquote @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+        <div class="inner">
+            <blockquote>
+                <p class="heading quote @(backgroundColor)-heading">@Html.Raw(Html.ReplaceLineBreaksForHtml(model.Value<string>("quote")))</p>
+                @if (model.HasValue("cite"))
+                {
+                    <div class="meta @(backgroundColor)-text">
+                        <p class="person"><small>@(model.Value<string>("cite"))</small></p>
+                    </div>
+                }
+            </blockquote>
+        </div>
+    </div>
+
+}

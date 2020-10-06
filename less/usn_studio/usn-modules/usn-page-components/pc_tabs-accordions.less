@@ -1,0 +1,159 @@
+/*	
+--------------------------------------------------
+Tab/Accordion Component
+-------------------------------------------------- 
+*/
+
+.repeatable-component { }
+
+.repeatable .tab { 
+    position:relative;
+    font-size: 1rem;
+    font-weight: 700;
+    margin:0;
+}
+
+.repeatable .tab .nav-link { 
+    position:relative;
+    display: block;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out 0s;
+    border-radius: 0;
+    outline: 0 none;
+    border-width: @base-border-width; border-style: solid;
+}
+
+.repeatable .repeatable-content { 
+    padding: 10px;
+    border-width: @base-border-width; border-style: solid;
+}
+
+/* sm */
+@media (min-width:576px) { 
+
+}
+
+/* md */
+@media (min-width:768px) { 
+
+
+    .repeatable .tab .nav-link { 
+        padding: @base-half-spacing;
+    }
+    
+    .repeatable .repeatable-content { 
+        padding: @base-half-spacing;
+    }
+
+}
+
+/* lg */
+@media (min-width:992px) { 
+
+}
+
+/* xl */
+@media (min-width:1200px) { 
+
+}
+
+/*	
+--------------------------------------------------
+Tabbed Component
+-------------------------------------------------- 
+*/
+
+/* Overrides to fix carousels inside tabs */
+/* bootstrap hack: fix content width inside hidden tabs */
+.tab-content {
+    position:relative;
+}
+.tab-content > .tab-pane {
+    position:absolute; top:0; left:0; right:0;
+    display: block;     /* undo display:none          */
+    height: 0;          /* height:0 is also invisible */ 
+    overflow-y: hidden; /* no-overflow                */
+    opacity: 0;
+}
+.tab-content > .tab-pane.active {
+    position:relative;
+    overflow-y: visible;
+    height: 100%;       /* let the content decide it  */
+    opacity: 1;
+} 
+.tab-content > .tab-pane:not(:first-child) .item.os-animation { 
+    opacity:0;
+    transition: opacity 0.7s ease-in-out 0s;
+}
+.tab-content > .tab-pane.active:not(:first-child) .item.os-animation.animated { 
+    opacity:1;
+}
+/* bootstrap hack end */
+
+.repeatable.tabbed { }
+
+.repeatable.tabbed .tabs { 
+    position:relative; z-index:1;
+}
+
+.repeatable.tabbed .tab { 
+    display: inline-block; margin-right:2px;
+}
+
+.repeatable-content { 
+    position:relative; top:-2px; z-index:0;
+}
+
+
+/*	
+--------------------------------------------------
+Accordion Component
+-------------------------------------------------- 
+*/
+
+.repeatable.accordion { }
+
+.repeatable.accordion .tabs { }
+
+.repeatable.accordion .tab { 
+    margin-top:2px;
+}
+
+.repeatable.accordion .tab:first-child {
+    margin:0;
+}
+
+.repeatable.accordion .tab .nav-link { 
+    padding-right:50px;    
+}
+
+.repeatable.accordion .tab .nav-link::after {
+    display: inline-block;
+    font-family: "Ionicons";
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    text-rendering: auto;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* */
+    content: "\f280";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 40px;
+    text-align: center;
+    transform: translateY(-50%);
+}
+
+.repeatable.accordion .tab .nav-link:not(.collapsed)::after {
+    content: "\f286";
+}
+
+.repeatable.accordion .repeatable-content {
+    border-top:0;
+}

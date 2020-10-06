@@ -1,0 +1,293 @@
+/*  
+----------------------------------------------------------------------------------------------------
+All Forms
+---------------------------------------------------------------------------------------------------- 
+*/
+
+.form > .inner { 
+    padding:@base-spacing;
+}
+
+footer#site-footer .form .inner { 
+    padding:0!important; border:0 none!important;
+} 
+
+textarea {
+    resize: none;
+}
+
+fieldset {
+    margin: 0 0 @base-half-spacing;
+}
+
+fieldset.buttons {
+    margin: 0;
+}
+
+.heading.umbraco-forms-caption:not(.main) {
+    color: inherit;
+}
+
+legend {
+    color: inherit;
+    border-color: inherit;
+    padding: 0 0 8px;
+    margin: 10px 0 @base-half-spacing;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-group.titleanddescription:not(:first-child) {
+    margin-top: @base-spacing;
+}
+
+.form-group.shortanswer {}
+
+.form-group.datepickerfieldshadow {}
+
+.form-group.longanswer {}
+
+.form-group.uploadafile {}
+
+.form-group.password {}
+
+.form-group.dropdown {}
+
+.form-group.dropdownselect {}
+
+.form-group.checkbox {}
+
+.form-group.checkbox > label {
+    padding-left:0;
+}
+
+.form-group.checkbox.checkboxlist {}
+
+.form-group.singlecheckbox {}
+
+.form-group.radiobutton {}
+
+.form-group.multiplechoice {}
+
+.form-group.singlechoice {}
+
+.form-group.titleanddescription {}
+
+.form-group.titleanddescription:first-child .heading {
+    margin-top: 0;
+}
+
+.item_form-single_field .g-recaptcha { 
+    margin-top:@base-half-spacing;
+}
+
+.justify-content-center .item_form-single_field .g-recaptcha > div { 
+    margin:0 auto;
+}
+
+label {
+    position: relative;
+    font-weight: normal;
+    display: block;
+}
+
+.radio label,
+.checkbox label {
+    padding-left: 20px;
+    margin-bottom: 5px;
+}
+
+label em.req {
+    font-style: normal;
+    color: @form-errors;
+}
+
+.form-group .note { 
+    display:block;
+    margin-top:5px; font-size:85%; opacity:0.8;
+}
+
+.form-control {
+    min-height: 40px;
+    border-width: @base-border-width;
+    border-style: solid;
+    border-color: @base-borders;
+    border-radius: 0;
+    box-shadow:none;
+}
+
+.form-control:focus {
+    border-color: @base-highlight;
+    box-shadow: 0 0 5px @base-highlight;
+    box-shadow:none!important;
+}
+
+.form-group.uploadafile .form-control {
+    padding-top: 5px;
+}
+
+.form-group.shortanswer .form-control {}
+
+.form-group.datepickerfieldshadow .form-control {}
+
+.form-group.longanswer .form-control {}
+
+.form-group.uploadafile .form-control {}
+
+.form-group.password .form-control {}
+
+.form-group.dropdown .form-control {}
+
+.form-group.dropdownselect .form-control {}
+
+.form-group.checkbox .form-control {
+    min-height:auto; height:auto;
+    width: auto;
+}
+
+.form-group.checkbox.checkboxlist .form-control {
+    min-height:auto; height:auto;
+    width: auto;
+}
+
+.form-group.singlecheckbox {
+    min-height:auto; height:auto;
+}
+
+.form-group.radio .form-control,
+.form-group.radiobutton .form-control {
+    min-height:auto; height:auto;
+    width: auto;
+}
+
+.form-group.multiplechoice .form-control {
+    min-height:auto; height:auto;
+    width: auto;
+}
+
+.form-group.singlechoice .form-control {
+    min-height:auto; height:auto;
+    width: auto;
+}
+
+.radio label input[type="radio"],
+.checkbox label input[type="checkbox"] {
+    position:absolute;
+    top: 3px;
+    left: -2px;
+    margin: 0;
+    width: auto;
+}
+
+select,
+select option {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+}
+
+.form-group.dropdown .form-control {
+    position: relative;
+    z-index: 1;
+    padding-top: 0;
+    padding-bottom: 0;
+    background: none;
+}
+
+.form-group.dropdown::after {
+    font-family: "Ionicons";
+    content: "\f280";
+    position: absolute;
+    top: 32px;
+    right: 0;
+    left: 0;
+    z-index: 0;
+    display: block;
+    width: 100%;
+    min-height: 38px;
+    padding: 6px 30px 3px 0;
+    font-size: 20px;
+    text-align: right;
+    color: @base-text;
+    background-color: @true-white;
+    box-sizing: border-box;
+}
+
+.form-group.dropdown .form-control {
+    background: none!important;
+}
+
+.form-group.dropdown.no-label::after {
+    top: 0;
+}
+
+.buttons .btn.prev+.btn.submit {
+    float: right;
+}
+
+
+/* VALIDATION */
+
+.form-control.input-validation-error {
+    border-color: @form-errors!important;
+    box-shadow:none;
+}
+
+.form-control.input-validation-error:focus {
+    border-color: @form-errors!important;
+    box-shadow: 0 1px 1px fade(@true-black, 0.75%) inset, 0 0 8px fade(@form-errors, 50%)!important;
+    box-shadow:none!important;
+}
+
+.field-validation-error {
+    display: block;
+    padding: 5px;
+    font-size: 12px;
+    background-color: @form-errors;
+    color: @true-white;
+}
+
+.validation-summary-errors {
+    color:@form-errors;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.form .info + .alert,
+.form .info + .form-inner { 
+    margin-top: @base-half-spacing;
+}
+.form .info + .form-inner > .alert {
+    margin-bottom: @base-half-spacing;
+}
+
+@media (min-width:@large-breakpoint) {
+    .form-control {
+        padding: @base-half-spacing;
+    }
+    .form-control,
+    .form-group.dropdown::after {
+        min-height: 50px;
+    }
+    .form-group.dropdown::after {
+        padding: 12px @base-spacing 0 0;
+    }
+    .form-group.uploadafile .form-control {
+        padding-top: 10px;
+    }
+}
+
+@import 'form_contact.less';
+@import 'form_login.less';
+@import 'form_newsletter.less';
+@import 'form_site-search.less';
+@import 'form_loading.less';

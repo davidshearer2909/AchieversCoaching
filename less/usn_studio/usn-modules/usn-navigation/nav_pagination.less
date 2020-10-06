@@ -1,0 +1,76 @@
+/*	
+--------------------------------------------------
+Pagination navigation
+-------------------------------------------------- 
+*/
+
+nav#pagination {
+    padding: @base-spacing 0;
+}
+
+nav#pagination .pagination {
+    position: relative;
+    margin: 0;
+}
+
+nav#pagination .pagination,
+nav#pagination .pagination li a,
+nav#pagination .pagination li a span {
+    border-radius: 0;
+}
+
+nav#pagination .pagination li {
+    margin:0 2.5px;
+}
+
+nav#pagination .pagination li.prev,
+nav#pagination .pagination li.next { 
+    font-size:18px;
+}
+
+nav#pagination .pagination li.prev { 
+    margin-left:0;
+}
+
+nav#pagination .pagination li.next {
+    margin-right:0;
+}
+
+nav#pagination .pagination li.prev,
+nav#pagination .pagination li.next { 
+    position: absolute;
+}
+nav#pagination .pagination li.prev { 
+    left:0;
+}
+nav#pagination .pagination li.next {
+    right:0;
+}
+
+nav#pagination .pagination li a {
+    display:block;
+    color:@base-link;
+    border-width: @base-border-width;
+    border-style: solid;
+    border-color: @base-borders;
+    padding: 9px 16px;
+    height:40px; min-width:40px;
+}
+
+nav#pagination .pagination li:not(.active) a:hover { 
+    background-color: @base-borders;
+}
+
+nav#pagination .pagination li.active a { 
+    color:@base-highlight-text;
+    background-color:@base-highlight;
+}
+
+@media (min-width:576px) { 
+
+    nav#pagination .pagination li a {
+        padding: 14px 21px;
+        height:50px; min-width:50px;
+    }
+
+}

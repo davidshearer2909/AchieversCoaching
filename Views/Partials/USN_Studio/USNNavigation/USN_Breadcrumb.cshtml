@@ -1,0 +1,82 @@
+﻿@inherits UmbracoViewPage<USNWebsite.USNModels.USNBaseViewModel>
+
+@using System.Globalization;
+
+@{
+    if (!Model.Content.Value<bool>("hideBreadcrumb"))
+    {
+        int catLevel = 1;
+
+        <section class="breadcrumb-trail">
+            <div class="container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
+                        @if (Model.Content.IsDocumentType(UsnblogPost.ModelTypeAlias))
+                        {
+                            //Start blog breadcrumb 4 levels lower than blog post
+                            int blogLevel = Model.Content.Level - 4;
+
+                            foreach (var level in Model.Content.Ancestors().Where(x => x.Level <= blogLevel).OrderBy(x => x.Level))
+                            {
+                                string breadcrumbLinkText = level.HasValue("breadcrumbLinkText") ? level.Value<string>("breadcrumbLinkText") : level.Name;
+
+                                <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="@level.Url" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name"><i class="icon usn_ion-md-arrow-dropleft before"></i>@breadcrumbLinkText</span></a><meta itemprop="position" content="@level.Level" /></li>
+                            }
+                        }
+                        else
+                        {
+                            foreach (var level in Model.Content.Ancestors().Where(x => x.IsVisible()).OrderBy(x => x.Level))
+                            {
+                                string breadcrumbLinkText = level.HasValue("breadcrumbLinkText") ? level.Value<string>("breadcrumbLinkText") : level.Name;
+
+                                if (!level.IsDocumentType(UsnblogCategories.ModelTypeAlias))
+                                {
+                                    <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="@level.Url" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name"><i class="icon usn_ion-md-arrow-dropleft before"></i>@breadcrumbLinkText</span></a><meta itemprop="position" content="@level.Level" /></li>
+                                    catLevel += 1;
+                                }
+                            }
+                        }
+
+                        @{
+                            string breadcrumbLinkTextPage = Model.Content.HasValue("breadcrumbLinkText") ? Model.Content.Value<string>("breadcrumbLinkText") : Model.Content.Name;
+
+                            if (Model.Content.IsDocumentType(UsnblogLandingPage.ModelTypeAlias))
+                            {
+                                if (!String.IsNullOrEmpty(Request.QueryString["year"]) && String.IsNullOrEmpty(Request.QueryString["month"]))
+                                {
+                                    <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="@Model.Content.Url" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="title"><i class="icon usn_ion-md-arrow-dropleft before"></i>@breadcrumbLinkTextPage</span></a><meta itemprop="position" content="@Model.Content.Level" /></li>
+                                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="breadcrumb-item active" aria-current="page"><span itemprop="name"><i class="icon usn_ion-md-arrow-dropleft before"></i>@Request.QueryString["year"]</span><meta itemprop="position" content="@(Model.Content.Level + 1)" /></li>
+                                }
+                                else if (!String.IsNullOrEmpty(Request.QueryString["year"]) && !String.IsNullOrEmpty(Request.QueryString["month"]))
+                                {
+                                    string archiveUrl = Model.Content.Url + "?year=" + Request.QueryString["year"];
+
+                                    string monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Convert.ToInt32(Request.QueryString["month"]));
+
+                                    <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="@Model.Content.Url" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name"><i class="icon usn_ion-md-arrow-dropleft before"></i>@breadcrumbLinkTextPage</span></a><meta itemprop="position" content="@Model.Content.Level" /></li>
+                                    <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="@archiveUrl" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name"><i class="icon usn_ion-md-arrow-dropleft before"></i>@Request.QueryString["year"]</span></a><meta itemprop="position" content="@(Model.Content.Level + 1)" /></li>
+                                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="breadcrumb-item active" aria-current="page"><span itemprop="name"><i class="icon usn_ion-md-arrow-dropleft before"></i>@monthName</span><meta itemprop="position" content="@(Model.Content.Level + 2)" /></li>
+                                }
+                                else
+                                {
+                                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="breadcrumb-item active" aria-current="page"><span itemprop="name"><i class="icon usn_ion-md-arrow-dropleft before"></i>@breadcrumbLinkTextPage</span><meta itemprop="position" content="@Model.Content.Level" /></li>
+                                }
+                            }
+                            else
+                            {
+                                if (Model.Content.IsDocumentType(UsnblogCategoryPage.ModelTypeAlias))
+                                {
+                                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="breadcrumb-item active" aria-current="page"><span itemprop="name"><i class="icon usn_ion-md-arrow-dropleft before"></i>@breadcrumbLinkTextPage</span><meta itemprop="position" content="@catLevel" /></li>
+                                }
+                                else
+                                {
+                                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="breadcrumb-item active" aria-current="page"><span itemprop="name"><i class="icon usn_ion-md-arrow-dropleft before"></i>@breadcrumbLinkTextPage</span><meta itemprop="position" content="@Model.Content.Level" /></li>
+                                }
+                            }
+                        }
+                    </ol>
+                </nav>
+            </div>
+        </section>
+    }
+}

@@ -1,0 +1,24 @@
+﻿{
+    propertyEditors:[
+        {
+            alias: "USN.ColorPicker",
+            name: "USN Color Picker",
+            editor: {
+                view: "~/App_Plugins/USNColorPicker/views/colorpicker-editor.html",
+				valueType: "JSON"
+            },
+			prevalues : {
+				fields: [
+					{
+					    label: "Color source",
+					    key: "colorSource",
+						view: "~/App_Plugins/USNColorPicker/prevalues/colorsource.html"
+					}
+				]
+			}
+        }
+    ],
+	javascript: [
+		"~/App_Plugins/USNColorPicker/js/colorpicker-editor-controller.js"
+	]
+}

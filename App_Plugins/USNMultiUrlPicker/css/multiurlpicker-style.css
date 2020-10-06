@@ -1,0 +1,203 @@
+﻿
+
+
+.usn-picker {
+    padding-top: 20px;
+}
+
+.usn-picker__icon-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 20px;    
+    margin-left: -5px;
+    margin-right: -5px;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+    .usn-picker__icon-list i {
+        font-size: 30px !important;
+    }
+
+    .usn-picker__icon-list li {
+        display: flex;
+        flex-direction: column;
+        float: left;
+        padding:0 5px 10px 5px;
+        width: 16.6666667%;
+        height: 75px;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+        .usn-picker__icon-list li a {
+            font-size: 30px;
+            display: block;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #eaeaea;
+            color: #000;
+            transition: all .2s ease-in-out;
+        }
+
+            .usn-picker__icon-list li a:hover {
+                text-decoration: none;
+                background: #2152a3;
+                color: #fff;
+            }
+
+.nested-content__item .bgpicker {
+    max-width: 95% !important;
+}
+
+.usn-multiurlpicker .umb-node-preview-add { 
+    max-width:100%;
+}
+
+.usn-multiurlpicker .usn-links { 
+    display: flex;
+    width:100%;
+    margin-bottom:5px;
+    box-sizing: border-box;
+    font-size: 13px;
+}
+
+.usn-multiurlpicker .usn-links > i,
+.usn-multiurlpicker .usn-links > div { 
+    display: flex;
+    box-sizing: border-box;
+    text-align:left;
+}
+.usn-multiurlpicker .usn-links > .usn-color > a,
+.usn-multiurlpicker .usn-links > .usn-icon > a,
+.usn-multiurlpicker .usn-links > .usn-link > a { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1b264f;
+    font-weight: 700;
+    padding: 5px;
+    box-sizing: border-box;
+    text-align:left;
+    border: 1px dashed #bbbabf;
+    margin:0 5px 0 0;
+}
+.usn-multiurlpicker .usn-links > .usn-color > a:hover,
+.usn-multiurlpicker .usn-links > .usn-icon > a:hover,
+.usn-multiurlpicker .usn-links > .usn-link > a:hover {
+    color: #2152a3;
+    border-color: #2152a3;
+    text-decoration: none;
+}
+.usn-multiurlpicker .usn-links > .usn-color .usn-remove-color,
+.usn-multiurlpicker .usn-links > .usn-icon .usn-remove-icon,
+.usn-multiurlpicker .usn-links > .usn-link .umb-node-preview { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1b264f;
+    font-weight: 700;
+    padding: 5px;
+    box-sizing: border-box;
+    text-align:left;
+    border: 1px dashed #f6f4f4;
+    margin:0 5px 0 0;
+}
+
+.usn-multiurlpicker .usn-links > .usn-color .usn-remove-color,
+.usn-multiurlpicker .usn-links > .usn-icon .usn-remove-icon,
+.usn-multiurlpicker .usn-links > .usn-link .umb-node-preview { 
+    border-color:#d7d7d7;
+}
+
+.usn-multiurlpicker .usn-links > .ui-sortable-handle { 
+    width: 35px;
+    padding-top: 6px;
+    cursor: move;
+}
+.usn-multiurlpicker .ui-sortable-disabled .usn-links > i.ui-sortable-handle {
+    display:none;
+}
+
+.usn-multiurlpicker .usn-links > .usn-color { 
+    width: 180px;
+    display: flex;
+}
+.usn-multiurlpicker .usn-links > .usn-color > a { 
+    width:100%; text-align:center;
+    text-decoration:none!important;
+}
+.usn-multiurlpicker .usn-links > .usn-color .usn-remove-color { 
+    display: flex;
+    width:100%;
+}
+.usn-multiurlpicker .usn-links > .usn-color span { 
+    text-indent: -9999px;
+    display: block;
+    width:20px;
+    height:20px;
+    margin-right:4px;
+    box-shadow: 0 1px 2px rgba(53, 68, 177, 0.1);
+    border-radius: 3px;
+}
+.usn-multiurlpicker .usn-links > .usn-icon  {
+    width: 180px; 
+    display: flex;
+}
+.usn-multiurlpicker .usn-links > .usn-icon .usn-remove-icon { 
+    display: flex;
+    width:100%;
+    text-align:left;
+}
+.usn-multiurlpicker .usn-links > .usn-icon > a { 
+    width:100%; text-align:center;
+    text-decoration:none!important;
+}
+.usn-multiurlpicker .usn-links > .usn-icon .usn-remove-icon i {
+    font-size:20px;
+    margin-right:4px;
+}
+.usn-multiurlpicker .usn-links > .usn-link { 
+    width:100%;
+}
+.usn-multiurlpicker .usn-links > .usn-link .umb-editor-wrapper .umb-node-preview, 
+.usn-multiurlpicker .usn-links > .usn-link .umb-node-preview { 
+    height:32px; max-width:100%;
+}
+.usn-multiurlpicker .usn-links > .usn-link .umb-node-preview__icon { 
+    position:relative; top:0;
+    margin-right:5px; font-size:18px;
+}
+.usn-multiurlpicker .usn-links > .usn-link .umb-node-preview__name { 
+    margin:0; font-size:14px;
+}
+.usn-multiurlpicker .usn-links > .usn-link .umb-node-preview__content { 
+    margin:0;
+}
+.usn-multiurlpicker .usn-links > .usn-link .umb-node-preview--sortable { 
+    cursor:auto;
+}
+.usn-multiurlpicker .usn-links > .usn-link a { 
+    width:100%;
+}
+.usn-multiurlpicker .usn-links > .usn-link .umb-node-preview__description { 
+    display:none;
+}
+.usn-multiurlpicker .usn-links > .usn-link .umb-node-preview { 
+    width:100%;
+}
+.usn-multiurlpicker .usn-links > .usn-link .umb-node-preview__actions { 
+    float:right;
+}
+.usn-multiurlpicker .usn-links > .usn-delete { 
+    width: 35px;
+    margin:0;
+    padding-top: 6px;
+}
+.usn-multiurlpicker .usn-links > .usn-delete > a { 
+    width:100%; text-align:center;
+    text-decoration:none!important;
+}

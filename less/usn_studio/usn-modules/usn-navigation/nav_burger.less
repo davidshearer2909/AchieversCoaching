@@ -1,0 +1,139 @@
+/*  
+---------------------------------------------------
+Burger menu
+---------------------------------------------------  
+*/
+
+header#site-header a.expand {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 300;
+    text-indent:-9999px;
+    width: @small-header;
+    height: @small-header;
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out 0s;
+}
+
+header#site-header a.expand em {
+    position:absolute;
+    top: 50%;
+    right: (@small-header - 10px);
+    color: @main-navigation-link;
+    transform: translateY(-50%);
+}
+
+header#site-header a.expand span:before,
+header#site-header a.expand span,
+header#site-header a.expand span:after {
+    content: "";
+    display: block;
+    width: 20px;
+    height: @base-border-width;
+    position: absolute;
+    left: 0;
+    background-color: @main-navigation-link;
+    opacity: 1;
+    transition: transform 0.2s ease-in-out 0s, left 0.2s ease-in-out 0s, top 0.2s ease-in-out 0s, width 0.2s ease-in-out 0s;
+}
+
+header#site-header a.expand span {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+header#site-header a.expand span:before {
+    top: -3px;
+    left: -10px;
+}
+
+header#site-header a.expand span:after {
+    top: 3px;
+    left: -10px;
+}
+
+header#site-header a.expand span {
+    width: 0;
+}
+
+header#site-header a.expand.active span:before,
+header#site-header a.expand.active span:after {
+    top: 0;
+}
+
+header#site-header a.expand.active span::before {
+    transform: rotate(-45deg);
+}
+
+header#site-header a.expand.active span::after {
+    transform: rotate(45deg);
+}
+
+@media (min-width:0) and (max-width:@small-breakpoint) {
+
+    html.reveal-out {
+        overflow: hidden;
+    }
+
+    html.reveal-out #site {
+        max-height: 100%;
+    }
+    
+    header#site-header .navigation {
+        position: relative;
+        z-index: 5;
+    }
+    
+    html.reveal-out header#site-header .navigation {
+        overflow: auto;
+    }
+    
+    header#site-header .navigation .reveal {
+        display: none;
+    }
+    
+    html.reveal-out header#site-header .navigation .reveal {
+        display: block;
+    }
+
+    
+    /* iOS 13 issues with html, body overflow */
+    html.reveal-out,
+    html.reveal-out body { 
+        overflow-y: hidden; height:100%; max-height:100%;
+    }
+    html.reveal-out header#site-header { 
+        bottom:0;
+    }
+    html.reveal-out header#site-header .navigation {
+        -webkit-transform: translateX(0);
+        -ms-transform: translateX(0);
+        transform: translateX(0);
+    }
+
+}
+
+@media (min-width:@large-breakpoint) {
+
+    header#site-header .navigation {
+        -ms-flex: 1;   
+        flex: 1;
+    }
+    html.reveal-out {
+      overflow: auto;
+    }
+    html.reveal-out .navigation {
+      overflow: visible;
+    }
+    header#site-header a.expand {
+      display: none;
+    }
+    .navigation .reveal {
+      display: block;
+    }
+
+}

@@ -1,0 +1,59 @@
+.c{0}-bg, .item.item_overlay .inner .image.c{0}-bg::before, .banner-component .item.item_overlay.c{0}-bg .inner::before {{background-color: @c{0}-bg;}}
+.item.item_overlay .inner .image.c{0}-bg.gradient-bg::before, .banner-component .item.item_overlay.c{0}-bg.gradient-bg .inner::before {{background: linear-gradient(to bottom, fade(@c{0}-bg, 50%) 0%, fade(@c{0}-bg, 100%) 100%);}}
+.c{0}-bg h1:not(.heading), .c{0}-bg h2:not(.heading), .c{0}-bg h3:not(.heading), .c{0}-bg h4:not(.heading), .c{0}-bg h5:not(.heading), .c{0}-bg h6:not(.heading), .c{0}-heading, .c{0}-bg span.heading {{color: @c{0}-heading;}}
+.c{0}-secondary-heading, .c{0}-bg .c{0}-secondary-heading {{color: @c{0}-secondary-heading;}}
+.c{0}-bg, .c{0}-bg .c{0}-text, .c{0}-text {{color: @c{0}-text;}}
+.c{0}-borders {{border-color: @c{0}-borders;}}
+.c{0}-link, .c{0}-bg a:not(.btn) {{color: @c{0}-link;}}
+.c{0}-link:hover, .c{0}-link:focus, .c{0}-link:active, .c{0}-bg a:not(.btn):hover,.c{0}-bg a:not(.btn):focus,.c{0}-bg a:not(.btn):active {{color: @c{0}-link-hover;}}
+.c{0}-highlight-bg {{background-color:@c{0}-highlight;}}
+.c{0}-bg blockquote::before, .component .component.c{0}-bg div > blockquote::before {{color:@c{0}-highlight;}}
+.c{0}-highlight-text {{color:@c{0}-highlight-text;}}
+
+.c{0}-bg .label {{background-color:@c{0}-highlight;}}
+.c{0}-bg .label {{color:@c{0}-highlight-text;}}
+
+.c{0}-bg .repeatable .tab .nav-link {{color:@c{0}-highlight; background-color:@c{0}-bg; border-color:@c{0}-borders;}}
+.c{0}-bg .repeatable.tabbed .tab .nav-link {{background-color: darken(@c{0}-bg, 5%);}}
+.c{0}-bg .repeatable.tabbed .tab .nav-link {{background-color: darken(@c{0}-bg, 5%);}}
+.c{0}-bg .repeatable.tabbed .tab .nav-link:not(.active):hover {{ color: @c{0}-link-hover; background-color: @c{0}-borders; }}
+.c{0}-bg .repeatable.accordion .tab .nav-link.collapsed:hover {{ color: @c{0}-link-hover; background-color: @c{0}-borders; }}
+.c{0}-bg .repeatable.tabbed .tab .nav-link.active {{ color: @c{0}-heading; background-color: @c{0}-bg;}}
+.c{0}-bg .repeatable.accordion .tab .nav-link:not(.collapsed) {{ color: @c{0}-heading; background-color: @c{0}-bg;}}
+.c{0}-bg .repeatable.tabbed .tab .nav-link.active {{ border-bottom-color: @c{0}-bg;}}
+.c{0}-bg .repeatable .repeatable-content {{ background-color: @c{0}-bg; border-color: @c{0}-borders;}}
+
+.c{0}-bg .slick-slider .slick-prev, .c{0}-bg .slick-slider .slick-next {{color: @c{0}-link;}}
+.c{0}-bg .slick-slider .slick-dots li > button {{background-color: @c{0}-text; border-color:@c{0}-text;}}
+.c{0}-bg .slick-slider .slick-dots li.slick-active > button {{background-color: @c{0}-highlight; border-color: @c{0}-highlight;}}
+
+.form .c{0}-bg .form-control {{border-color: @c{0}-borders}}
+.form .c{0}-bg .form-control:focus {{border-color: @c{0}-highlight; box-shadow: 0 0 5px @base-highlight;}}
+
+.c{0}-bg .listing.listing_links:not(.listing_links-mini), .c{0}-bg .listing.listing_links:not(.listing_links-mini) .item a {{border-color: @c{0}-borders;}}
+.c{0}-bg .listing.listing_links:not(.listing_links-mini) .item a:hover {{background-color: @c{0}-borders;}}
+.c{0}-bg .listing.listing_links.listing_links-mini .item a::after {{background-color: @c{0}-link;}}
+.c{0}-bg .listing.listing_links.listing_links-mini .item a:hover::after {{background-color: @c{0}-link-hover;}}
+                   
+.c{0}-bg .listing.listing_price-list .menu-title.secondary-heading {{border-color: @c{0}-borders;}}
+                    
+.c{0}-bg nav.sitemap ul li::before, .c{0}-bg nav.sitemap ul li::after {{background-color: @c{0}-borders;}}
+.c{0}-bg nav.sitemap ul li:hover::after {{background-color: darken(@c{0}-borders, 5%);}}
+
+.c{0}-bg table {{background-color: @c{0}-bg;}}
+.c{0}-bg table tr:nth-of-type(even) td, .c{0}-bg .tables table tr:nth-of-type(even) td {{background-color: darken(@c{0}-bg, 1.5%);}}
+.c{0}-bg thead {{color: @c{0}-heading; background-color: @c{0}-borders;}}
+.c{0}-bg table, .c{0}-bg table th, .c{0}-bg table td {{border-color: @c{0}-borders;}}
+.c{0}-bg table tr:nth-of-type(even) td, .c{0}-bg .tables table tr:nth-of-type(even) td {{background-color: darken(@c{0}-bg, 1.5%);}}
+
+.anchors-component.c{0}-bg ul.nav li.nav-item a.nav-link {{color: @c{0}-heading;}}
+.anchors-component.c{0}-bg ul.nav li.nav-item a.nav-link:not(.active):hover::after {{background-color: @c{0}-heading;}}
+.anchors-component.c{0}-bg ul.nav li.nav-item a.nav-link.active::after {{background-color: @c{0}-heading;}}
+.anchors-component.c{0}-bg .expand {{color: @c{0}-heading;}}
+.anchors-component.c{0}-bg .expand span, .anchors-component.c{0}-bg .expand span:before, .anchors-component.c{0}-bg .expand span:after {{background-color: @c{0}-heading;}}
+
+.c{0}-bg .scroll-prompt a {{color: @c{0}-heading;}}
+.c{0}-bg .scroll-prompt a i {{color: @c{0}-heading;}}
+.c{0}-bg .scroll-prompt .mouse-scroll {{border-color: @c{0}-heading;}}
+.c{0}-bg .scroll-prompt .mouse-scroll::before {{background-color: @c{0}-heading;}}
+

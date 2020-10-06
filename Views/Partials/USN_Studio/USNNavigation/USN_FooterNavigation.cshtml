@@ -1,0 +1,13 @@
+﻿@inherits UmbracoViewPage<USNWebsite.USNModels.USNBaseViewModel>
+
+@{
+    Usnnavigation navigation = (Usnnavigation)Model.Navigation;
+
+    if (navigation.FooterNavigation != null && navigation.FooterNavigation.Any())
+    {
+        foreach (var item in navigation.FooterNavigation)
+        {
+            <li><span><a href="@item.link.LinkUrl" @Html.Raw(item.link.LinkTarget) @Html.Raw(item.link.LinkTitle)>@Html.Raw(item.icon)@item.link.LinkText@Html.Raw(item.link.LinkTargetIcon)</a></span></li>
+        }
+    }
+}

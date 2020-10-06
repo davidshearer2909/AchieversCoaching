@@ -1,0 +1,57 @@
+﻿@inherits UmbracoViewPage<USNWebsite.USNModels.USNBaseViewModel>
+
+@{
+    if (Model.Content.HasProperty("hideSubNavigation") && !Model.Content.Value<bool>("hideSubNavigation"))
+    {
+        var parent = Model.Content.AncestorOrSelf(2);
+
+        var pages = parent.Children.Where(x => x.IsDocumentType(Usnpage.ModelTypeAlias) && x.IsVisible());
+
+        if (pages.Any())
+        {
+            <!-- Sub Navigation -->
+            <nav class="sub">
+                <p class="heading">
+                    <a href="@parent.Url()">
+                        @(parent.HasValue("subNavigationLinkText") ? parent.Value<string>("subNavigationLinkText") : parent.Name)
+                    </a>
+                </p>
+                @Traverse(parent)
+            </nav>
+            <!--// Sub Navigation -->
+        }
+    }
+}
+
+@helper Traverse(IPublishedContent parent)
+{
+    if (parent.Children.Any(x => x.IsDocumentType(Usnpage.ModelTypeAlias) && x.IsVisible()))
+    {
+        <ul>
+            @foreach (var node in parent.Children.Where(x => x.IsDocumentType(Usnpage.ModelTypeAlias) && x.IsVisible()))
+            {
+                if (node != null)
+                {
+                    string selected = Array.IndexOf(Model.Content.Path.Split(','), node.Id.ToString()) >= 0 ? " class=\"active\"" : "";
+
+                    <li @Html.Raw(selected)>
+                        <span><a href="@node.Url()">
+                            @if (node.HasValue("subNavigationLinkText"))
+                            {
+                                @(node.Value<string>("subNavigationLinkText"))
+                            }
+                            else
+                            {
+                                @node.Name
+                            }
+                        </a></span>
+                        @if (selected != String.Empty)
+                        {
+                            @Traverse(node)
+                        }
+                    </li>
+                }
+            }
+        </ul>
+    }
+}

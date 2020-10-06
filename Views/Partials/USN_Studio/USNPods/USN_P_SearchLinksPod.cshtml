@@ -1,0 +1,58 @@
+﻿@inherits UmbracoViewPage<USNStarterKit.USNModels.USNPodModel>
+
+@using USNStarterKit.USNModels;
+
+@{
+    string itemClass = ViewData["itemClass"].ToString();
+    int globalSettingsId = Convert.ToInt32(ViewData["globalSettingsID"]);
+
+    var model = Model.publishedContent == null ? Model.publishedElement : Model.publishedContent;
+
+    <div class="item @itemClass item_search-links">
+        <div class="inner">
+
+            @if (model.HasValue("heading"))
+            {
+                <p class="heading footer-heading">@(model.Value<string>("heading"))</p>
+            }
+            @if (model.Value<bool>("displaySearch"))
+            {
+                UsnglobalSettings globalSettings = (UsnglobalSettings)Umbraco.Content(globalSettingsId);
+
+                IPublishedContent searchResultsPage = globalSettings.SearchResultsPage;
+
+                if (searchResultsPage != null)
+                {
+                    <!-- Site search -->
+                    <div class="site-search">
+                        <form role="search" action="@searchResultsPage.Url" method="get" name="searchForm">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="control-label d-none" for="search_field">@Umbraco.GetDictionaryValue("USN Search Form Placeholder")</label>
+                                    <input type="text" class="form-control" name="search_field" aria-label="@Umbraco.GetDictionaryValue("USN Search Form Placeholder")" placeholder="@Umbraco.GetDictionaryValue("USN Search Form Placeholder")" value="@Request.QueryString["search_field"]">
+                                </div>
+                                <button type="submit" role="button" aria-label="Search" class="btn base-btn-bg base-btn-text base-btn-borders btn-search"><i class="icon usn_ion-ios-search"></i></button>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <!--// Site search -->
+                }
+            }
+            @if (model.HasValue("links") && model.Value<IEnumerable<USNMultiUrlPicker>>("links").Any())
+            {
+                <!-- Quick Links -->
+                <nav class="quick-links">
+
+                    <ul>
+                        @foreach (USNMultiUrlPicker item in model.Value<IEnumerable<USNMultiUrlPicker>>("links"))
+                        {
+                            <li><span><a href="@item.link.LinkUrl" @Html.Raw(item.link.LinkTarget) @Html.Raw(item.link.LinkTitle)>@item.link.LinkText@Html.Raw(item.link.LinkTargetIcon)</a></span></li>
+                        }
+                    </ul>
+                </nav>
+                <!--// Quick Links -->
+            }
+        </div>
+    </div>
+
+}

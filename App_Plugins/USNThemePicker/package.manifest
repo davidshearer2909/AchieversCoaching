@@ -1,0 +1,14 @@
+﻿{
+    propertyEditors:[
+        {
+            alias: "USN.ThemePicker",
+            name: "USN Theme Picker",
+            editor: {
+                view: "~/App_Plugins/USNThemePicker/views/themepicker-editor.html"
+            }
+        }
+    ],
+	javascript: [
+		"~/App_Plugins/USNThemePicker/js/themepicker-editor-controller.js"
+	]
+}

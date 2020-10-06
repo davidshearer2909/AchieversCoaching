@@ -1,0 +1,119 @@
+﻿@inherits UmbracoViewPage<USNWebsite.USNModels.USNBaseViewModel>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+@using System.Web.Script.Serialization;
+
+@{
+    if (!Model.Content.Value<bool>("hideWebsiteFooterSection"))
+    {
+        UsnglobalSettings globalSettings = (UsnglobalSettings)Model.GlobalSettings;
+        Usnfooter footer = (Usnfooter)Model.Footer;
+        Usnstyle websiteStyle = (Usnstyle)Model.WebsiteStyle;
+        var colorPickerViewModel = new USNColorPicker();
+        colorPickerViewModel = new JavaScriptSerializer().Deserialize<USNColorPicker>(websiteStyle.StyleColors.ToString());
+        string backgroundColorValue = colorPickerViewModel.footerBackground.Substring(1);
+        string backgroundImageStyle = ThemeHelper.GetBackgroundImageStyle(websiteStyle.FooterBgimageOptions, websiteStyle.FooterBackgroundImage);
+
+        <footer id="site-footer" class="footer-bg" @Html.Raw(backgroundImageStyle)>
+            <div class="container">
+
+                <!-- Row -->
+                <div class="row">
+
+                    @for (int i = 0; i < footer.FooterItems.Count(); i++)
+                    {
+                        var item = footer.FooterItems.ElementAt(i);
+                        var previousItem = i > 0 ? footer.FooterItems.ElementAt(i - 1) : null;
+
+                        string leftOffsetDesktop = (previousItem != null && previousItem.ContentType.Alias == Usn_Ncf_SpacerColumn.ModelTypeAlias && previousItem.Value<int>("desktopColumnWidth") != 0) ? "offset-lg-" + previousItem.Value<int>("desktopColumnWidth").ToString() : String.Empty;
+                        string leftOffsetTablet = (previousItem != null && previousItem.ContentType.Alias == Usn_Ncf_SpacerColumn.ModelTypeAlias && previousItem.Value<int>("tabletColumnWidth") != 0) ? "offset-md-" + previousItem.Value<int>("tabletColumnWidth").ToString() : String.Empty;
+                        string colWidthDesktop = "col-lg-" + item.Value<int>("desktopColumnWidth").ToString();
+                        string colWidthTablet = "col-md-" + item.Value<int>("tabletColumnWidth").ToString();
+
+                        var newItem = new USNPodModel { publishedContent = null, publishedElement = item, pageName = Model.Content.Name };
+
+                        switch (item.ContentType.Alias)
+                        {
+                            case Usn_Ncf_CodeBlock.ModelTypeAlias:
+                                <div class="footer-item @leftOffsetDesktop @leftOffsetTablet @colWidthDesktop @colWidthTablet col-12 col">
+                                    @Html.Partial(Model.ViewPath + "/USNPods/USN_P_CodeBlock", newItem, new ViewDataDictionary { { "itemClass", String.Empty } })
+                                </div>
+                                break;
+                            case Usn_Ncf_Image.ModelTypeAlias:
+                                <div class="footer-item @leftOffsetDesktop @leftOffsetTablet @colWidthDesktop @colWidthTablet col-12 col">
+                                    @Html.Partial(Model.ViewPath + "/USNPods/USN_P_Image", newItem, new ViewDataDictionary { { "itemClass", String.Empty }, { "componentId", globalSettings.Id }, { "backgroundColorValue", backgroundColorValue }, { "viewPath", Model.ViewPath } })
+                                </div>
+                                break;
+                            case Usn_Ncf_Form.ModelTypeAlias:
+                                <div class="footer-item @leftOffsetDesktop @leftOffsetTablet @colWidthDesktop @colWidthTablet col-12 col">
+                                    @Html.Partial(Model.ViewPath + "/USNPods/USN_P_Form", newItem, new ViewDataDictionary { { "itemClass", String.Empty }, { "componentId", globalSettings.Id }, { "globalSettingsID", globalSettings.Id }, { "viewPath", Model.ViewPath }, { "podType", "footer" } })
+                                </div>
+                                break;
+                            case Usn_Ncf_Quote.ModelTypeAlias:
+                                <div class="footer-item @leftOffsetDesktop @leftOffsetTablet @colWidthDesktop @colWidthTablet col-12 col">
+                                    @Html.Partial(Model.ViewPath + "/USNPods/USN_P_Quote", newItem, new ViewDataDictionary { { "itemClass", String.Empty }, { "backgroundColor", "footer" } })
+                                </div>
+                                break;
+                            case Usn_Ncf_RelatedContent.ModelTypeAlias:
+                                @Html.Partial(Model.ViewPath + "/USNPods/USN_P_RelatedContent", newItem, new ViewDataDictionary { { "itemClass", String.Empty }, { "backgroundColor", "footer" }, { "backgroundColorValue", backgroundColorValue },
+                                {"podType", "footer" },{ "leftOffsetDesktop", leftOffsetDesktop },{ "leftOffsetTablet", leftOffsetTablet }, { "colWidthDesktop" , colWidthDesktop }, { "colWidthTablet", colWidthTablet }, { "viewPath", Model.ViewPath } })
+                                break;
+                            case Usn_Ncf_ReusablePods.ModelTypeAlias:
+                                @Html.Partial(Model.ViewPath + "/USNPods/USN_P_ReusablePods", newItem, new ViewDataDictionary { { "itemClass", String.Empty },  { "backgroundColor", "footer" },{ "backgroundColorValue", backgroundColorValue }, { "viewPath", Model.ViewPath },  { "componentId", globalSettings.Id }, { "globalSettingsID", globalSettings.Id }, { "pageName", Model.Content.Name },
+                                {"podType", "footer" },{ "leftOffsetDesktop", leftOffsetDesktop },{ "leftOffsetTablet", leftOffsetTablet }, { "colWidthDesktop" , colWidthDesktop }, { "colWidthTablet", colWidthTablet }})
+                                break;
+                            case Usn_Ncf_SearchLinksPod.ModelTypeAlias:
+                                <div class="footer-item @leftOffsetDesktop @leftOffsetTablet @colWidthDesktop @colWidthTablet col-12 col">
+                                    @Html.Partial(Model.ViewPath + "/USNPods/USN_P_SearchLinksPod", newItem, new ViewDataDictionary { { "itemClass", String.Empty }, { "globalSettingsID", globalSettings.Id } })
+                                </div>
+                                break;
+                            case Usn_Ncf_SocialLinks.ModelTypeAlias:
+                                <div class="footer-item @leftOffsetDesktop @leftOffsetTablet @colWidthDesktop @colWidthTablet col-12 col">
+                                    @Html.Partial(Model.ViewPath + "/USNPods/USN_P_SocialLinks", newItem, new ViewDataDictionary { { "itemClass", String.Empty } })
+                                </div>
+                                break;
+                            case Usn_Ncf_SubpageListing.ModelTypeAlias:
+                                <div class="footer-item @leftOffsetDesktop @leftOffsetTablet @colWidthDesktop @colWidthTablet col-12 col">
+                                    @Html.Partial(Model.ViewPath + "/USNPods/USN_P_SubpageListing", newItem, new ViewDataDictionary { { "itemClass", String.Empty }, { "backgroundColor", "footer" }, { "viewPath", Model.ViewPath }, { "globalSettingsID", globalSettings.Id } })
+                                </div>
+                                break;
+                            case Usn_Ncf_TextImagePod.ModelTypeAlias:
+                                <div class="footer-item @leftOffsetDesktop @leftOffsetTablet @colWidthDesktop @colWidthTablet col-12 col">
+                                    @Html.Partial(Model.ViewPath + "/USNPods/USN_P_TextImage", newItem, new ViewDataDictionary { { "itemClass", String.Empty }, { "backgroundColor", "footer" }, { "backgroundColorValue", backgroundColorValue }, { "viewPath",  Model.ViewPath } })
+                                </div>
+                                break;
+                            case Usn_Ncf_Video.ModelTypeAlias:
+                                <div class="footer-item @leftOffsetDesktop @leftOffsetTablet @colWidthDesktop @colWidthTablet col-12 col">
+                                    @Html.Partial(Model.ViewPath + "/USNPods/USN_P_Video", newItem, new ViewDataDictionary { { "itemClass", String.Empty }, { "componentId", globalSettings.Id }, { "backgroundColorValue", backgroundColorValue } })
+                                </div>
+                                break;
+                        }
+                    }
+
+                </div>
+                <!--// Row -->
+                <!-- Row -->
+                <div class="row">
+
+                    <div class="col">
+                        <nav class="footer-navigation">
+                            <ul>
+                                <li><div>&copy; @DateTime.Now.ToString("yyyy")</div></li>
+                                @Html.Partial(Model.ViewPath + "/USNNavigation/USN_FooterNavigation", Model)
+                                <li class="site-credit">
+                                    <div>Umbraco CMS theme from </div>
+                                    <span><a target="_blank" title="@Umbraco.GetDictionaryValue("USN New Window Title Tag")" href="http://www.uskinned.net">uSkinned</a></span>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                </div>
+                <!--// Row -->
+
+            </div>
+        </footer>
+
+    }
+}

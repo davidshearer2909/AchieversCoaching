@@ -1,0 +1,101 @@
+﻿@inherits UmbracoViewPage<USNStarterKit.USNModels.USNPodModel>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    var model = Model.publishedContent == null ? Model.publishedElement : Model.publishedContent;
+
+    if (model.HasValue("relatedContent") && model.Value<IEnumerable<IPublishedContent>>("relatedContent").Any())
+    {
+        USNAnimation animation = ViewData["animation"] == null ? new USNAnimation() : (USNAnimation)ViewData["animation"];
+
+        string itemClass = ViewData["itemClass"].ToString();
+        string backgroundColor = ViewData["backgroundColor"].ToString();
+        string backgroundColorValue = ViewData["backgroundColorValue"].ToString();
+        string viewPath = ViewData["viewPath"].ToString();
+        string podType = ViewData["podType"] != null ? ViewData["podType"].ToString() : String.Empty;
+        string leftOffsetDesktop = ViewData["leftOffsetDesktop"] != null ? ViewData["leftOffsetDesktop"].ToString() : String.Empty;
+        string leftOffsetTablet = ViewData["leftOffsetTablet"] != null ? ViewData["leftOffsetTablet"].ToString() : String.Empty;
+        string colWidthDesktop = ViewData["colWidthDesktop"] != null ? ViewData["colWidthDesktop"].ToString() : String.Empty;
+        string colWidthTablet = ViewData["colWidthTablet"] != null ? ViewData["colWidthTablet"].ToString() : String.Empty;
+
+        string overlayImageClass = model.Value<string>("textPosition") == "textPositionOverlay" ? model.Value<USNColor>("overlayBackgroundColor").label + "-bg gradient-bg" : String.Empty;
+        backgroundColor = model.Value<string>("textPosition") == "textPositionOverlay" ? model.Value<USNColor>("overlayBackgroundColor").label : backgroundColor;
+
+        string itemTextAlignment = ThemeHelper.GetSimpleTextAlignmentClass(model.Value<string>("textAlignment"));
+        USNImageSettings imageSettings = ThemeHelper.GetImageSettings(model.Value<string>("imageStyle"), model.Value<bool>("boxPad"), backgroundColorValue);
+
+        string itemStyleClass = ThemeHelper.GetListItemTextPositionClass(model.Value<string>("textPosition"));
+
+        int summaryTextLength = 0;
+
+        if (model.HasValue("summaryTextCharacterCount"))
+        {
+            summaryTextLength = model.Value<int>("summaryTextCharacterCount");
+        }
+
+
+        foreach (var item in model.Value<IEnumerable<IPublishedContent>>("relatedContent"))
+        {
+            string introText = ThemeHelper.GetIntroText(item, summaryTextLength);
+            string pageName = item.HasValue("subpageListingLinkText") ? item.Value<string>("subpageListingLinkText") : item.Name;
+
+            if (podType == "footer")
+            {
+                @:<div class="footer-item @leftOffsetDesktop @leftOffsetTablet @colWidthDesktop @colWidthTablet col-12 col">
+            }
+
+                <div class="item @itemClass @itemStyleClass @itemTextAlignment @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+                    <div class="inner @overlayImageClass">
+                        <a href="@item.Url">
+                            @if (item.HasValue("pageListingImage") && item.Value<IPublishedContent>("pageListingImage") != null && model.Value<string>("textPosition") != "textPositionAbove")
+                            {
+                            <div class="image @overlayImageClass @imageSettings.CircleClass">
+                                @Html.Partial(viewPath + "/USNMiscPageElements/USN_Image", item.Value<Image>("pageListingImage"), new ViewDataDictionary { { "imageSettings", imageSettings }, { "altText", item.Value<string>("pageListingImageAltText") } })
+                            </div>
+                            }
+                            <div class="info info_align-bottom">
+                                <p class="heading @(backgroundColor)-heading">@pageName</p>
+
+                                @if (introText != String.Empty)
+                                {
+                                    <div class="text @(backgroundColor)-text">@Html.Raw(introText)</div>
+                                }
+                                @if (item.IsDocumentType(UsnblogPost.ModelTypeAlias) && model.Value<string>("textPosition") == "textPositionOverlay")
+                                {
+                                    <!-- Meta -->
+                                    <div class="meta @(backgroundColor)-text">
+                                        <p class="date"><time>@(item.Value<DateTime>("postDate").ToString("dd MMM yyyy"))</time></p>
+                                    </div>
+                                    <!--// Meta -->
+                                }
+
+
+                            </div>
+                            @if (item.HasValue("pageListingImage") && item.Value<IPublishedContent>("pageListingImage") != null && model.Value<string>("textPosition") == "textPositionAbove")
+                            {
+                                <div class="image @overlayImageClass @imageSettings.CircleClass">
+                                    @Html.Partial(viewPath + "/USNMiscPageElements/USN_Image", item.Value<Image>("pageListingImage"), new ViewDataDictionary { { "imageSettings", imageSettings }, { "altText", item.Value<string>("pageListingImageAltText") } })
+                                </div>
+                            }
+                        </a>
+                        @if (item.IsDocumentType(UsnblogPost.ModelTypeAlias) && model.Value<string>("textPosition") != "textPositionOverlay")
+                        {
+                            <!-- Meta -->
+                            <div class="meta @(backgroundColor)-text">
+                                <p class="date"><time>@(item.Value<DateTime>("postDate").ToString("dd MMM yyyy"))</time></p>
+                            </div>
+                            <!--// Meta -->
+                        }
+                    </div>
+                </div>
+
+            if (podType == "footer")
+            {
+                @:</div>
+            }
+        }
+
+    }
+}

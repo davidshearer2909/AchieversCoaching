@@ -1,0 +1,251 @@
+﻿<div ng-controller="USN.BackgroundOptions.Controller">
+
+    <section class="usn-cms backgrounds">
+
+        <section class="background-style">
+            <label class="usn-item item smallItem">
+                <input value="BG_Cover" name="{{model.alias}}-styles" type="radio" ng-model="model.value.style" ng-click="checkStyle($event)">
+                <span></span>
+                <div class="inner">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="22px" height="16px">
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M20.192,0.050 L21.607,1.464 L7.464,15.607 L6.050,14.192 L20.192,0.050 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.808,7.121 L8.879,14.192 L7.464,15.607 L0.393,8.536 L1.808,7.121 Z" />
+                    </svg>
+                </div>
+                <div class="name">Cover</div>
+            </label>
+            <label class="usn-item item smallItem">
+                <input value="BG_FullWidth" name="{{model.alias}}-styles" type="radio" ng-model="model.value.style" ng-click="checkStyle($event)">
+                <span></span>
+                <div class="inner">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="22px" height="16px">
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M20.192,0.050 L21.607,1.464 L7.464,15.607 L6.050,14.192 L20.192,0.050 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.808,7.121 L8.879,14.192 L7.464,15.607 L0.393,8.536 L1.808,7.121 Z" />
+                    </svg>
+                </div>
+                <div class="name">Full-width</div>
+            </label>
+            <label class="usn-item item smallItem">
+                <input value="BG_Auto" name="{{model.alias}}-styles" type="radio" ng-model="model.value.style" ng-click="checkStyle($event)">
+                <span></span>
+                <div class="inner">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="22px" height="16px">
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M20.192,0.050 L21.607,1.464 L7.464,15.607 L6.050,14.192 L20.192,0.050 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.808,7.121 L8.879,14.192 L7.464,15.607 L0.393,8.536 L1.808,7.121 Z" />
+                    </svg>
+                </div>
+                <div class="name">Auto</div>
+            </label>
+            <label class="usn-item item smallItem">
+                <input value="BG_Repeat" name="{{model.alias}}-styles" type="radio" ng-model="model.value.style" ng-click="checkStyle($event)">
+                <span></span>
+                <div class="inner">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="22px" height="16px">
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M20.192,0.050 L21.607,1.464 L7.464,15.607 L6.050,14.192 L20.192,0.050 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.808,7.121 L8.879,14.192 L7.464,15.607 L0.393,8.536 L1.808,7.121 Z" />
+                    </svg>
+                </div>
+                <div class="name">Repeat</div>
+            </label>
+            <label class="usn-item item smallItem">
+                <input value="BG_RepeatX" name="{{model.alias}}-styles" type="radio" ng-model="model.value.style" ng-click="checkStyle($event)">
+                <span></span>
+                <div class="inner">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="22px" height="16px">
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M20.192,0.050 L21.607,1.464 L7.464,15.607 L6.050,14.192 L20.192,0.050 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.808,7.121 L8.879,14.192 L7.464,15.607 L0.393,8.536 L1.808,7.121 Z" />
+                    </svg>
+                </div>
+                <div class="name">Repeat Horizontal</div>
+            </label>
+            <label class="usn-item item smallItem">
+                <input value="BG_RepeatY" name="{{model.alias}}-styles" type="radio" ng-model="model.value.style" ng-click="checkStyle($event)">
+                <span></span>
+                <div class="inner">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="22px" height="16px">
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M20.192,0.050 L21.607,1.464 L7.464,15.607 L6.050,14.192 L20.192,0.050 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.808,7.121 L8.879,14.192 L7.464,15.607 L0.393,8.536 L1.808,7.121 Z" />
+                    </svg>
+                </div>
+                <div class="name">Repeat Vertical</div>
+            </label>
+        </section>
+
+        <section class="background-position">
+            <label class="usn-item item smallItem position-item">
+                <input value="BG_TopLeft" name="{{model.alias}}-positions" type="radio" ng-model="model.value.position" ng-click="checkPosition($event)">
+                <span></span>
+                <div class="inner">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="20px" height="12px">
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.000,5.000 L20.000,5.000 L20.000,6.000 L1.000,6.000 L1.000,5.000 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.525,5.318 L7.182,10.975 L6.475,11.682 L0.818,6.025 L1.525,5.318 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.671,5.995 L6.995,0.671 L6.329,0.005 L1.005,5.329 L1.671,5.995 Z" />
+                    </svg>
+                </div>
+            </label>
+            <label class="usn-item item smallItem position-item">
+                <input value="BG_TopCenter" name="{{model.alias}}-positions" type="radio" ng-model="model.value.position" ng-click="checkPosition($event)">
+                <span></span>
+                <div class="inner">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="20px" height="12px">
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.000,5.000 L20.000,5.000 L20.000,6.000 L1.000,6.000 L1.000,5.000 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.525,5.318 L7.182,10.975 L6.475,11.682 L0.818,6.025 L1.525,5.318 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.671,5.995 L6.995,0.671 L6.329,0.005 L1.005,5.329 L1.671,5.995 Z" />
+                    </svg>
+                </div>
+            </label>
+            <label class="usn-item item smallItem position-item">
+                <input value="BG_TopRight" name="{{model.alias}}-positions" type="radio" ng-model="model.value.position" ng-click="checkPosition($event)">
+                <span></span>
+                <div class="inner">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="20px" height="12px">
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.000,5.000 L20.000,5.000 L20.000,6.000 L1.000,6.000 L1.000,5.000 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.525,5.318 L7.182,10.975 L6.475,11.682 L0.818,6.025 L1.525,5.318 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.671,5.995 L6.995,0.671 L6.329,0.005 L1.005,5.329 L1.671,5.995 Z" />
+                    </svg>
+                </div>
+            </label>
+            <label class="usn-item item smallItem position-item">
+                <input value="BG_CenterLeft" name="{{model.alias}}-positions" type="radio" ng-model="model.value.position" ng-click="checkPosition($event)">
+                <span></span>
+                <div class="inner">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="20px" height="12px">
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.000,5.000 L20.000,5.000 L20.000,6.000 L1.000,6.000 L1.000,5.000 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.525,5.318 L7.182,10.975 L6.475,11.682 L0.818,6.025 L1.525,5.318 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.671,5.995 L6.995,0.671 L6.329,0.005 L1.005,5.329 L1.671,5.995 Z" />
+                    </svg>
+                </div>
+            </label>
+            <label class="usn-item item smallItem position-item">
+                <input value="BG_CenterCenter" name="{{model.alias}}-positions" type="radio" ng-model="model.value.position" ng-click="checkPosition($event)">
+                <span></span>
+                <div class="inner">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="27.5px" height="27.5px">
+                        <path fill-rule="evenodd" stroke="rgb(65, 54, 89)" stroke-width="1px" stroke-linecap="butt" stroke-linejoin="miter" fill="none"
+                              d="M9.000,6.000 L18.000,6.000 C19.657,6.000 21.000,7.343 21.000,9.000 L21.000,18.000 C21.000,19.657 19.657,21.000 18.000,21.000 L9.000,21.000 C7.343,21.000 6.000,19.657 6.000,18.000 L6.000,9.000 C6.000,7.343 7.343,6.000 9.000,6.000 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M21.000,13.000 L27.000,13.000 L27.000,14.000 L21.000,14.000 L21.000,13.000 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M13.000,-0.000 L14.000,-0.000 L14.000,6.000 L13.000,6.000 L13.000,-0.000 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M-0.000,13.000 L6.000,13.000 L6.000,14.000 L-0.000,14.000 L-0.000,13.000 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M13.000,21.000 L14.000,21.000 L14.000,27.000 L13.000,27.000 L13.000,21.000 Z" />
+                    </svg>
+                </div>
+            </label>
+            <label class="usn-item item smallItem position-item">
+                <input value="BG_CenterRight" name="{{model.alias}}-positions" type="radio" ng-model="model.value.position" ng-click="checkPosition($event)">
+                <span></span>
+                <div class="inner">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="20px" height="12px">
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.000,5.000 L20.000,5.000 L20.000,6.000 L1.000,6.000 L1.000,5.000 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.525,5.318 L7.182,10.975 L6.475,11.682 L0.818,6.025 L1.525,5.318 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.671,5.995 L6.995,0.671 L6.329,0.005 L1.005,5.329 L1.671,5.995 Z" />
+                    </svg>
+                </div>
+            </label>
+            <label class="usn-item item smallItem position-item">
+                <input value="BG_BottomLeft" name="{{model.alias}}-positions" type="radio" ng-model="model.value.position" ng-click="checkPosition($event)">
+                <span></span>
+                <div class="inner">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="20px" height="12px">
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.000,5.000 L20.000,5.000 L20.000,6.000 L1.000,6.000 L1.000,5.000 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.525,5.318 L7.182,10.975 L6.475,11.682 L0.818,6.025 L1.525,5.318 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.671,5.995 L6.995,0.671 L6.329,0.005 L1.005,5.329 L1.671,5.995 Z" />
+                    </svg>
+                </div>
+            </label>
+            <label class="usn-item item smallItem position-item">
+                <input value="BG_BottomCenter" name="{{model.alias}}-positions" type="radio" ng-model="model.value.position" ng-click="checkPosition($event)">
+                <span></span>
+                <div class="inner">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="20px" height="12px">
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.000,5.000 L20.000,5.000 L20.000,6.000 L1.000,6.000 L1.000,5.000 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.525,5.318 L7.182,10.975 L6.475,11.682 L0.818,6.025 L1.525,5.318 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.671,5.995 L6.995,0.671 L6.329,0.005 L1.005,5.329 L1.671,5.995 Z" />
+                    </svg>
+                </div>
+            </label>
+            <label class="usn-item item smallItem position-item">
+                <input value="BG_BottomRight" name="{{model.alias}}-positions" type="radio" ng-model="model.value.position" ng-click="checkPosition($event)">
+                <span></span>
+                <div class="inner">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="20px" height="12px">
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.000,5.000 L20.000,5.000 L20.000,6.000 L1.000,6.000 L1.000,5.000 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.525,5.318 L7.182,10.975 L6.475,11.682 L0.818,6.025 L1.525,5.318 Z" />
+                        <path fill-rule="evenodd" fill="rgb(65, 54, 89)"
+                              d="M1.671,5.995 L6.995,0.671 L6.329,0.005 L1.005,5.329 L1.671,5.995 Z" />
+                    </svg>
+                </div>
+            </label>
+        </section>
+
+    </section>
+
+</div>

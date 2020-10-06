@@ -1,0 +1,20 @@
+﻿@inherits UmbracoViewPage<USNWebsite.USNModels.USNBaseViewModel>
+@using USNStarterKit.USNHelpers;
+
+@{
+    UsnglobalSettings globalSettings = (UsnglobalSettings)Model.GlobalSettings;
+
+    string horizontalPosition = globalSettings.BackToTopHorizontalPosition.HasValue() ? globalSettings.BackToTopHorizontalPosition.ToString() : String.Empty;
+    string positionClass = ThemeHelper.GetHorizontalPositionClass(horizontalPosition);
+
+    if (globalSettings.DisplayBackToTopOption)
+    {
+        <!-- Back to top -->
+        <div class="usn_back-to-top @positionClass">
+            <a role="button" aria-label="Back to top" class="btn base-btn-bg base-btn-text base-btn-borders btn-back-to-top" href="#top" onclick="$('html,body').animate({scrollTop:0},'slow');return false;">
+                <i class="icon usn_ion-md-arrow-dropup"></i><span class="d-none">Back to top</span>
+            </a>
+        </div>
+        <!--// Back to top -->
+    }
+}

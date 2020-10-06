@@ -1,0 +1,71 @@
+/*  
+---------------------------------------------------
+Meta
+---------------------------------------------------  
+*/
+
+.meta p,
+.meta ul { 
+    margin:5px 0;
+}
+
+.item .meta p,
+.item .meta ul { 
+    font-size:85%;
+}
+
+.meta a {
+    display:inline!important;
+}
+
+.meta ul { 
+    list-style: none; margin:0; padding:0; 
+}
+.meta ul li { 
+    display:inline-block;
+}
+.meta ul li + li::before { 
+    content:",";
+    display:inline-block;
+    position: relative; left:-3px;
+}
+
+.item .meta { 
+    margin-top:@base-half-spacing;
+}
+.listing_short .item .meta { 
+    margin-top:5px;
+    font-size:90%;
+}
+
+.component.meta.base-bg { 
+    margin-top:@base-spacing;
+    border-width:@base-border-width 0 0;
+    border-style:solid;
+    border-color:@base-borders;
+}
+
+section.content.component.meta { 
+    padding:@base-half-spacing 0;
+}
+
+@media (min-width:768px) {
+
+    .item.item_text-left .meta,
+    .item.item_text-right .meta { 
+        position:absolute; bottom:0;
+    }
+    .item.item_text-left .meta { 
+        left: 0;
+        right: ~"calc(40% + @{base-spacing})";
+    }
+    .item.item_text-right .meta { 
+        right: 0;
+        left: ~"calc(40% + @{base-spacing})";
+    }
+
+    section.content.component.meta { 
+        padding:@base-spacing 0;
+    }
+
+}

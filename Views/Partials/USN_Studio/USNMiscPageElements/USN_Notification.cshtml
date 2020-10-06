@@ -1,0 +1,34 @@
+﻿@inherits UmbracoViewPage<USNWebsite.USNModels.USNBaseViewModel>
+@using USNStarterKit.USNHelpers;
+
+@{
+    UsnglobalSettings globalSettings = (UsnglobalSettings)Model.GlobalSettings;
+
+    string horizontalPosition = globalSettings.NotificationHorizontalPosition.HasValue() ? globalSettings.NotificationHorizontalPosition.ToString() : String.Empty;
+    string positionClass = ThemeHelper.GetHorizontalPositionClass(horizontalPosition);
+
+    if (globalSettings.EnableNotification)
+    {
+        <!-- Notification -->
+        <div class="usn-notification @positionClass base-bg closed">
+            <div class="inner">
+                @if (globalSettings.NotificationSecondaryHeading.HasValue())
+                {
+                    <p class="secondary-heading base-secondary-heading">@globalSettings.NotificationSecondaryHeading</p>
+                }
+                @if (globalSettings.NotificationHeading.HasValue())
+                {
+                <p class="heading base-heading">@globalSettings.NotificationHeading</p>
+                }
+                @if (globalSettings.NotificationText.HasValue())
+                {
+                <div class="text base-text">
+                    @Html.Raw(globalSettings.NotificationText)
+                </div>
+                }
+                <p class="link"><a class="btn base-btn-bg base-btn-text base-btn-borders accept-cookies" href="#">@(globalSettings.AcceptNotificationButtonText.HasValue() ? globalSettings.AcceptNotificationButtonText : Umbraco.GetDictionaryValue("USN Notification Button Text"))</a></p>
+            </div>
+        </div>
+        <!--// Notification -->
+    }
+}

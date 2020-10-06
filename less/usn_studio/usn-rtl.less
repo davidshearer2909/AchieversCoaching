@@ -1,0 +1,351 @@
+/*  
+---------------------------------------------------
+RTL support changes only
+---------------------------------------------------  
+*/
+
+//Base
+
+html[dir="rtl"] { 
+    text-align:right!important;
+}
+html[dir="rtl"] .text-left { 
+    text-align:right!important;
+}
+html[dir="rtl"] .text-center { 
+    text-align:center!important;
+}
+html[dir="rtl"] .text-right { 
+    text-align:left!important;
+}
+
+html[dir="rtl"] blockquote::before {
+    left: auto;
+    right: 0;
+}
+
+html[dir="rtl"] .text-center blockquote::before {
+    left: 50%;
+    transform: translateX(-50%) scaleX(-1);
+}
+
+html[dir="rtl"] .text-right blockquote::before {
+    left: 0;
+    right: auto;
+}
+
+//Header
+
+html[dir="rtl"] header#site-header #logo a { 
+    font-size:0;
+}
+
+//Footer
+
+//Site Search
+
+html[dir="rtl"] .site-search .form-control {
+    padding-right: 15px; padding-left: 50px;
+}
+
+html[dir="rtl"] .site-search button.btn {
+    right: auto!important; left: 0!important;
+}
+
+html[dir="rtl"] header#site-header .site-search .form-control,
+html[dir="rtl"] footer#site-footer .site-search .form-control {
+    padding-right: 15px;
+    padding-left: 40px;
+}
+
+@media (min-width:@large-breakpoint) {
+
+
+    html[dir="rtl"] header#site-header .site-search .form-control,
+    html[dir="rtl"] footer#site-footer .site-search .form-control {
+        padding-right: 15px;
+        padding-left: 50px;
+    }
+
+}
+
+//Breadcrumb nav
+
+html[dir="rtl"] .breadcrumb-trail ol.breadcrumb li.breadcrumb-item i.icon.before { 
+    transform: rotate(180deg);
+    margin-right: 0;
+}
+
+@media (min-width: 600px) {
+    html[dir="rtl"] .breadcrumb-trail ol.breadcrumb li.breadcrumb-item {
+        margin-right: 0; margin-left: 15px;
+    }
+}
+
+//Burger nav
+
+html[dir="rtl"] header#site-header a.expand {
+    right: auto; left: 0;
+    font-size: 0;
+}
+
+html[dir="rtl"] header#site-header a.expand::after {
+    left: auto; right: 0;
+}
+
+//CTA nav
+
+@media (min-width:@large-breakpoint) {
+    
+    html[dir="rtl"] header#site-header nav.cta-links {
+        right: auto; left:0;
+    }
+    html[dir="rtl"] header#site-header nav.cta-links .btn+.btn {
+        margin-left: -5px;
+    }
+
+}
+
+//Footer nav
+
+@media (min-width:@large-breakpoint) {
+
+    html[dir="rtl"] nav.footer-navigation ul li.site-credit {
+        float: left;
+    }
+}
+
+//Main nav
+html[dir="rtl"] nav.main {
+        text-align: right;
+}
+
+html[dir="rtl"] nav.main ul li.has-child>span::after { 
+    left:0; right:auto;
+}
+
+@media (min-width:0) and (max-width:@small-breakpoint) {
+
+    html[dir="rtl"] nav.main ul li.has-child span a {
+        padding-right: 15px; padding-left: 60px;
+    }
+    html[dir="rtl"] nav.main ul ul {
+        padding-left:0; padding-right:3px;
+    }
+    html[dir="rtl"] nav.main ul li span::before {
+        left: auto; right: 0;
+    }
+
+}
+
+@media (min-width: @large-breakpoint) {
+
+    html[dir="rtl"] nav.main>ul>li.has-child>span::before {
+        left: @base-spacing; right: @base-half-spacing;
+    }
+
+    html[dir="rtl"] nav.main ul li.has-child span a {
+        padding-right: @base-half-spacing!important; padding-left: 30px!important;
+    }
+
+    html[dir="rtl"].no-touch nav.main ul>li:hover>ul,
+    html[dir="rtl"].touch nav.main ul>li.open-child>ul {
+        left: auto; right: 0;
+    }
+    html[dir="rtl"].no-touch nav.main ul ul>li:hover>ul,
+    html[dir="rtl"].touch nav.main ul ul>li.open-child>ul {
+        left: auto; right: @nav-main-dropdown-width;
+    }
+
+    html[dir="rtl"] nav.main ul ul li.has-child>span::after { 
+        transform: rotate(180deg);
+    }
+}
+
+//Pagination nav
+
+html[dir="rtl"] nav#pagination .pagination li.prev { 
+    left:auto; right:0;
+    transform: rotate(180deg);
+}
+html[dir="rtl"] nav#pagination .pagination li.next {
+    left:0; right:auto;
+    transform: rotate(180deg);
+}
+
+//Quick links
+
+html[dir="rtl"] .quick-links ul li a {
+    padding-left: 0; padding-right:15px;
+}
+
+html[dir="rtl"] .quick-links ul li a::after {
+    left: auto; right: 0;
+}
+
+html[dir="rtl"].no-touch .quick-links ul li a:hover {
+    padding-left: 0; padding-right:18px;
+}
+
+//Secondary nav
+
+html[dir="rtl"] nav.secondary {
+    right: auto;
+    left: 0;
+    padding-right: 0;
+    padding-left: @base-half-spacing;
+}
+
+html[dir="rtl"] nav.secondary ul li.dropdown>a.dropdown-toggle::after { 
+    margin-left: 0; margin-right: 5px;
+}
+
+html[dir="rtl"] nav.secondary .dropdown-menu {
+    text-align: right;
+}
+
+@media (min-width:0) and (max-width:@small-breakpoint) {
+
+    html[dir="rtl"] nav.secondary {
+        text-align: right;
+    }
+
+}
+
+@media (min-width: @large-breakpoint) { 
+    html[dir="rtl"] nav.secondary { 
+        margin-left: 10px; margin-right:0;
+    }
+}
+
+//Sitemap nav
+
+html[dir="rtl"] nav.sitemap ul.nav ul.nav { 
+    margin-left:0; margin-right:@base-half-spacing;
+}
+html[dir="rtl"] nav.sitemap ul li::before,
+html[dir="rtl"] nav.sitemap ul li::after {
+    left: auto; right: 0;
+}
+html[dir="rtl"] nav.sitemap ul li a:hover {
+    padding-right: 18px; padding-left:0;
+}
+
+//Sub nav
+
+html[dir="rtl"].no-touch nav.sub ul li:not(.active) span a:hover { 
+    padding-left:0; padding-right:3px;
+}
+html[dir="rtl"] nav.sub ul ul li span a,
+html[dir="rtl"] nav.sub ul ul ul { 
+    padding-left: 0; padding-right: 12px;
+}
+html[dir="rtl"].no-touch nav.sub ul ul li:not(.active) span a:hover { 
+    padding-left:0; padding-right: 15px;
+}
+html[dir="rtl"] nav.sub ul ul li span a::before { 
+    left: auto; right: 0;
+}
+
+//Misc
+
+html[dir="rtl"] i.before { 
+    margin:0 0 0 5px;
+}
+
+html[dir="rtl"] i.after { 
+    margin:0 5px 0 0;
+}
+
+html[dir="rtl"] .alert .close {
+    float: left; margin-left: -10px; margin-top: -5px!important;
+}
+
+//Components
+
+html[dir="rtl"] .repeatable.tabbed .tab { 
+    margin-right: 0; margin-left: 2px;
+}
+
+html[dir="rtl"] .repeatable.accordion .tab .nav-link { 
+    padding-right:15px; padding-left:50px;  
+}
+html[dir="rtl"] .repeatable.accordion .tab .nav-link::after {
+    right: auto; left: 0;
+}
+
+//Listing
+
+@media (min-width:768px) {
+
+    html[dir="rtl"] .item.item_text-right:not(.item_has-bg):not(.item-blog) .image+.info { 
+        padding:0 @base-spacing @base-spacing 0;
+    }
+    html[dir="rtl"] .item.item_text-left:not(.item_has-bg):not(.item-blog) .image+.info { 
+        padding:0 0 @base-spacing @base-spacing;
+    }
+
+}
+
+//Forms
+
+html[dir="rtl"] .radio label,
+html[dir="rtl"] .checkbox label {
+    padding-left: 0; padding-right: 20px;
+}
+
+html[dir="rtl"] .radio label input[type="radio"],
+html[dir="rtl"] .checkbox label input[type="checkbox"] {
+    left: auto;
+    right: -2px;
+}
+
+html[dir="rtl"] .form-group.dropdown::after {
+    padding: 6px 0 3px @base-spacing;
+    text-align: left!important;
+}
+
+
+@media (min-width:@large-breakpoint) {
+
+    html[dir="rtl"] .form-group.dropdown::after {
+        padding: 12px @base-spacing 0 0;
+    }
+
+}
+
+html[dir="rtl"] .item_form-single_field .form fieldset.buttons { 
+    left: 0; right: auto;
+}
+
+//Windows
+
+@media (min-width:@large-breakpoint) {
+
+    html[dir="rtl"] .listing.listing_window-mosaic.windows-4.big-window-first .item:nth-child(4) {
+        right: auto; left: 0;
+    }
+    html[dir="rtl"] .listing.listing_window-mosaic.windows-4.small-window-first .item:nth-child(3) {
+        left: auto; right: 0;
+    }
+    html[dir="rtl"] .listing.listing_window-mosaic.windows-4.small-window-first .item:nth-child(4) {
+        margin-right: auto; margin-left: 0;
+    }
+
+    html[dir="rtl"] .listing.listing_window-mosaic.windows-3.big-window-first .item:nth-child(2) {
+        right: auto; left: 0;
+    }
+    html[dir="rtl"] .listing.listing_window-mosaic.windows-3.big-window-first .item:nth-child(3) {
+        right: auto; left: 0;
+    }
+    html[dir="rtl"] .listing.listing_window-mosaic.windows-3.small-window-first .item:nth-child(1) {
+        left: auto; right: 0;
+    }
+    html[dir="rtl"] .listing.listing_window-mosaic.windows-3.small-window-first .item:nth-child(2) {
+        left: auto; right: 0;
+    }
+    html[dir="rtl"] .listing.listing_window-mosaic.windows-3.small-window-first .item:nth-child(3) {
+        margin-right: auto; margin-left: 0;
+    }
+
+}

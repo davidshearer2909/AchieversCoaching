@@ -1,0 +1,30 @@
+﻿@inherits UmbracoViewPage<Usn_Pc_SplitComponent_AN>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+
+@{
+    string splitSide = ViewData["splitSide"].ToString();
+    string colWidthDesktop = splitSide == "First" ? "col-lg-" + Model.DesktopColumnWidthFirst : "col-lg-" + Model.DesktopColumnWidthSecond;
+    string colWidthTablet = splitSide == "First" ? "col-md-" + Model.TabletColumnWidthFirst : "col-md-" + Model.TabletColumnWidthSecond;
+    string itemDesktopOrder = ThemeHelper.GetSplitDesktopTabletOrderClass(splitSide, Model.DesktopTabletOrder);
+    string itemMobileOrder = ThemeHelper.GetSplitMobileOrderClass(splitSide, Model.MobileOrder);
+    string verticalAlignment = splitSide == "First" ? (Model.VerticalPositionFirst.HasValue() ? Model.VerticalPositionFirst.ToString() : String.Empty) : (Model.VerticalPositionSecond.HasValue() ? Model.VerticalPositionSecond.ToString() : String.Empty);
+    string verticalAlignmentClass = ThemeHelper.GetVerticalAlignmentClass(verticalAlignment);
+
+    string formContainerBackgroundColor = splitSide == "First" ? Model.UmbracoFormContainerBackgroundColorFirst.label : Model.UmbracoFormContainerBackgroundColorSecond.label;
+    string formButtonColor = splitSide == "First" ? Model.UmbracoFormButtonColorFirst.label : Model.UmbracoFormButtonColorSecond.label;
+    var formUmbraco = splitSide == "First" ? Model.UmbracoFormFirst : Model.UmbracoFormSecond;
+    USNAnimation animation = splitSide == "First" ? ThemeHelper.GetAnimationSettings(Model.AnimateFirst, Model.AnimationDelayFirst, Model.AnimationStyleFirst) : ThemeHelper.GetAnimationSettings(Model.AnimateSecond, Model.AnimationDelaySecond, Model.AnimationStyleSecond);
+
+    <div class="item item_block item_form-block item_umbraco-form-block @verticalAlignmentClass @colWidthDesktop @colWidthTablet @itemDesktopOrder @itemMobileOrder col-12 @animation.AnimationClass" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay">
+        <div class="umbraco-forms form">
+            <div class="inner @(formContainerBackgroundColor)-bg @(formContainerBackgroundColor)-text btn-bg_@(formButtonColor)-btn-bg btn-text_@(formButtonColor)-btn-text btn-borders_@(formButtonColor)-btn-borders">
+                @if (formUmbraco.HasValue())
+                {
+                    @Umbraco.RenderMacro("renderUmbracoForm", new { FormGuid = formUmbraco, FormTheme = "uSkinned", CurrentNodeID = Model.Id, ExcludeScripts = "0" })
+                }
+            </div>
+        </div>
+    </div>
+}

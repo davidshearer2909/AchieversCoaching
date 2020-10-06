@@ -1,0 +1,35 @@
+/*  
+---------------------------------------------------
+Tables
+---------------------------------------------------  
+*/
+
+table {
+    width: 100%;
+    border-width: @base-border-width 0 0 @base-border-width;
+    border-style: solid;
+}
+
+thead { }
+
+table th,
+table td {
+    padding: 10px;
+    border-width: 0 @base-border-width @base-border-width 0;
+    border-style: solid;
+}
+
+table tr:nth-of-type(even) td { }
+
+.tables table tr:nth-of-type(even) td,
+.tables .body .item:nth-of-type(even) { }
+
+table th { }
+
+table tr p:first-of-type {
+    margin-top: 0;
+}
+
+table tr p:last-of-type {
+    margin-bottom: 0;
+}

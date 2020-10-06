@@ -1,0 +1,108 @@
+﻿@inherits UmbracoViewPage<IPublishedContent>
+
+@using USNStarterKit.USNHelpers;
+@using USNStarterKit.USNModels;
+@using System.Web.Script.Serialization;
+
+@{
+    string viewPath = ViewData["viewPath"].ToString();
+
+    int blogLandingPageID = Convert.ToInt32(ViewData["blogLandingPageID"]);
+    UsnblogLandingPage landing = (UsnblogLandingPage)Umbraco.Content(blogLandingPageID);
+
+    UsnblogAuthor authorNode = null;
+
+    if (Model.HasValue("postAuthor"))
+    {
+        authorNode = (UsnblogAuthor)Model.Value<IEnumerable<IPublishedContent>>("postAuthor").FirstOrDefault();
+    }
+    else if (landing.DefaultAuthor != null)
+    {
+        authorNode = (UsnblogAuthor)landing.DefaultAuthor.FirstOrDefault();
+    }
+
+    if (authorNode != null)
+    {
+        string authorName = authorNode.Name;
+
+        <!-- Author Bio -->
+        <section class="content component author-bio base-bg">
+            <div class="item item_text-left">
+
+                @if (authorNode.AuthorImage != null)
+                {
+                    string bgColor = String.Empty;
+
+                    if (authorNode.BoxPad)
+                    {
+                        Usnstyle websiteStyle = (Usnstyle)ViewData["websiteStyle"];
+
+                        var colorPickerViewModel = new USNColorPicker();
+                        colorPickerViewModel = new JavaScriptSerializer().Deserialize<USNColorPicker>(websiteStyle.StyleColors.ToString());
+
+                        bgColor = colorPickerViewModel.contentBackground.Substring(1);
+                    }
+
+                    USNImageSettings imageSettings = ThemeHelper.GetImageSettings(authorNode.ImageStyle,authorNode.BoxPad, bgColor);
+
+                    <div class="image">
+                        @Html.Partial(viewPath + "/USNMiscPageElements/USN_Image", authorNode.AuthorImage, new ViewDataDictionary { { "imageSettings", imageSettings }, { "altText", authorNode.Name } })
+                    </div>
+                }
+                <!-- Info -->
+                <div class="info">
+
+                    <p class="secondary-heading base-secondary-heading">@Umbraco.GetDictionaryValue("USN Blog About The Author")</p>
+                    <p class="heading base-heading">
+                        @if (authorNode.AuthorPage.HasValue())
+                        {
+                            authorName = authorNode.AuthorPage.link.LinkText != authorNode.Name ? authorNode.AuthorPage.link.LinkText : authorNode.Name;
+
+                            <a class="base-heading" href="@(authorNode.AuthorPage.link.LinkUrl)" @Html.Raw(authorNode.AuthorPage.link.LinkTarget) @Html.Raw(authorNode.AuthorPage.link.LinkTitle)>@authorName@Html.Raw(authorNode.AuthorPage.link.LinkTargetIcon)</a>
+                        }
+                        else
+                        {
+                            @authorName
+                        }
+                    </p>
+                    @if (authorNode.AuthorBio.HasValue())
+                    {
+                        <div class="text base-text">
+                            @Html.Raw(authorNode.AuthorBio)
+                        </div>
+                    }
+
+                    @if (authorNode.SocialLinks.HasValue() && authorNode.SocialLinks.Any())
+                    {
+                        <!-- Social -->
+                        <nav class="social">
+                            <ul>
+                                @foreach (USNMultiUrlPicker item in authorNode.SocialLinks)
+                                {
+                                    <li>
+                                        <span>
+                                            <a href="@item.link.LinkUrl" @Html.Raw(item.link.LinkTarget) @Html.Raw(item.link.LinkTitle)>
+                                                @if (item.image.HasValue())
+                                                {
+                                                    <img class="lazyload" src="@item.image.Url?height=16" data-src="@item.image.Url?height=160" alt="@item.link.LinkText" />
+                                                }
+                                                else
+                                                {
+                                                    @item.link.LinkText
+                                                }
+                                            </a>
+                                        </span>
+                                    </li>
+                                }
+                            </ul>
+                        </nav>
+                        <!--// Social -->
+                    }
+                </div>
+                <!--// Info -->
+
+            </div>
+        </section>
+        <!--// Author Bio -->
+    }
+}

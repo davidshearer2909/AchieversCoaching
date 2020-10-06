@@ -1,0 +1,119 @@
+﻿@inherits UmbracoViewPage<Usn_Pc_SplitComponent_AN>
+
+@using USNStarterKit.USNHelpers;
+
+@{
+    string viewPath = ViewData["viewPath"].ToString();
+    string pageLayout = ViewData["pageLayout"].ToString();
+    string backgroundImageStyle = ThemeHelper.GetBackgroundImageStyle(Model.BackgroundImageOptions, Model.BackgroundImage);
+    string backGroundColor = Model.BackgroundColor.label + "-bg";
+    int globalSettingsId = Convert.ToInt32(ViewData["globalSettingsID"]);
+
+    if (Model.OptionsFirst.HasValue() || Model.OptionsSecond.HasValue())
+    {
+    <section class="content component split-component @backGroundColor @Model.CustomComponentClasses" id="@Html.Raw("pos_" + Model.Id)" @Html.Raw(backgroundImageStyle)>
+
+        @if (pageLayout == "pageLayoutFull")
+        {
+            if (Model.ComponentWidth == "componentWidthCenter")
+            {
+                @:<div class="container"><div class="row justify-content-center"><div class="content-col center-col col-lg-6 col-12 col">
+            }
+            else if (Model.ComponentWidth == "componentWidthFull")
+            {
+                @:<div class="container-fluid">
+            }
+            else
+            {
+                @:<div class="container">
+            }
+
+        }
+
+        <div class="component-main row justify-content-between align-items-center">
+
+            @switch (Model.OptionsFirst)
+            {
+                case "left_Accordion":
+                    @Html.Partial(viewPath + "/USNPageComponents/USNSplitItems/USN_Split_Accordion", Model, new ViewDataDictionary { { "splitSide", "First" } })
+                    break;
+                case "left_Code":
+                    @Html.Partial(viewPath + "/USNPageComponents/USNSplitItems/USN_Split_Code", Model, new ViewDataDictionary { { "splitSide", "First" } })
+                    break;
+                case "left_Listing":
+                     @Html.Partial(viewPath + "/USNPageComponents/USNSplitItems/USN_Split_Listing", Model, new ViewDataDictionary { { "splitSide", "First" }, { "viewPath", viewPath } })
+                    break;
+                case "left_Slideshow":
+                     @Html.Partial(viewPath + "/USNPageComponents/USNSplitItems/USN_Split_Slideshow", Model, new ViewDataDictionary { { "viewPath", viewPath }, { "splitSide", "First" } })
+                    break;
+                case "left_Tabs":
+                    @Html.Partial(viewPath + "/USNPageComponents/USNSplitItems/USN_Split_Tabs", Model, new ViewDataDictionary { { "splitSide", "First" } })
+                    break;
+                case "left_TextBlock":
+                    @Html.Partial(viewPath + "/USNPageComponents/USNSplitItems/USN_Split_Text", Model, new ViewDataDictionary { { "splitSide", "First" } })
+                    break;
+                case "left_RelatedContent":
+                     @Html.Partial(viewPath + "/USNPageComponents/USNSplitItems/USN_Split_Related", Model, new ViewDataDictionary { { "splitSide", "First" },{ "viewPath", viewPath } })
+                    break;
+                case "left_ContactForm":
+                    @Html.Partial(viewPath + "/USNPageComponents/USNSplitItems/USN_Split_ContactForm", Model, new ViewDataDictionary { { "splitSide", "First" }, { "globalSettingsID", globalSettingsId }, { "viewPath", viewPath } })
+                    break;
+                case "left_SignupForm":
+                    @Html.Partial(viewPath + "/USNPageComponents/USNSplitItems/USN_Split_NewsletterForm", Model, new ViewDataDictionary { { "splitSide", "First" }, { "globalSettingsID", globalSettingsId }, { "viewPath", viewPath } })
+                    break;
+                case "left_UmbracoForm":
+                    @Html.Partial(viewPath + "/USNPageComponents/USNSplitItems/USN_Split_UmbracoForm", Model, new ViewDataDictionary { { "splitSide", "First" } })
+                    break;
+            }
+
+            @switch (Model.OptionsSecond)
+            {
+                case "right_Accordion":
+                    @Html.Partial(viewPath + "/USNPageComponents/USNSplitItems/USN_Split_Accordion", Model, new ViewDataDictionary { { "splitSide", "Second" } })
+                    break;
+                case "right_Code":
+                    @Html.Partial(viewPath + "/USNPageComponents/USNSplitItems/USN_Split_Code", Model, new ViewDataDictionary { { "splitSide", "Second" } })
+                    break;
+                case "right_Listing":
+                    @Html.Partial(viewPath + "/USNPageComponents/USNSplitItems/USN_Split_Listing", Model, new ViewDataDictionary { { "splitSide", "Second" }, { "viewPath", viewPath } })
+                    break;
+                case "right_Slideshow":
+                    @Html.Partial(viewPath + "/USNPageComponents/USNSplitItems/USN_Split_Slideshow", Model, new ViewDataDictionary { { "viewPath", viewPath }, { "splitSide", "Second" } })
+                    break;
+                case "right_Tabs":
+                    @Html.Partial(viewPath + "/USNPageComponents/USNSplitItems/USN_Split_Tabs", Model, new ViewDataDictionary { { "splitSide", "Second" } })
+                    break;
+                case "right_TextBlock":
+                    @Html.Partial(viewPath + "/USNPageComponents/USNSplitItems/USN_Split_Text", Model, new ViewDataDictionary { { "splitSide", "Second" } })
+                    break;
+                case "right_RelatedContent":
+                    @Html.Partial(viewPath + "/USNPageComponents/USNSplitItems/USN_Split_Related", Model, new ViewDataDictionary { { "splitSide", "Second" },{ "viewPath", viewPath } })
+                    break;
+                case "right_ContactForm":
+                    @Html.Partial(viewPath + "/USNPageComponents/USNSplitItems/USN_Split_ContactForm", Model, new ViewDataDictionary { { "splitSide", "Second" }, { "globalSettingsID", globalSettingsId }, { "viewPath", viewPath } })
+                    break;
+                case "right_SignupForm":
+                    @Html.Partial(viewPath + "/USNPageComponents/USNSplitItems/USN_Split_NewsletterForm", Model, new ViewDataDictionary { { "splitSide", "Second" }, { "globalSettingsID", globalSettingsId }, { "viewPath", viewPath } })
+                    break;
+                case "right_UmbracoForm":
+                    @Html.Partial(viewPath + "/USNPageComponents/USNSplitItems/USN_Split_UmbracoForm", Model, new ViewDataDictionary { { "splitSide", "Second" } })
+                    break;
+            }
+
+        </div>
+
+        @if (pageLayout == "pageLayoutFull")
+        {
+            if (Model.ComponentWidth == "componentWidthCenter")
+            {
+                @:</div></div></div>
+            }
+            else
+            {
+                @:</div>
+            }
+        }
+
+    </section>
+    }
+}

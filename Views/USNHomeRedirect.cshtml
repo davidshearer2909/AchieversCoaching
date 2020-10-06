@@ -1,0 +1,10 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@{
+    //Starter kit compatibility: 1.0
+
+    IEnumerable<IPublishedContent> rootNode = Umbraco.ContentAtRoot();
+    var home = rootNode.First(x => x.IsDocumentType(Usnhomepage.ModelTypeAlias));
+
+    Response.Redirect(home.Url);
+}
+

@@ -1,0 +1,32 @@
+﻿<div ng-controller="USN.ValueShowHideTabs.prevaluesController">
+
+    <table class="table table-striped table-responsive table-hover prevaluesTable">
+        <thead>
+            <tr>
+                <th>Field value</th>
+                <th>Tabs</th>
+                <th>Fields</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody ui-sortable="sortableOptions" ng-model="model.value.items">
+            <tr ng-repeat="item in model.value.items">
+                <td>
+                    <input type="text" ng-model="item.field" />
+                </td>
+                <td>
+                    <input type="text" ng-model="item.tabs" />
+                </td>
+                <td>
+                    <input type="text" ng-model="item.fields" />
+                </td>
+                <td class="actions">
+                    <span ng-click="removeItem($index)" class="btn btn-danger icon icon-trash" title="remove"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button type="button" class="btn btn-default add-item" ng-click="addItem()">Add value</button>
+
+</div>

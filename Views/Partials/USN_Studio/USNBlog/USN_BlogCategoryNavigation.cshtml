@@ -1,0 +1,46 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<USNWebsite.USNModels.USNBaseViewModel>
+
+@{
+    int blogLandingPageID = Convert.ToInt32(ViewData["blogLandingPageID"]);
+    UsnblogLandingPage landing = (UsnblogLandingPage)Umbraco.Content(blogLandingPageID);
+
+    var categoryFolder = landing.Children<UsnblogCategories>().FirstOrDefault();
+
+    if (categoryFolder != null && categoryFolder.Children.Any())
+    {
+        <!-- SUB - FILTER -->
+        <nav class="sub">
+            <p class="heading">@Umbraco.GetDictionaryValue("USN Blog Categories")</p>
+            @Traverse(categoryFolder)
+        </nav>
+        <!--// SUB -->
+    }
+}
+
+@helper Traverse(IPublishedContent parent)
+{
+    if (parent.Children.Any())
+    {
+        <ul>
+            @foreach (var node in parent.Children)
+            {
+                if (node != null && node.IsVisible())
+                {
+                    string selected = Array.IndexOf(Model.Content.Path.Split(','), node.Id.ToString()) >= 0 ? " class=\"active\"" : String.Empty;
+
+                    <li @Html.Raw(selected)>
+                        <span>
+                            <a href="@node.Url" rel="NOINDEX, FOLLOW">
+                                @node.Name
+                            </a>
+                        </span>
+                        @if (selected != String.Empty)
+                        {
+                            @Traverse(node)
+                        }
+                    </li>
+                }
+            }
+        </ul>
+    }
+}

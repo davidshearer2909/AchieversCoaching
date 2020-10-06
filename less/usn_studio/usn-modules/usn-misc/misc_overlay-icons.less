@@ -1,0 +1,98 @@
+/*  
+---------------------------------------------------
+Overlay icons
+---------------------------------------------------  
+*/
+
+.image .overlayicon { 
+    content: "";
+    position:absolute; top:0; z-index:101;
+    width:100%; height:100%;
+    background-color: fade(@true-black, 25%);
+    transition: all 0.3s ease-in-out 0s;
+}
+a:hover .image .overlayicon { 
+    background-color: fade(@true-black, 50%);
+}
+
+.image .overlayicon .icon { 
+    position:absolute;
+    top:50%; left:50%;
+    z-index:101;
+    text-align:center;
+    font-size:3rem;
+    transform: translate(-50%,-50%);
+    transition: all 0.4s ease-in-out 0s;
+    color: @true-white;
+}
+a:hover .image .overlayicon .icon { 
+    transform: translate(-50%,-50%) scale(1.25);
+}
+
+@media (min-width:0) and (max-width:575px) {}
+
+@media (max-width:576px) {}
+
+@media (max-width:767px) {}
+
+@media (min-width:992px) {
+    .image .overlayicon .icon { 
+        font-size:4rem;
+    }
+    .items-5 .image .overlayicon .icon,
+    .items-6 .image .overlayicon .icon { 
+        font-size:2rem;
+    }
+    .items-7 .image .overlayicon .icon,
+    .items-8 .image .overlayicon .icon { 
+        font-size:1rem;
+    }
+}
+
+@media (min-width:1200px) {
+    .image .overlayicon .icon { 
+        font-size:5rem;
+    }
+    .items-5 .image .overlayicon .icon,
+    .items-6 .image .overlayicon .icon { 
+        font-size:3rem;
+    }
+    .items-7 .image .overlayicon .icon,
+    .items-8 .image .overlayicon .icon { 
+        font-size:2rem;
+    }
+}
+
+
+
+
+/* 	
+-------------------------------------------------- 
+Image icon
+-------------------------------------------------- 
+*/
+
+.image.icon-image i.icon {
+    font-size: 40px;
+}
+.item.item_has-bg .image.icon-image { 
+    padding:@base-half-spacing @base-spacing 0;
+}
+.item.item_text-below.item_has-bg .image.icon-image + .info { 
+    padding-top:0!important;
+}
+html.no-touch a:hover .image.icon-image {
+    transform: scale(1.15);
+}
+
+@media (min-width:768px) {
+    .image.icon-image { 
+        text-align:center!important;
+    }
+    .item.item_text-below .text-left .image.icon-image { 
+        text-align:left!important;
+    }
+    .item.item_text-below .text-right .image.icon-image { 
+        text-align:right!important;
+    }
+}

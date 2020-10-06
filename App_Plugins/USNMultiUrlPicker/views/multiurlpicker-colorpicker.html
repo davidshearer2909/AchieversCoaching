@@ -1,0 +1,10 @@
+<div class="usn-picker" ng-controller="USN.MultiUrlPicker.ColorPicker">
+
+
+    <div class="umb-color-swatches">
+
+        <button type="button" class="umb-color-box umb-color-box--m btn-{{color.value}}" ng-repeat="color in model.colors" title="{{'#' + color.value}}" hex-bg-inline="true" hex-bg-color="{{color.value}}" ng-click="model.setColor(model.item,color)"></button>
+
+    </div>
+
+</div>

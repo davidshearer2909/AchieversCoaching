@@ -1,0 +1,14 @@
+.btn.c{0}-btn-bg, .btn-bg_c{0}-btn-bg .btn {{background-color: @c{0}-btn-bg;}}
+.btn.c{0}-btn-bg:hover, .btn.c{0}-btn-bg:focus, .btn.c{0}-btn-bg:active, .btn-bg_c{0}-btn-bg .btn:hover, .btn-bg_c{0}-btn-bg .btn:focus, .btn-bg_c{0}-btn-bg .btn:active {{background-color: @c{0}-btn-bg-hover;}}
+.btn.c{0}-btn-borders, .btn-borders_c{0}-btn-borders .btn {{border-color: @c{0}-btn-borders;}}
+.btn.c{0}-btn-borders:hover, .btn.c{0}-btn-borders:focus, .btn.c{0}-btn-borders:active, .btn-borders_c{0}-btn-borders .btn:hover, .btn-borders_c{0}-btn-borders .btn:focus, .btn-borders_c{0}-btn-borders .btn:active {{border-color: @c{0}-btn-borders-hover;}}
+.btn.c{0}-btn-text, .btn-text_c{0}-btn-text .btn {{color: @c{0}-btn-text;}}
+.btn.c{0}-btn-text:hover, .btn.c{0}-btn-text:focus, .btn.c{0}-btn-text:active, .btn-text_c{0}-btn-text .btn:hover, .btn-text_c{0}-btn-text .btn:focus, .btn-text_c{0}-btn-text .btn:active {{color: @c{0}-btn-text-hover;}}
+
+.btn.btn-xs.c{0}-btn-text, .btn-text_c{0}-btn-text .btn.btn-xs {{color: @c{0}-btn-bg;}}
+.btn.btn-sm.c{0}-btn-text, .btn-text_c{0}-btn-text .btn.btn-sm {{color: @c{0}-btn-bg;}}
+.btn.btn-xs.c{0}-btn-text:hover, .btn.btn-xs.c{0}-btn-text:focus, .btn.btn-xs.c{0}-btn-text:active, .btn-text_c{0}-btn-text .btn.btn-xs:hover, .btn-text_c{0}-btn-text .btn.btn-xs:focus, .btn-text_c{0}-btn-text .btn.btn-xs:active {{color: @c{0}-btn-bg-hover;}}
+.btn.btn-sm.c{0}-btn-text:hover, .btn.btn-sm.c{0}-btn-text:focus, .btn.btn-sm.c{0}-btn-text:active, .btn-text_c{0}-btn-text .btn.btn-sm:hover, .btn-text_c{0}-btn-text .btn.btn-sm:focus, .btn-text_c{0}-btn-text .btn.btn-sm:active {{color: @c{0}-btn-bg-hover;}}
+
+.basic-buttons .btn.c{0}-btn-text, .basic-buttons .btn-text_c{0}-btn-text .btn {{color: @c{0}-btn-bg;}}
+.basic-buttons .btn.c{0}-btn-text:hover, .basic-buttons .btn.c{0}-btn-text:focus, .btn.c{0}-btn-text:active, .basic-buttons .btn-text_c{0}-btn-text .btn:hover, .basic-buttons .btn-text_c{0}-btn-text .btn:focus, .basic-buttons .btn-text_c{0}-btn-text .btn:active {{color: @c{0}-btn-bg-hover;}}

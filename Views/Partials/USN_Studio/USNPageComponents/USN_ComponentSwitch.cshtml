@@ -1,0 +1,68 @@
+﻿@inherits UmbracoViewPage<IPublishedContent>
+
+@{
+    string pageLayout = ViewData["pageLayout"].ToString();
+    string viewPath = ViewData["viewPath"].ToString();
+    int globalSettingsId = Convert.ToInt32(ViewData["globalSettingsID"]);
+
+    switch (Model.ContentType.Alias)
+    {
+        case Usn_Pc_AccordionTab_AN.ModelTypeAlias:
+            @Html.Partial(viewPath + "/USNPageComponents/USN_PC_AccordionTab", Model, new ViewDataDictionary { { "viewPath", viewPath }, { "pageLayout", pageLayout } })
+            break;
+        case Usn_Pc_AlertBox_AN.ModelTypeAlias:
+            @Html.Partial(viewPath + "/USNPageComponents/USN_PC_AlertBox", Model, new ViewDataDictionary { { "viewPath", viewPath }, { "pageLayout", pageLayout } })
+            break;
+        case Usn_Pc_AnchorNavigation_AN.ModelTypeAlias:
+            @Html.Partial(viewPath + "/USNPageComponents/USN_PC_AnchorNavigation", Model, new ViewDataDictionary { { "viewPath", viewPath }, { "pageLayout", pageLayout } })
+            break;
+        case Usn_Pc_Banner_AN.ModelTypeAlias:
+            @Html.Partial(viewPath + "/USNPageComponents/USN_PC_Banner", Model, new ViewDataDictionary { { "viewPath", viewPath } })
+            break;
+        case Usn_Pc_Ctastrip_AN.ModelTypeAlias:
+            @Html.Partial(viewPath + "/USNPageComponents/USN_PC_CTAStrip", Model, new ViewDataDictionary { { "pageLayout", pageLayout } })
+            break;
+        case Usn_Pc_CodeBlock_AN.ModelTypeAlias:
+            @Html.Partial(viewPath + "/USNPageComponents/USN_PC_CodeBlock", Model, new ViewDataDictionary { { "viewPath", viewPath }, { "pageLayout", pageLayout } })
+            break;
+        case Usn_Pc_Form_AN.ModelTypeAlias:
+            @Html.Partial(viewPath + "/USNPageComponents/USN_PC_Form", Model, new ViewDataDictionary { { "viewPath", viewPath }, { "pageLayout", pageLayout }, { "globalSettingsID", globalSettingsId } })
+            break;
+        case Usn_Pc_Gallery_AN.ModelTypeAlias:
+            @Html.Partial(viewPath + "/USNPageComponents/USN_PC_Gallery", Model, new ViewDataDictionary { { "viewPath", viewPath }, { "pageLayout", pageLayout } })
+            break;
+        case Usn_Pc_GridLayout_AN.ModelTypeAlias:
+            @Html.Partial(viewPath + "/USNPageComponents/USN_PC_GridLayout", Model, new ViewDataDictionary { { "viewPath", viewPath }, { "pageLayout", pageLayout } })
+            break;
+        case Usn_Pc_Links_AN.ModelTypeAlias:
+            @Html.Partial(viewPath + "/USNPageComponents/USN_PC_Links", Model, new ViewDataDictionary { { "viewPath", viewPath }, { "pageLayout", pageLayout } })
+            break;
+        case Usn_Pc_Pods_AN.ModelTypeAlias:
+            @Html.Partial(viewPath + "/USNPageComponents/USN_PC_Pods", Model, new ViewDataDictionary { { "viewPath", viewPath }, { "pageLayout", pageLayout }, { "globalSettingsID", globalSettingsId } })
+            break;
+        case Usn_Pc_PriceList_AN.ModelTypeAlias:
+            @Html.Partial(viewPath + "/USNPageComponents/USN_PC_PriceList", Model, new ViewDataDictionary { { "viewPath", viewPath }, { "pageLayout", pageLayout } })
+            break;
+        case Usn_Pc_ReusableComponents_AN.ModelTypeAlias:
+            @Html.Partial(viewPath + "/USNPageComponents/USN_PC_ReusableComponents", Model, new ViewDataDictionary { { "viewPath", viewPath }, { "pageLayout", pageLayout }, { "globalSettingsID", globalSettingsId } })
+            break;
+        case Usn_Pc_Sitemap_AN.ModelTypeAlias:
+            @Html.Partial(viewPath + "/USNPageComponents/USN_PC_Sitemap", Model, new ViewDataDictionary { { "viewPath", viewPath }, { "pageLayout", pageLayout } })
+            break;
+        case Usn_Pc_SplitComponent_AN.ModelTypeAlias:
+            @Html.Partial(viewPath + "/USNPageComponents/USN_PC_SplitComponent", Model, new ViewDataDictionary { { "viewPath", viewPath }, { "pageLayout", pageLayout }, { "globalSettingsID", globalSettingsId } })
+            break;
+        case Usn_Pc_SubpageListing_AN.ModelTypeAlias:
+            @Html.Partial(viewPath + "/USNPageComponents/USN_PC_SubpageListing", Model, new ViewDataDictionary { { "viewPath", viewPath }, { "pageLayout", pageLayout }, { "globalSettingsID", globalSettingsId } })
+            break;
+        case Usn_Pc_Text_AN.ModelTypeAlias:
+            @Html.Partial(viewPath + "/USNPageComponents/USN_PC_Text", Model, new ViewDataDictionary { { "viewPath", viewPath }, { "pageLayout", pageLayout } })
+            break;
+        case Usn_Pc_Windows_AN.ModelTypeAlias:
+            @Html.Partial(viewPath + "/USNPageComponents/USN_PC_Windows", Model, new ViewDataDictionary { { "viewPath", viewPath }, { "pageLayout", pageLayout } })
+            break;
+        case Usn_Pc_InstagramFeed_AN.ModelTypeAlias:
+            @Html.Partial(viewPath + "/USNPageComponents/USN_PC_InstagramFeed", Model, new ViewDataDictionary { { "viewPath", viewPath }, { "pageLayout", pageLayout } })
+            break;
+    }
+}

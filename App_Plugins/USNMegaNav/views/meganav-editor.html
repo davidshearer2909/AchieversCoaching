@@ -1,0 +1,77 @@
+﻿<div class="usn-meganav" ng-controller="USN.MegaNav.Controller">
+
+    <ng-form name="multiUrlPickerForm">
+        <div >
+            <div >
+                <div ui-tree id="tree-root">
+                    <ol ui-tree-nodes ng-model="renderModel">
+                        <li ng-repeat="item in renderModel" ui-tree-node ng-include="'items_renderer.html'"></li>
+                    </ol>
+                </div>
+            </div>
+
+
+        </div>
+        <div >
+            <a class="umb-node-preview-add" href ng-click="addItem()" prevent-default>
+                Add
+            </a>
+        </div>
+
+       
+    </ng-form>
+
+    <script type="text/ng-template" id="items_renderer.html">
+        <div ui-tree-handle class="tree-node tree-node-content usn-links usn-links-meganav">
+            <i class="list-view-falink__sort-handle icon-navigation"></i>
+
+            <div class="usn-icon">
+                <a ng-click="openIconPicker(item)" ng-show="!item.icon" data-nodrag>Add Icon</a>
+
+                <div class="usn-remove-icon" ng-show="item.icon">
+                    <span ng-bind-html="render(item.icon)"></span>
+                    <a class="umb-node-preview__action umb-node-preview__action--red" title="Remove" ng-click="removeIcon(item)" data-nodrag>
+                        Remove
+                    </a>
+                </div>
+            </div>
+
+            <div class="usn-link">
+                <umb-node-preview ng-repeat="link in item.link"
+                                  icon="link.icon"
+                                  name="link.name"
+                                  published="link.published"
+                                  description="link.url + (link.queryString ? link.queryString : '')"
+                                  sortable="!sortableOptions.disabled"
+                                  allow-remove="true"
+                                  allow-edit="true"
+                                  on-remove="removeLink(item)"
+                                  on-edit="openLinkPicker(item,link)" data-nodrag>
+                </umb-node-preview>
+                <a ng-show="item.link.length == 0"
+                   class="umb-node-preview-add"
+                   ng-click="openLinkPicker(item)"
+                   data-nodrag>
+                    Add Link
+                </a>
+            </div>
+
+            <a class="btn btn-default btn-xs" ng-if="item.subPages && item.subPages.length > 0" data-nodrag ng-click="toggle(this)">
+                <span class="glyphicon"
+                    ng-class="{
+                        'icon-navigation-right': collapsed,
+                        'icon-navigation-down': !collapsed
+                    }"></span>
+            </a>
+            <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)">
+                <span class="icon icon-trash"></span>
+            </a>
+        </div>
+        <ol ui-tree-nodes="" ng-model="item.subPages" ng-class="{hidden: collapsed}">
+            <li ng-repeat="item in item.subPages" ui-tree-node ng-include="'items_renderer.html'">
+            </li>
+        </ol>
+    </script>
+    
+    <umb-overlay ng-if="iconOverlay.show" model="iconOverlay" view="iconOverlay.view" position="right"> </umb-overlay>
+</div>
